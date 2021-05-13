@@ -24,7 +24,8 @@ public class ProfileOfHousing extends MyDataset {
         super();
     }
     
-    public void setData (ArrayList<ArrayList<Double>> data) {
+    @Override
+    public void setData (ArrayList<ArrayList<String>> data) {
     
     
     

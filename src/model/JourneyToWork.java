@@ -10,7 +10,7 @@ public class JourneyToWork extends MyDataset {
     }
     
     @Override
-    public void setData (ArrayList<ArrayList<Double>> data) {
+    public void setData (ArrayList<ArrayList<String>> data) {
     
     }
     

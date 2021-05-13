@@ -15,6 +15,6 @@ public abstract class MyDataset {
         return data;
     }
     
-    public abstract void setData (ArrayList<ArrayList<Double>> data);
+    public abstract void setData (ArrayList<ArrayList<String>> data);
     
 }
