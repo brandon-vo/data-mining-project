@@ -5,16 +5,23 @@ import java.util.HashMap;
 
 public abstract class MyDataset {
     
-    private final HashMap<String, HashMap<String, Double>> data;
+    private final HashMap<String, HashMap<String, Double>> dataset;
+    private final HashMap<String, Integer> cityCount;
     
     public MyDataset () {
-        data = new HashMap<>();
+        dataset = new HashMap<>();
+        cityCount = new HashMap<>();
     }
     
-    public HashMap<String, HashMap<String, Double>> getData () {
-        return data;
+    public HashMap<String, HashMap<String, Double>> getDataset () {
+        return dataset;
     }
     
-    public abstract void setData (ArrayList<ArrayList<String>> data);
+    public HashMap<String, Integer> getCityCount () {
+        return cityCount;
+    }
+    
+    public abstract void setDataset (ArrayList<ArrayList<String>> dataset);
+    
     
 }

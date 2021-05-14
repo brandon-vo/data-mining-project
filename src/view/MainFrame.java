@@ -1,6 +1,6 @@
 package view;
 
-import javax.swing.JButton;
+import javax.swing.*;
 
 public class MainFrame extends JFrame {
 	private JButton transportationAndHousingButton = new JButton("TRANSPORTATION AND HOUSING");
@@ -77,7 +77,4 @@ public class MainFrame extends JFrame {
 		this.doubleBarButton = doubleBarButton;
 	}
 	
-	
-	
-}
 }

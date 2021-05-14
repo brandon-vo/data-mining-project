@@ -82,7 +82,7 @@ public class FileImportController {
             
         }
         
-        myDataset.setData(dataset);
+        myDataset.setDataset(dataset);
         
         input.close();
         

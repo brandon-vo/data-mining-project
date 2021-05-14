@@ -14,12 +14,10 @@ public abstract class Tool extends JPanel {
     }
     
     public JLabel getBackButton () {
-        
         return backButton;
     }
     
     public Color getBackgroundColour () {
-        
         return backgroundColour;
     }
 

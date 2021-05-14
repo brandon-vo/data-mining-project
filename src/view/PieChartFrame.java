@@ -1,14 +1,15 @@
+package view;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
-
-public class pieChartFrame extends JFrame {
+public class PieChartFrame extends JFrame {
 	
 	private JButton backButton = new JButton("Back");
 	private TransportationPanel transportationPanel = new TransportationPanel();
 	private HousingPanel housingPanel = new HousingPanel();
 	
-	public pieChartFrame() {
+	public PieChartFrame () {
 		
 		setTitle("TYPES OF TRANSPORTATION AND HOUSING - DANIEL SINGH");
 		setSize(1600, 900);

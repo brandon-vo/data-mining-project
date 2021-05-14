@@ -20,12 +20,13 @@ public class ProfileOfHousing extends MyDataset {
 //    private int NO_BED;
 //    private int ONE_BED;
     
+    
     public ProfileOfHousing () {
         super();
     }
     
     @Override
-    public void setData (ArrayList<ArrayList<String>> data) {
+    public void setDataset (ArrayList<ArrayList<String>> dataset) {
     
     
     
