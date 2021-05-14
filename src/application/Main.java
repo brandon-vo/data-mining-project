@@ -12,6 +12,8 @@ public class Main {
         FileImportController files = new FileImportController();
         files.importFiles();
         
+        new ApplicationController();
+        
     }
     
 }
