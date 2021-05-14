@@ -6,13 +6,14 @@ import java.util.HashMap;
 
 public abstract class MyDataset {
     
-    private final HashMap<String, HashMap<String, Double>> dataset;
-    private final HashMap<String, Integer> cityCount;
-    private final HashMap<String, HashSet<DataType>>
+    private HashMap<String, HashMap<String, Double>> dataset;
+    private HashMap<String, Integer> cityCount;
+    private HashMap<String, HashSet<DataType>> columnValidChart;
     
     public MyDataset () {
         dataset = new HashMap<>();
         cityCount = new HashMap<>();
+        columnValidChart = new HashMap<>();
     }
     
     public HashMap<String, HashMap<String, Double>> getDataset () {
@@ -21,6 +22,10 @@ public abstract class MyDataset {
     
     public HashMap<String, Integer> getCityCount () {
         return cityCount;
+    }
+    
+    public HashMap<String, HashSet<DataType>> getColumnValidChart () {
+        return columnValidChart;
     }
     
     public abstract void setDataset (ArrayList<ArrayList<String>> dataset);

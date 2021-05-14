@@ -10,6 +10,11 @@ public class JourneyToWork extends MyDataset {
         super();
     }
     
+    /*
+        If there is a number and it doesn't have NO in it then the
+        data is compatible with a line chart
+     */
+    
     @Override
     public void setDataset (ArrayList<ArrayList<String>> dataset) {
     
