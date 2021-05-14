@@ -2,6 +2,7 @@ package model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 
 public class JourneyToWork extends MyDataset {
     
@@ -23,9 +24,19 @@ public class JourneyToWork extends MyDataset {
             // Increment the number of times the city was entered
             getCityCount().put(city, getCityCount().getOrDefault(city, 0)+1);
         }
+    
+        HashSet<String> invalidColumn = new HashSet<>();
         
-        // Get all of the columns
-        
+        // Get the valid columns
+        for (int i = START; i<dataset.get(0).size(); ++i) {
+            
+            if (!dataset.get(0).get(i).contains("TOT")) {
+            
+            
+            
+            }
+            
+        }
     
     }
     
