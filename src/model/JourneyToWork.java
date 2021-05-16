@@ -8,11 +8,11 @@ public class JourneyToWork extends MyDataset {
         super();
     }
     
-    /*
-        If there is a number and it doesn't have NO in it then the
-        data is compatible with a line chart
+    /**
+     * Index the groups and categories in the dataset
+     * @param dataset = the dataset
+     * @param cities = the city names
      */
-    
     @Override
     public void indexDataset (ArrayList<ArrayList<String>> dataset, HashSet<String> cities) {
         
@@ -27,6 +27,7 @@ public class JourneyToWork extends MyDataset {
         
             // If there is TOT_ then create a new group
             if (category.contains(TOT_)) {
+                
                 group = category.replace(TOT_, "");
                 getDataset().put(group, new TreeMap<>());
                 continue;
@@ -42,6 +43,18 @@ public class JourneyToWork extends MyDataset {
             }
         
         }
+    
+    }
+    
+    
+    /*
+        If there is a number and it doesn't have NO in it then the
+        data is compatible with a line chart
+     */
+    @Override
+    public void assignValidGroupCharts () {
+    
+    
     
     }
     

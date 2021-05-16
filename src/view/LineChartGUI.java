@@ -3,10 +3,11 @@ package view;
 import org.jfree.data.general.DatasetChangeListener;
 import org.jfree.data.general.DatasetGroup;
 
-public class ScatterPlotFrame extends Tool {
+public class LineChartGUI extends Tool {
     
-    public ScatterPlotFrame(){
+    public LineChartGUI () {
     
+        
     
     }
     

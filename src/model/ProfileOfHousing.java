@@ -4,14 +4,6 @@ import java.util.*;
 
 public class ProfileOfHousing extends MyDataset {
     
-    /*
-        OWN_MED_MONTHLY_SHELTER_COST
-        OWN_AVG_MONTHLY_SHELTER_COST
-        MED_DWELLING_VALUE
-        AVG_DWELLING_VALUE
-        MED_MONTHLY_SHELTER_RENT
-        AVG_MONTHLY_SHELTER_RENT
-     */
     public static final String MED_ = "MED_";
     
     public ProfileOfHousing () {
@@ -31,19 +23,23 @@ public class ProfileOfHousing extends MyDataset {
             
             String category = categoryRow.get(i);
             
-            // If there is TOT_ then create a new group and skip
+            // If there is TOT_ then create a new group and skip it
             if (category.contains(TOT_)) {
                 
                 group = category.replace(TOT_, "");
                 getDataset().put(group, new TreeMap<>());
                 continue;
                 
+            // If there is SHAPE__  or MED_, create a new group but do not skip it
             } else if (category.contains(SHAPE__) && !group.equals("Shape") || category.contains(MED_)) {
+                
                 group = category.contains(SHAPE__)
                         ? "Shape":category.replace(MED_, "");
                 getDataset().put(group, new TreeMap<>());
+                
             }
             
+            // Initialize the group with all the cities
             getDataset().get(group).put(category, new HashMap<>());
             for (String city : cities) {
                 getDataset().get(group).get(category).put(city, 0.0);
@@ -51,6 +47,13 @@ public class ProfileOfHousing extends MyDataset {
             
         }
         
+    }
+    
+    @Override
+    public void assignValidGroupCharts () {
+    
+    
+    
     }
     
 }

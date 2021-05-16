@@ -1,5 +1,8 @@
 package model;
 
+import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.general.Dataset;
+
 import java.util.*;
 
 public abstract class MyDataset {
@@ -10,24 +13,39 @@ public abstract class MyDataset {
     
     private final ArrayList<String> groupIndicators;
     
-    // First: group; Second: category, Third: city; then, value
+    /*
+        - To access the data call getDataset()
+        - The categories are grouped based on what they are about (for example
+          if there are categories like ONE_BED, TWO_BED, THREE_BED, they would
+          be grouped as NUMBER_OF_BEDS)
+        - To access these groups you call their names as  a string like this:
+                    getDataset().get("NUMBER_OF_BEDS")
+          From there you get access to the specific categories by calling their
+          names, which then gives a list of the data attached to all the cities.
+        
+        EXAMPLE:
+            If you want to find out how many people have one bed in aurora city, you would write
+                    getDataset().get("NUMBER_OF_BEDS").get("ONE_BED").get("Aurora")
+     */
     private final HashMap<String, TreeMap<String, HashMap<String, Double>>> dataset;
     private final HashMap<String, Integer> cityCount;
-    private final HashMap<String, HashSet<DataType>> groupValidCharts;
+    private final HashMap<String, HashSet<DataType>> validGroupCharts;
     
     public MyDataset () {
+        
         groupIndicators = new ArrayList<>(Arrays.asList(TOT_, SHAPE__));
         dataset = new HashMap<>();
         cityCount = new HashMap<>();
-        groupValidCharts = new HashMap<>();
+        validGroupCharts = new HashMap<>();
+        
     }
     
     public HashMap<String, TreeMap<String, HashMap<String, Double>>> getDataset () {
         return dataset;
     }
     
-    public HashMap<String, HashSet<DataType>> getGroupValidCharts () {
-        return groupValidCharts;
+    public HashMap<String, HashSet<DataType>> getValidGroupCharts () {
+        return validGroupCharts;
     }
     
     public ArrayList<String> getGroupIndicators () {
@@ -41,8 +59,9 @@ public abstract class MyDataset {
     public void setDataset (ArrayList<ArrayList<String>> dataset) {
         
         indexDataset(dataset, getCities(dataset));
-        ArrayList<Integer> groupIndexes = getGroupIndexes(dataset);
+        assignValidGroupCharts();
         
+        ArrayList<Integer> groupIndexes = getGroupIndexes(dataset);
         ArrayList<String> categoryRow = dataset.get(0);
         
         // Put the data into dataset
@@ -74,8 +93,6 @@ public abstract class MyDataset {
                 
             }
         }
-    
-        System.out.println("hi");
         
     }
     
@@ -120,6 +137,8 @@ public abstract class MyDataset {
     }
     
     public abstract void indexDataset (ArrayList<ArrayList<String>> dataset, HashSet<String> cities);
+    
+    public abstract void assignValidGroupCharts ();
 
     /**
      * @param arr = Array to search

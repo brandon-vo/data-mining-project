@@ -18,10 +18,8 @@ public class FileImportController {
     private ProfileOfHousing profileOfHousing;
     
     public FileImportController () {
-        
         journeyToWork = new JourneyToWork();
         profileOfHousing = new ProfileOfHousing();
-        
     }
     
     public JourneyToWork getJourneyToWork () {
