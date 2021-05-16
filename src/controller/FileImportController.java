@@ -35,7 +35,7 @@ public class FileImportController {
         importFrom(PROFILE_OF_HOUSING_FILE, profileOfHousing);
     }
     
-    public void importFrom (String filePath, MyDataset myDataset) {
+    private void importFrom (String filePath, MyDataset myDataset) {
         
         Scanner input;
         try {

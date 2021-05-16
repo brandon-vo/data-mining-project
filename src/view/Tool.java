@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.TreeMap;
 
-public abstract class Tool extends JPanel implements Dataset {
+public abstract class Tool extends JPanel /*implements Dataset*/ {
     
     private static final String BACK_BUTTON_IMAGE_FILE = "img/backButton.png";
     private final JLabel backButton;

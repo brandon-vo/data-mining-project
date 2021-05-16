@@ -1,8 +1,5 @@
 package view;
 
-import org.jfree.data.general.DatasetChangeListener;
-import org.jfree.data.general.DatasetGroup;
-
 public class PieChartGUI extends Tool {
 
     private TransportationPanel transportationPanel = new TransportationPanel();
@@ -39,26 +36,6 @@ public class PieChartGUI extends Tool {
 
     public void setHousingPanel (HousingPanel housingPanel) {
         this.housingPanel = housingPanel;
-    }
-    
-    @Override
-    public void addChangeListener (DatasetChangeListener datasetChangeListener) {
-    
-    }
-    
-    @Override
-    public void removeChangeListener (DatasetChangeListener datasetChangeListener) {
-    
-    }
-    
-    @Override
-    public DatasetGroup getGroup () {
-        return null;
-    }
-    
-    @Override
-    public void setGroup (DatasetGroup datasetGroup) {
-    
     }
     
 }
