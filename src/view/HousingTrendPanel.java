@@ -11,11 +11,11 @@ public class HousingTrendPanel extends JPanel{
     JFreeChart scatterPlot;
     public HousingTrendPanel(ArrayList<HousingTrend> data){
         setLayout(null);
-        setBackground();
-        setBounds();
-        
-        
-        location.setBounds();
-        variable.setBounds();
+//        setBackground();
+//        setBounds();
+//
+//
+//        location.setBounds();
+//        variable.setBounds();
     }
 }

@@ -1,8 +1,12 @@
 package application;
 
+import controller.ApplicationController;
 import controller.FileImportController;
+import model.JourneyToWork;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 
 public class Main {
@@ -12,7 +16,7 @@ public class Main {
         FileImportController files = new FileImportController();
         files.importFiles();
         
-        new ApplicationController();
+//        new ApplicationController();
         
     }
     
