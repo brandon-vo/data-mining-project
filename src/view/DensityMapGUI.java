@@ -1,12 +1,16 @@
 package view;
 
+import controller.DensityMapController;
 import org.w3c.dom.css.Rect;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 
 public class DensityMapGUI extends Tool {
 
@@ -31,13 +35,14 @@ public class DensityMapGUI extends Tool {
     private JLabel stouffville = new JLabel(new ImageIcon("img/densityMap/map/stouffville.png"));
     private JLabel vaughan = new JLabel(new ImageIcon("img/densityMap/map/vaughan.png"));
 
+    private BufferedImage image;
+
     public DensityMapGUI (int x, int y, int width, int height) {
 
         super(x, y, width, height);
         setLayout(null);
         setBackground(getBackgroundColour());
 
-        getBackButton().setBounds(1290, 25, 44, 44);
         add(getBackButton());
 
         densityMapTitleLabel.setBounds(0, 0, 1366, 768);
@@ -76,7 +81,24 @@ public class DensityMapGUI extends Tool {
         dataList.setForeground(new Color(18, 71, 115));
         add(dataList);
 
+        setVisible(true);
 
+    }
+
+    public String[] getDataOptions() {
+        return dataOptions;
+    }
+
+    public void setDataOptions(String[] dataOptions) {
+        this.dataOptions = dataOptions;
+    }
+
+    public JComboBox getDataList() {
+        return dataList;
+    }
+
+    public void setDataList(JComboBox dataList) {
+        this.dataList = dataList;
     }
 
 }

@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class MainFrame extends JFrame {
 	
@@ -30,13 +32,13 @@ public class MainFrame extends JFrame {
 		titleLabel.setBounds(0, 0, 1366, 768);
 		add(titleLabel);
 
-		transportationAndHousingButton.setBounds(450, 200, 500, 40);
+		transportationAndHousingButton.setBounds(450, 220, 470, 40);
 		transportationAndHousingButton.setBorder(null);
 		transportationAndHousingButton.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		transportationAndHousingButton.setBackground(new Color(145, 172, 219));
 		add(transportationAndHousingButton);
 
-		densityMapButton.setBounds(450, 280, 500, 40);
+		densityMapButton.setBounds(450, 300, 470, 40);
 		densityMapButton.setBorder(null);
 		densityMapButton.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		densityMapButton.setBackground(new Color(145, 172, 219));
@@ -50,19 +52,19 @@ public class MainFrame extends JFrame {
 			}
 		});
 
-		lineChartButton.setBounds(450, 360, 500, 40);
+		lineChartButton.setBounds(450, 380, 470, 40);
 		lineChartButton.setBorder(null);
 		lineChartButton.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lineChartButton.setBackground(new Color(145, 172, 219));
 		add(lineChartButton);
 
-		scatterPlotButton.setBounds(450, 440, 500, 40);
+		scatterPlotButton.setBounds(450, 460, 470, 40);
 		scatterPlotButton.setBorder(null);
 		scatterPlotButton.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		scatterPlotButton.setBackground(new Color(145, 172, 219));
 		add(scatterPlotButton);
 
-		doubleBarButton.setBounds(450, 520, 500, 40);
+		doubleBarButton.setBounds(450, 540, 470, 40);
 		doubleBarButton.setBorder(null);
 		doubleBarButton.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		doubleBarButton.setBackground(new Color(145, 172, 219));
