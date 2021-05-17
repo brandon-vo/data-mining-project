@@ -76,7 +76,6 @@ public class DensityMapGUI extends Tool {
         dataList.setForeground(new Color(18, 71, 115));
         add(dataList);
 
-        setVisible(true);
 
     }
 
