@@ -32,7 +32,7 @@ public class HousingTrendPanel extends JPanel {
         
         series = new XYSeries("House");
         for (int i = 0; i<dataset.size(); i++) {
-            series.add(i+1, dataset.get(i).getTotal());
+            series.add(i+1, dataset.get(i).getCities().entrySet().iterator().next().getValue());
         }
         plot.addSeries(series);
         
