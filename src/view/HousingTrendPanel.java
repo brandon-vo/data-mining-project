@@ -27,7 +27,8 @@ public class HousingTrendPanel extends JPanel {
         //        setBounds();
         //
         //        location.setBounds();
-        //        variable.setBounds();
+        //        variable.setBoundgit pull
+        //        s();
         plot = new XYSeriesCollection();
         
         series = new XYSeries("House");

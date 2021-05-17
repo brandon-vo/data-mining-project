@@ -10,9 +10,9 @@ public class Main {
     
     public static void main (String[] args) {
     
-        FileImportController controller = new FileImportController();
-        controller.importFiles();
-//        new ApplicationController();
+//        FileImportController controller = new FileImportController();
+//        controller.importFiles();
+        new ApplicationController();
     
     }
     
