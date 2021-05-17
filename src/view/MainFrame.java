@@ -1,6 +1,8 @@
 package view;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class MainFrame extends JFrame {
 	
@@ -28,6 +30,13 @@ public class MainFrame extends JFrame {
 
 		densityMapButton.setBounds(450, 260, 500, 40);
 		add(densityMapButton);
+		densityMapButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				removeAll();
+				repaint();
+				densityMap.setVisible(true);
+			}
+		});
 
 		lineChartButton.setBounds(450, 340, 500, 40);
 		add(lineChartButton);
@@ -39,8 +48,9 @@ public class MainFrame extends JFrame {
 		add(doubleBarButton);
 		
 		setVisible(true);
-		
+
 		add(densityMap);
+		densityMap.setVisible(false);
 		
 	}
 
