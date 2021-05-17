@@ -15,7 +15,7 @@ public class PieChartGUI extends Tool {
         transportationPanel.setBounds(0, 0, 1600, 450);
         add(transportationPanel);
 
-        housingPanel.setBounds(0, 100, 1600, 450);
+        housingPanel.setBounds(0, 450, 1360, 450);
         add(housingPanel);
 
         setVisible(true);
