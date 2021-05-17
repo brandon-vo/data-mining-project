@@ -21,16 +21,16 @@ public class TransportationPanel extends JPanel {
 		
 
 		
-		citiesLabel.setBounds(10, 20, 200, 40);
+		citiesLabel.setBounds(105, 20, 200, 40);
 		add(citiesLabel);
 		
-		markhamButton.setBounds(10, 80, 200, 40);
+		markhamButton.setBounds(20, 80, 200, 40);
 		add(markhamButton);
 		
-		vaughanButton.setBounds(10, 140, 200, 40);
+		vaughanButton.setBounds(20, 140, 200, 40);
 		add(vaughanButton);
 		
-		richmondHillButton.setBounds(10, 200, 200, 40);
+		richmondHillButton.setBounds(20, 200, 200, 40);
 		add(richmondHillButton);
 	}
 
@@ -66,5 +66,5 @@ public class TransportationPanel extends JPanel {
 		this.richmondHillButton = richmondHillButton;
 	}
 
-	
+
 }
