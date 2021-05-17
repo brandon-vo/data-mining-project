@@ -3,6 +3,10 @@ package view;
 import javax.swing.*;
 
 public class MainFrame extends JFrame {
+	
+	public static final int WIDTH = 1366;
+	public static final int HEIGHT = 768;
+	
 	private JButton transportationAndHousingButton = new JButton("TRANSPORTATION AND HOUSING");
 	private JButton densityMapButton = new JButton("DENSITY");
 	private JButton lineChartButton = new JButton("LINE CHART");
@@ -12,7 +16,8 @@ public class MainFrame extends JFrame {
 	public MainFrame() {
 		
 		setTitle("DATA MINING PROJECT - FELIX DANIEL BRANDON SEAN STEVEN");
-		setSize(1600, 900);
+		setSize(WIDTH, HEIGHT);
+		setLocationRelativeTo(null); // To position window in the middle of the screen
 		setLayout(null);
 		
 		

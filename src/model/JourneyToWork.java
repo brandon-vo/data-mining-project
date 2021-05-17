@@ -1,7 +1,6 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
 
 public class JourneyToWork extends MyDataset {
     
@@ -9,23 +8,53 @@ public class JourneyToWork extends MyDataset {
         super();
     }
     
+    /**
+     * Index the groups and categories in the dataset
+     * @param dataset = the dataset
+     * @param cities = the city names
+     */
     @Override
-    public void setDataset (ArrayList<ArrayList<String>> dataset) {
+    public void indexDataset (ArrayList<ArrayList<String>> dataset, HashSet<String> cities) {
+        
+        // Get and organize the columns
+        ArrayList<String> categoryRow = dataset.get(0);
+        String group = null;
     
-        final int START = 3;
-    
-        // Index all of the cities
-        for (int i = 1; i<dataset.size(); ++i) {
-            String city = dataset.get(START).get(i);
-            if (!getDataset().containsKey(city)) {
-                getDataset().put(city, new HashMap<>(dataset.get(START).size()));
+        // Index all of groups and categories
+        for (int i = CITY_INDEX+1; i<categoryRow.size(); ++i) {
+        
+            String category = categoryRow.get(i);
+        
+            // If there is TOT_ then create a new group
+            if (category.contains(TOT_)) {
+                
+                group = category.replace(TOT_, "");
+                getDataset().put(group, new TreeMap<>());
+                continue;
+                
+            } else if (category.contains(SHAPE__) && !group.equals("Shape")) {
+                group = "Shape";
+                getDataset().put(group, new TreeMap<>());
             }
-            // Increment the number of times the city was entered
-            getCityCount().put(city, getCityCount().getOrDefault(city, 0)+1);
+        
+            getDataset().get(group).put(category, new HashMap<>());
+            for (String city: cities) {
+                getDataset().get(group).get(category).put(city, 0.0);
+            }
+        
         }
-        
-        // Get all of the columns
-        
+    
+    }
+    
+    
+    /*
+        If there is a number and it doesn't have NO in it then the
+        data is compatible with a line chart
+     */
+    @Override
+    public void assignValidGroupCharts () {
+    
+    
     
     }
     

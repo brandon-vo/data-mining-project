@@ -1,3 +1,5 @@
+package view;
+
 import java.awt.Color;
 
 import javax.swing.BorderFactory;
@@ -5,7 +7,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class TransportationPanel extends JPanel{
+public class TransportationPanel extends JPanel {
 	
 	private JLabel citiesLabel = new JLabel("CITIES");
 	private JButton markhamButton = new JButton("MARKHAM");

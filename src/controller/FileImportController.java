@@ -11,17 +11,15 @@ import java.util.Scanner;
 
 public class FileImportController {
     
-    private static final String JOURNEY_TO_WORK_FILE = "./datasets/Profile_of_Housing_by_Dissemination_Area,_2016_Census.csv";
-    private static final String PROFILE_OF_HOUSING_FILE = "./datasets/Profile_of_Journey_to_Work_by_Dissemination_Area,_2016_Census.csv";
+    private static final String JOURNEY_TO_WORK_FILE = "./datasets/Profile_of_Journey_to_Work_by_Dissemination_Area,_2016_Census.csv";
+    private static final String PROFILE_OF_HOUSING_FILE = "./datasets/Profile_of_Housing_by_Dissemination_Area,_2016_Census.csv";
     
     private JourneyToWork journeyToWork;
     private ProfileOfHousing profileOfHousing;
     
     public FileImportController () {
-        
         journeyToWork = new JourneyToWork();
         profileOfHousing = new ProfileOfHousing();
-        
     }
     
     public JourneyToWork getJourneyToWork () {
@@ -37,7 +35,7 @@ public class FileImportController {
         importFrom(PROFILE_OF_HOUSING_FILE, profileOfHousing);
     }
     
-    public void importFrom (String filePath, MyDataset myDataset) {
+    private void importFrom (String filePath, MyDataset myDataset) {
         
         Scanner input;
         try {
@@ -82,6 +80,7 @@ public class FileImportController {
             
         }
         
+        dataset.remove(dataset.size()-1);
         myDataset.setDataset(dataset);
         
         input.close();
