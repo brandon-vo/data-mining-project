@@ -16,8 +16,9 @@ public abstract class Tool extends JPanel /*implements Dataset*/ {
     
     private ArrayList<TreeMap<String, HashMap<String, Double>>> dataGroups;
     
-    public Tool () {
+    public Tool (int x, int y, int width, int height) {
         
+        setBounds(x, y, width, height);
         backButton = new JLabel(new ImageIcon(BACK_BUTTON_IMAGE_FILE));
         backgroundColour = new Color(243, 243, 243);
         dataGroups = new ArrayList<>();

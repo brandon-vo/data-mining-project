@@ -2,6 +2,7 @@ package model;
 
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.Dataset;
+import util.Category;
 
 import java.util.*;
 
@@ -20,14 +21,16 @@ public abstract class MyDataset {
           be grouped as NUMBER_OF_BEDS)
         - To access these groups you call their names as  a string like this:
                     getDataset().get("NUMBER_OF_BEDS")
-          From there you get access to the specific categories by calling their
-          names, which then gives a list of the data attached to all the cities.
+          From there you get access to the specific categories through indexing
+          by integers, which then gives a list of the data attached to all the
+          cities.
         
         EXAMPLE:
-            If you want to find out how many people have one bed in aurora city, you would write
-                    getDataset().get("NUMBER_OF_BEDS").get("ONE_BED").get("Aurora")
+            If you want to find out how many people have one bed (index 1) in
+            aurora city, you would write
+                    getDataset().get("NUMBER_OF_BEDS").get(1).get("Aurora")
      */
-    private final HashMap<String, TreeMap<String, HashMap<String, Double>>> dataset;
+    private final HashMap<String, ArrayList<Category>> dataset;
     private final HashMap<String, Integer> cityCount;
     private final HashMap<String, HashSet<DataType>> validGroupCharts;
     
@@ -40,7 +43,7 @@ public abstract class MyDataset {
         
     }
     
-    public HashMap<String, TreeMap<String, HashMap<String, Double>>> getDataset () {
+    public HashMap<String, ArrayList<Category>> getDataset () {
         return dataset;
     }
     
@@ -50,10 +53,6 @@ public abstract class MyDataset {
     
     public ArrayList<String> getGroupIndicators () {
         return groupIndicators;
-    }
-    
-    public int getCityCount (String city) {
-        return cityCount.get(city);
     }
     
     public void setDataset (ArrayList<ArrayList<String>> dataset) {
@@ -71,8 +70,12 @@ public abstract class MyDataset {
                 if (dataset.get(0).get(col).contains(TOT_)) continue;
                 
                 // Find the group the current category is in with binary search
-                String groupName = categoryRow.get(groupIndexes.get(
-                        binarySearch(groupIndexes, col)));
+                int groupIndex = groupIndexes.get(binarySearch(groupIndexes, col));
+                String groupName = categoryRow.get(groupIndex);
+                if (!groupName.contains(TOT_)) {
+                    --groupIndex;
+                }
+                
                 for (String indicator: groupIndicators) {
                     if (!indicator.equals(SHAPE__)) {
                         groupName = groupName.replace(indicator, "");
@@ -82,17 +85,27 @@ public abstract class MyDataset {
                 if (groupName.contains(SHAPE__)) {
                     groupName = SHAPE__.replace("__", "");
                 }
-                
-                TreeMap<String, HashMap<String, Double>> categories = getDataset().get(groupName);
+    
+                ArrayList<Category> categories = this.dataset.get(groupName);
                 
                 // Get the current category and add the data to it
-                HashMap<String, Double> category = categories.get(categoryRow.get(col));
                 ArrayList<String> curRow = dataset.get(row);
-                category.put(curRow.get(CITY_INDEX), category.get(curRow.get(CITY_INDEX))
-                        +Double.parseDouble(curRow.get(col)));
+                categories.get(col-groupIndex-1).addToCity(curRow.get(CITY_INDEX),
+                        Double.parseDouble(curRow.get(col)));
                 
             }
         }
+        
+        // Set everything to the average
+        // HashMap<String, TreeMap<String, HashMap<String, Double>>>
+        for (ArrayList<Category> group: this.dataset.values()) {
+            for (Category category: group) {
+                for (Map.Entry<String, Double> city: category.getCities().entrySet()) {
+                    city.setValue(city.getValue()/cityCount.get(city.getKey()));
+                }
+            }
+        }
+    
         
     }
     
@@ -117,12 +130,11 @@ public abstract class MyDataset {
         ArrayList<String> categoryRow = dataset.get(0);
         
         // Index all of groups and categories
-        for (int i = CITY_INDEX+1; i<categoryRow.size(); ++i) {
+        for (int i = CITY_INDEX+1; i<categoryRow.size()-1; ++i) {
             
             String category = categoryRow.get(i);
             
-            // If there is TOT_ or it is the last two categories,
-            // then add it to the groups
+            // If there is a group indicator, add it to the groups
             for (String indicator: groupIndicators) {
                 if (category.contains(indicator)) {
                     groupIndexes.add(i);

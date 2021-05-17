@@ -13,32 +13,34 @@ public class MainFrame extends JFrame {
 	private JButton scatterPlotButton = new JButton("SCATTER PLOT");
 	private JButton doubleBarButton = new JButton("DOUBLE BAR GRAPH");
 	
-	public MainFrame() {
+	private DensityMapGUI densityMap = new DensityMapGUI(0, 0, WIDTH, HEIGHT);
+	
+	public MainFrame () {
 		
 		setTitle("DATA MINING PROJECT - FELIX DANIEL BRANDON SEAN STEVEN");
 		setSize(WIDTH, HEIGHT);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocationRelativeTo(null); // To position window in the middle of the screen
 		setLayout(null);
 		
-		
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		
-		transportationAndHousingButton.setBounds(650, 100, 500, 40);
+		transportationAndHousingButton.setBounds(450, 180, 500, 40);
 		add(transportationAndHousingButton);
-		
-		densityMapButton.setBounds(650, 180, 500, 40);
+
+		densityMapButton.setBounds(450, 260, 500, 40);
 		add(densityMapButton);
-		
-		lineChartButton.setBounds(650, 260, 500, 40);
+
+		lineChartButton.setBounds(450, 340, 500, 40);
 		add(lineChartButton);
-		
-		scatterPlotButton.setBounds(650, 340, 500, 40);
+
+		scatterPlotButton.setBounds(450, 420, 500, 40);
 		add(scatterPlotButton);
-		
-		doubleBarButton.setBounds(650, 420, 500, 40);
+
+		doubleBarButton.setBounds(450, 500, 500, 40);
 		add(doubleBarButton);
 		
 		setVisible(true);
+		
+		add(densityMap);
 		
 	}
 

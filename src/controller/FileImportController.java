@@ -82,6 +82,8 @@ public class FileImportController {
         
         dataset.remove(dataset.size()-1);
         myDataset.setDataset(dataset);
+    
+        System.out.println("GOO GOO");
         
         input.close();
         

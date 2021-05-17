@@ -5,8 +5,10 @@ public class PieChartGUI extends Tool {
     private TransportationPanel transportationPanel = new TransportationPanel();
     private HousingPanel housingPanel = new HousingPanel();
 
-    public PieChartGUI () {
+    public PieChartGUI (int x, int y, int width, int height) {
 
+        super(x, y, width, height);
+        
 //        setTitle("TYPES OF TRANSPORTATION AND HOUSING - DANIEL SINGH");
         setSize(MainFrame.WIDTH, MainFrame.HEIGHT);
         setLayout(null);
