@@ -4,8 +4,8 @@ import javax.swing.*;
 
 public class MainFrame extends JFrame {
 	
-	public static final int WIDTH = 768;
-	public static final int HEIGHT = 1366;
+	public static final int WIDTH = 1366;
+	public static final int HEIGHT = 768;
 	
 	private JButton transportationAndHousingButton = new JButton("TRANSPORTATION AND HOUSING");
 	private JButton densityMapButton = new JButton("DENSITY");
@@ -17,6 +17,7 @@ public class MainFrame extends JFrame {
 		
 		setTitle("DATA MINING PROJECT - FELIX DANIEL BRANDON SEAN STEVEN");
 		setSize(WIDTH, HEIGHT);
+		setLocationRelativeTo(null); // To position window in the middle of the screen
 		setLayout(null);
 		
 		
