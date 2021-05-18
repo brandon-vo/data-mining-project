@@ -51,16 +51,19 @@ public class ApplicationController implements ActionListener, MouseListener {
 	
 	public void setUpListeners () {
 		
-		final int journeyToWork = 0;
-		
 		for (int i = 0; i<tools.length; ++i) {
 			
 			// Add functionality to the switch frames buttons
 			final int j = i;
 			mainFrame.getMenuPanel().getButton(i).addActionListener(e->{
 				switchFrame(tools[j]);
-				tools[j].setDataToDisplay(datasets[journeyToWork],
-						tools[j].getValidGroups(journeyToWork).get(0));
+				if (!tools[j].getValidGroups(0).isEmpty()) {
+					tools[j].setDataToDisplay(datasets[0],
+							tools[j].getValidGroups(0).get(0));
+				} else {
+					tools[j].setDataToDisplay(datasets[1],
+							tools[j].getValidGroups(1).get(0));
+				}
 			});
 			
 			// Add functionality to the back buttons

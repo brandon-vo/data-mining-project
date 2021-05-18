@@ -6,12 +6,9 @@ import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
-import util.Category;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Map;
 
 public class HousingTrendGUI extends Tool {
     
@@ -26,7 +23,6 @@ public class HousingTrendGUI extends Tool {
     
         setLayout(null);
         
-        setBackground(getBackgroundColour());
         add(getBackButton());
         
         location.setBounds(200,100,100,100);

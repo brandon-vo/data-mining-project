@@ -1,12 +1,11 @@
 package view;
 
 import model.MyDataset;
-import util.Category;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 public class CommuteVsShelterCostGUI extends Tool implements ActionListener {
     
@@ -24,7 +23,6 @@ public class CommuteVsShelterCostGUI extends Tool implements ActionListener {
     public CommuteVsShelterCostGUI () {
         
         setLayout(null);
-        setBackground(getBackgroundColour());
         
         markhamButton.setFont(new Font("Tahoma",Font.PLAIN, 15));
         vaughnButton.setFont(new Font("Tahoma",Font.PLAIN, 15));

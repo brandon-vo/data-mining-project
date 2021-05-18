@@ -11,6 +11,9 @@ public class MenuPanel extends JPanel {
     private final JButton[] buttons = new JButton[DataType.values().length];
     
     public MenuPanel () {
+    
+        setBounds(0, 0, MainFrame.WIDTH, MainFrame.HEIGHT);
+        setLayout(null);
         
         titleLabel.setBounds(0, 0, MainFrame.WIDTH, MainFrame.HEIGHT);
         add(titleLabel);
