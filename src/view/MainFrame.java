@@ -8,7 +8,7 @@ public class MainFrame extends JFrame {
 	public static final int WIDTH = 1366;
 	public static final int HEIGHT = 768;
 	
-	public MenuPanel menuPanel = new MenuPanel();
+	private final MenuPanel menuPanel;
 	
 	public MainFrame () {
 		
@@ -18,6 +18,7 @@ public class MainFrame extends JFrame {
 		setLocationRelativeTo(null); // To position window in the middle of the screen
 		setLayout(null);
 		
+		menuPanel = new MenuPanel();
 		add(menuPanel);
 		
 	}

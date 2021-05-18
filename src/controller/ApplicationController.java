@@ -2,9 +2,11 @@ package controller;
 
 import model.DataType;
 import model.JourneyToWork;
+import model.MyDataset;
 import model.ProfileOfHousing;
 import view.*;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -18,8 +20,7 @@ public class ApplicationController implements ActionListener, MouseListener {
 	public MainFrame mainFrame;
 	private final Tool[] tools = new Tool[DataType.values().length];
 	
-	private final JourneyToWork journeyToWork;
-	private final ProfileOfHousing profileOfHousing;
+	private MyDataset[] datasets;
 	
 	public ApplicationController() {
 		
@@ -35,37 +36,48 @@ public class ApplicationController implements ActionListener, MouseListener {
 		// Assign the data to the fields
 		FileImportController files = new FileImportController();
 		files.importFiles();
-		journeyToWork = files.getJourneyToWork();
-		profileOfHousing = files.getProfileOfHousing();
+		datasets = new MyDataset[2];
+		datasets[0] = files.getJourneyToWork();
+		datasets[1] = files.getProfileOfHousing();
 		
 		// Provide the valid groups
-		journeyToWork.assignValidGroupCharts(tools);
-		profileOfHousing.assignValidGroupCharts(tools);
+		datasets[0].assignValidGroupCharts(tools);
+		datasets[1].assignValidGroupCharts(tools);
 		
-		for (int i = 0; i<tools.length; ++i) {
-			
-			// Default to JourneyToWork
-			tools[i].setDataToDisplay(journeyToWork, tools[i].getValidGroups().get(0));
-			
-			final int j = i;
-			mainFrame.getMenuPanel().getButton(i).addActionListener(e->{
-				
-				mainFrame.getContentPane().removeAll();
-				mainFrame.getContentPane().repaint();
-				mainFrame.add(tools[j]);
-				tools[j].setVisible(true);
-				
-			});
-			
-		}
-		
+		setUpListeners();
 		mainFrame.setVisible(true);
 		
 	}
 	
-	public void setUpListeners() {
+	public void setUpListeners () {
+		
+		final int journeyToWork = 0;
+		
+		for (int i = 0; i<tools.length; ++i) {
+			
+			// Add functionality to the switch frames buttons
+			final int j = i;
+			mainFrame.getMenuPanel().getButton(i).addActionListener(e->{
+				switchFrame(tools[j]);
+				tools[j].setDataToDisplay(datasets[journeyToWork],
+						tools[j].getValidGroups(journeyToWork).get(0));
+			});
+			
+			// Add functionality to the back buttons
+			tools[i].getBackButton().addActionListener(e->{
+				switchFrame(mainFrame.getMenuPanel());
+			});
+			
+		}
+		
+		// TODO everything else
 	
+	}
 	
+	private void switchFrame (JPanel newPanel) {
+		mainFrame.getContentPane().removeAll();
+		mainFrame.getContentPane().repaint();
+		mainFrame.add(newPanel);
 	}
 	
 	@Override

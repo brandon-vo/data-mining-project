@@ -9,26 +9,29 @@ import java.util.ArrayList;
 
 public abstract class Tool extends JPanel {
     
-    private ArrayList<String> validGroups;
-    private ArrayList<Category> displayedData;
-    
     private static final String BACK_BUTTON_IMAGE_FILE = "img/backButton.png";
-    private final JLabel backButton;
+    
+    private final ArrayList<String>[] validGroups;
+    private final ArrayList<Category> displayedData;
+    
+    private final JButton backButton;
     private final Color backgroundColour;
     
     public Tool () {
         
         setBounds(0, 0, MainFrame.WIDTH, MainFrame.HEIGHT);
-        validGroups = new ArrayList<>();
+        validGroups = new ArrayList[2];
+        validGroups[0] = new ArrayList<>();
+        validGroups[1] = new ArrayList<>();
         displayedData = new ArrayList<>();
     
-        backButton = new JLabel(new ImageIcon(BACK_BUTTON_IMAGE_FILE));
+        backButton = new JButton(new ImageIcon(BACK_BUTTON_IMAGE_FILE));
         backgroundColour = new Color(243, 243, 243);
         backButton.setBounds(1315, 17, 20, 20);
         
     }
     
-    public JLabel getBackButton () {
+    public JButton getBackButton () {
         return backButton;
     }
     
@@ -36,8 +39,8 @@ public abstract class Tool extends JPanel {
         return backgroundColour;
     }
     
-    public ArrayList<String> getValidGroups () {
-        return validGroups;
+    public ArrayList<String> getValidGroups (int dataset) {
+        return validGroups[dataset];
     }
     
     public ArrayList<Category> getDisplayedData () {
@@ -45,7 +48,8 @@ public abstract class Tool extends JPanel {
     }
     
     public void setDisplayedData (ArrayList<Category> displayedData) {
-        this.displayedData = displayedData;
+        this.displayedData.clear();
+        this.displayedData.addAll(displayedData);
     }
     
     /**

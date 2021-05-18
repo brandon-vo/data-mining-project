@@ -59,12 +59,12 @@ public class JourneyToWork extends MyDataset {
     @Override
     public void assignValidGroupCharts (Tool[] tools) {
         
-        tools[BAR_CHART.getValue()].getValidGroups().add("MAIN_MODE_15_YRS_PLUS_");
+        tools[BAR_CHART.getValue()].getValidGroups(0).add("MAIN_MODE_15_YRS_PLUS_");
     
-        tools[PIE_CHART.getValue()].getValidGroups().add("MAIN_MODE_15_YRS_PLUS_");
+        tools[PIE_CHART.getValue()].getValidGroups(0).add("MAIN_MODE_15_YRS_PLUS_");
         
-        tools[LINE_CHART.getValue()].getValidGroups().add("TIME_LEAVE_15_YRS_PLUS");
-        tools[LINE_CHART.getValue()].getValidGroups().add("COMMUTE_TIME_15_YRS_PLUS");
+        tools[LINE_CHART.getValue()].getValidGroups(0).add("TIME_LEAVE_15_YRS_PLUS");
+        tools[LINE_CHART.getValue()].getValidGroups(0).add("COMMUTE_TIME_15_YRS_PLUS");
         
     }
     
