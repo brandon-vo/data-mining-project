@@ -2,6 +2,7 @@ package view;
 
 import controller.DensityMapController;
 import org.w3c.dom.css.Rect;
+import util.Category;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -12,6 +13,7 @@ import java.awt.image.FilteredImageSource;
 import java.awt.image.RGBImageFilter;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class DensityMapGUI extends Tool {
 
@@ -53,15 +55,15 @@ public class DensityMapGUI extends Tool {
 
     private JLabel[] mapLabels = new JLabel[9];
 
-    public DensityMapGUI (int x, int y, int width, int height) {
+    public DensityMapGUI (int x, int y, int width, int height, ArrayList<Category> dataset) {
 
-        super(x, y, width, height);
+        super(x, y, width, height, dataset);
         setLayout(null);
         setBackground(getBackgroundColour());
 
         add(getBackButton());
 
-        densityMapTitleLabel.setBounds(0, 0, 1366, 768);
+        densityMapTitleLabel.setBounds(0, 0, WIDTH, HEIGHT);
         add(densityMapTitleLabel);
 
         submitButton.setBounds(1065, 400, 125, 50);
@@ -114,7 +116,7 @@ public class DensityMapGUI extends Tool {
                                 new RedBlueSwapFilter()));
 
                 mapLabels[cityMap] = new JLabel(new ImageIcon(newColouredMap));
-                mapLabels[cityMap].setBounds(0, 0, 1366, 768);
+                mapLabels[cityMap].setBounds(0, 0, WIDTH, HEIGHT);
                 add(mapLabels[cityMap]);
             }
 

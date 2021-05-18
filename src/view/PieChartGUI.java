@@ -1,18 +1,21 @@
 package view;
 
+import util.Category;
+
+import java.util.ArrayList;
+
 public class PieChartGUI extends Tool {
 
     private TransportationPanel transportationPanel = new TransportationPanel();
     private HousingPanel housingPanel = new HousingPanel();
 
-    public PieChartGUI (int x, int y, int width, int height) {
+    public PieChartGUI (int x, int y, int width, int height, ArrayList<Category> dataset) {
 
-        super(x, y, width, height);
+        super(x, y, width, height, dataset);
         
 //        setTitle("TYPES OF TRANSPORTATION AND HOUSING - DANIEL SINGH");
         setSize(MainFrame.WIDTH, MainFrame.HEIGHT);
         setLayout(null);
-//        setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         transportationPanel.setBounds(0, 0, 1600, 450);
         add(transportationPanel);

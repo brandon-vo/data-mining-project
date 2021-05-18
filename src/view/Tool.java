@@ -1,6 +1,9 @@
 package view;
 
+import org.jfree.data.category.CategoryDataset;
+import org.jfree.data.general.AbstractDataset;
 import org.jfree.data.general.Dataset;
+import util.Category;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,18 +15,20 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.TreeMap;
 
-public abstract class Tool extends JPanel /*implements Dataset*/ {
-
-    private final JLabel backButton = new JLabel(new ImageIcon("img/backButton.png"));
+public abstract class Tool extends JPanel {
+    
+    private static final String BACK_BUTTON_IMAGE_FILE = "img/backButton.png";
+    private final JLabel backButton;
     private final Color backgroundColour;
+    private final ArrayList<Category> datasets;
+    private AbstractDataset currentDataset;
     
-    private ArrayList<TreeMap<String, HashMap<String, Double>>> dataGroups;
-    
-    public Tool (int x, int y, int width, int height) {
+    public Tool (int x, int y, int width, int height, ArrayList<Category> datasets) {
         
         setBounds(x, y, width, height);
+        this.datasets = datasets;
+        backButton = new JLabel(new ImageIcon(BACK_BUTTON_IMAGE_FILE));
         backgroundColour = new Color(243, 243, 243);
-        dataGroups = new ArrayList<>();
 
         backButton.setBounds(1315, 17, 20, 20);
 
@@ -32,13 +37,15 @@ public abstract class Tool extends JPanel /*implements Dataset*/ {
     public JLabel getBackButton () {
         return backButton;
     }
-
+    
     public Color getBackgroundColour () {
         return backgroundColour;
     }
     
-    public ArrayList<TreeMap<String, HashMap<String, Double>>> getDataGroups () {
-        return dataGroups;
+    public AbstractDataset getCurrentDataset () {
+        return currentDataset;
     }
+    
+    public abstract void setCurrentDataset (int index);
     
 }

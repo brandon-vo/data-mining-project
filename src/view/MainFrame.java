@@ -19,7 +19,7 @@ public class MainFrame extends JFrame {
 	private JButton doubleBarButton = new JButton("DOUBLE BAR GRAPH");
 	private JLabel titleLabel = new JLabel(new ImageIcon("img/mainFrameTitleLabel.png"));
 	
-	private DensityMapGUI densityMap = new DensityMapGUI(0, 0, WIDTH, HEIGHT);
+	private Tool[] tools;
 	
 	public MainFrame () {
 		
@@ -43,13 +43,15 @@ public class MainFrame extends JFrame {
 		densityMapButton.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		densityMapButton.setBackground(new Color(145, 172, 219));
 		add(densityMapButton);
-		densityMapButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				getContentPane().removeAll();
-				getContentPane().repaint();
-				add(densityMap);
-				densityMap.setVisible(true);
-			}
+		
+		// This should be done in the application controller
+		densityMapButton.addActionListener(e->{
+			
+			getContentPane().removeAll();
+			getContentPane().repaint();
+			add(densityMap);
+			densityMap.setVisible(true);
+			
 		});
 
 		lineChartButton.setBounds(450, 380, 470, 40);
