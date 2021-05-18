@@ -8,6 +8,7 @@ import org.jfree.data.xy.XYSeriesCollection;
 import util.Category;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.TreeMap;
@@ -50,7 +51,9 @@ public class HousingTrendPanel extends Tool {
         );
         
         chPanel = new ChartPanel(scatterPlot);
-        chPanel.setPreferredSize(new );
+        chPanel.setPreferredSize(new Dimension(800,500));
+        add
+        
         
     }
     
