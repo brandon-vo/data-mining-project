@@ -1,25 +1,16 @@
 package view;
 
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
-import org.jfree.data.category.CategoryDataset;
-import org.jfree.data.general.AbstractDataset;
-import org.jfree.data.general.Dataset;
+import model.MyDataset;
 import util.Category;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.TreeMap;
 
 public abstract class Tool extends JPanel {
     
-    private ArrayList<Category> dataset;
+    private ArrayList<String> validGroups;
+    private ArrayList<Category> displayedData;
     
     private static final String BACK_BUTTON_IMAGE_FILE = "img/backButton.png";
     private final JLabel backButton;
@@ -28,7 +19,8 @@ public abstract class Tool extends JPanel {
     public Tool () {
         
         setBounds(0, 0, MainFrame.WIDTH, MainFrame.HEIGHT);
-        this.dataset = new ArrayList<>();
+        validGroups = new ArrayList<>();
+        displayedData = new ArrayList<>();
     
         backButton = new JLabel(new ImageIcon(BACK_BUTTON_IMAGE_FILE));
         backgroundColour = new Color(243, 243, 243);
@@ -44,12 +36,22 @@ public abstract class Tool extends JPanel {
         return backgroundColour;
     }
     
-    public void setDataset (ArrayList<Category> dataset) {
-        this.dataset = dataset;
+    public ArrayList<String> getValidGroups () {
+        return validGroups;
     }
     
-    public ArrayList<Category> getDataset () {
-        return dataset;
+    public ArrayList<Category> getDisplayedData () {
+        return displayedData;
     }
+    
+    public void setDisplayedData (ArrayList<Category> displayedData) {
+        this.displayedData = displayedData;
+    }
+    
+    /**
+     * Function to set the data that will be displayed on the screen
+     * @param dataset = where the data will be taken from
+     */
+    public abstract void setDataToDisplay (MyDataset dataset, String groupName);
     
 }

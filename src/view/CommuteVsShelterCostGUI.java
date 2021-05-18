@@ -1,5 +1,6 @@
 package view;
 
+import model.MyDataset;
 import util.Category;
 import javax.swing.*;
 import java.awt.*;
@@ -12,6 +13,8 @@ public class CommuteVsShelterCostGUI extends Tool implements ActionListener {
     private JLabel titleLabel = new JLabel(new ImageIcon("img/shelterCostVsCommonCommuteTypeLabel.png"));
     private JLabel currentDataDisplay = new JLabel("the current city being displayed");
     private JLabel buttonTitleLabel = new JLabel("Select City for Data Display");
+    
+    // TODO call MyDataset.getCities() to get the names of all the cities instead
     private JButton markhamButton = new JButton("Markham");
     private JButton vaughnButton = new JButton("Vaughn");
     private JButton richmondButton = new JButton("Richmond Hill");
@@ -51,7 +54,13 @@ public class CommuteVsShelterCostGUI extends Tool implements ActionListener {
     }
     
     @Override
+    public void setDataToDisplay (MyDataset dataset, String groupName) {
+        // TODO
+    }
+    
+    @Override
     public void actionPerformed(ActionEvent e) {
     
     }
+    
 }

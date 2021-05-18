@@ -1,6 +1,7 @@
 package view;
 
 import controller.DensityMapController;
+import model.MyDataset;
 import org.w3c.dom.css.Rect;
 import util.Category;
 
@@ -38,6 +39,7 @@ public class DensityMapGUI extends Tool {
     private JLabel stouffvilleLabel = new JLabel(new ImageIcon("img/densityMap/map/labels/stouffvilleLabel.png"));
     private JLabel vaughanLabel = new JLabel(new ImageIcon("img/densityMap/map/labels/vaughanLabel.png"));
 
+    // TODO call MyDataset.getCities() instead to get the names of all the cities
     private BufferedImage aurora;
     private BufferedImage eastGwillimbury;
     private BufferedImage georgina;
@@ -126,7 +128,12 @@ public class DensityMapGUI extends Tool {
         setVisible(true);
 
     }
-
+    
+    @Override
+    public void setDataToDisplay (MyDataset dataset, String groupName) {
+        // TODO
+    }
+    
     class RedBlueSwapFilter extends RGBImageFilter {
         public int filterRGB(int x, int y, int rgb) {
             return ((rgb & 0xFFE5E7E9));

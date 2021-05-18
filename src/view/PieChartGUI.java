@@ -1,5 +1,6 @@
 package view;
 
+import model.MyDataset;
 import util.Category;
 
 import java.util.ArrayList;
@@ -22,7 +23,12 @@ public class PieChartGUI extends Tool {
         setVisible(true);
 
     }
-
+    
+    @Override
+    public void setDataToDisplay (MyDataset dataset, String groupName) {
+    
+    }
+    
     public TransportationPanel getTransportationPanel () {
         return transportationPanel;
     }

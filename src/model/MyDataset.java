@@ -3,6 +3,7 @@ package model;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.Dataset;
 import util.Category;
+import view.Tool;
 
 import java.util.*;
 
@@ -31,24 +32,16 @@ public abstract class MyDataset {
                     getDataset().get("NUMBER_OF_BEDS").get(1).get("Aurora")
      */
     private final HashMap<String, ArrayList<Category>> dataset;
-    private final HashMap<String, Integer> cityCount;
-    private final HashMap<String, HashSet<DataType>> validGroupCharts;
+    
+    private final static HashMap<String, Integer> cityCount = new HashMap<>();
     
     public MyDataset () {
-        
         groupIndicators = new ArrayList<>(Arrays.asList(TOT_, SHAPE__));
         dataset = new HashMap<>();
-        cityCount = new HashMap<>();
-        validGroupCharts = new HashMap<>();
-        
     }
     
     public HashMap<String, ArrayList<Category>> getDataset () {
         return dataset;
-    }
-    
-    public HashMap<String, HashSet<DataType>> getValidGroupCharts () {
-        return validGroupCharts;
     }
     
     public ArrayList<String> getGroupIndicators () {
@@ -58,7 +51,6 @@ public abstract class MyDataset {
     public void setDataset (ArrayList<ArrayList<String>> dataset) {
         
         indexDataset(dataset, getCities(dataset));
-        assignValidGroupCharts();
         
         ArrayList<Integer> groupIndexes = getGroupIndexes(dataset);
         ArrayList<String> categoryRow = dataset.get(0);
@@ -97,7 +89,6 @@ public abstract class MyDataset {
         }
         
         // Set everything to the average
-        // HashMap<String, TreeMap<String, HashMap<String, Double>>>
         for (ArrayList<Category> group: this.dataset.values()) {
             for (Category category: group) {
                 for (Map.Entry<String, Double> city: category.getCities().entrySet()) {
@@ -107,6 +98,10 @@ public abstract class MyDataset {
         }
     
         
+    }
+    
+    public static String[] getCities () {
+        return (String[]) cityCount.keySet().toArray();
     }
     
     public HashSet<String> getCities (ArrayList<ArrayList<String>> dataset) {
@@ -150,7 +145,7 @@ public abstract class MyDataset {
     
     public abstract void indexDataset (ArrayList<ArrayList<String>> dataset, HashSet<String> cities);
     
-    public abstract void assignValidGroupCharts ();
+    public abstract void assignValidGroupCharts (Tool[] tools);
 
     /**
      * @param arr = Array to search

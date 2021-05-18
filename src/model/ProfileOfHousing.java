@@ -1,8 +1,11 @@
 package model;
 
 import util.Category;
+import view.Tool;
 
 import java.util.*;
+
+import static model.DataType.*;
 
 public class ProfileOfHousing extends MyDataset {
     
@@ -56,29 +59,19 @@ public class ProfileOfHousing extends MyDataset {
      * Lots and lots of hard code
      */
     @Override
-    public void assignValidGroupCharts () {
+    public void assignValidGroupCharts (Tool[] tools) {
         
-        getValidGroupCharts().put("DWELLING_VALUE", new HashSet<>());
-        getValidGroupCharts().get("DWELLING_VALUE").add(DataType.DENSITY_MAP);
+        tools[DENSITY_MAP.getValue()].getValidGroups().add("DWELLING_VALUE");
+        tools[DENSITY_MAP.getValue()].getValidGroups().add("MONTHLY_SHELTER_RENT");
+        tools[DENSITY_MAP.getValue()].getValidGroups().add("OWN_MONTHLY_SHELTER_COST");
+    
+        tools[BAR_CHART.getValue()].getValidGroups().add("MONTHLY_SHELTER_RENT");
         
-        getValidGroupCharts().put("MONTHLY_SHELTER_RENT", new HashSet<>());
-        getValidGroupCharts().get("MONTHLY_SHELTER_RENT").add(DataType.DENSITY_MAP);
-        getValidGroupCharts().get("MONTHLY_SHELTER_RENT").add(DataType.BAR_CHART);
+        tools[SCATTER_CHART.getValue()].getValidGroups().add("OCC_PVT_DWELL_NO_BED");
+        tools[SCATTER_CHART.getValue()].getValidGroups().add("OCC_PVT_DWELL_NO_ROOMS");
+        tools[SCATTER_CHART.getValue()].getValidGroups().add("PVT_HH_AGE_MAINTAINER");
         
-        getValidGroupCharts().put("OWN_MONTHLY_SHELTER_COST", new HashSet<>());
-        getValidGroupCharts().get("OWN_MONTHLY_SHELTER_COST").add(DataType.DENSITY_MAP);
-    
-        getValidGroupCharts().put("OCC_PVT_DWELL_NO_BED", new HashSet<>());
-        getValidGroupCharts().get("OCC_PVT_DWELL_NO_BED").add(DataType.SCATTER_CHART);
-    
-        getValidGroupCharts().put("OCC_PVT_DWELL_NO_ROOMS", new HashSet<>());
-        getValidGroupCharts().get("OCC_PVT_DWELL_NO_ROOMS").add(DataType.SCATTER_CHART);
-    
-        getValidGroupCharts().put("PVT_HH_AGE_MAINTAINER", new HashSet<>());
-        getValidGroupCharts().get("PVT_HH_AGE_MAINTAINER").add(DataType.SCATTER_CHART);
-    
-        getValidGroupCharts().put("OCC_PVT_DWELL_CONDO", new HashSet<>());
-        getValidGroupCharts().get("OCC_PVT_DWELL_CONDO").add(DataType.PIE_CHART);
+        tools[PIE_CHART.getValue()].getValidGroups().add("OCC_PVT_DWELL_CONDO");
     
     }
     

@@ -1,5 +1,6 @@
 package view;
 
+import model.MyDataset;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -10,15 +11,14 @@ import util.Category;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.TreeMap;
+import java.util.Map;
 
 public class HousingTrendGUI extends Tool {
     
     private JButton location = new JButton("LOCATION");
     private JButton variable = new JButton("VARIABLE");
     private ChartPanel chPanel;
-    private JFreeChart scatterPlot;
+    private JFreeChart scatterPlot; // TODO not initialized
     private XYSeriesCollection plot;
     private XYSeries series;
     
@@ -38,24 +38,30 @@ public class HousingTrendGUI extends Tool {
         plot = new XYSeriesCollection();
         series = new XYSeries("House");
         
-        // TODO dataset defaults to nothing (unneeded code)
-        for (int i = 0; i<getDataset().size(); i++) {
-            series.add(i+1, getDataset().get(i).getCities().entrySet().iterator().next().getValue());
-        }
         plot.addSeries(series);
-        
-        scatterPlot = ChartFactory.createScatterPlot(
-                "Scatter Plot",
-                "placeholder",
-                "number",
-                plot
-        );
         
         chPanel = new ChartPanel(scatterPlot);
         chPanel.setPreferredSize(new Dimension(800,500));
         add(chPanel);
         
         setVisible(true);
+        
+    }
+    
+    @Override
+    public void setDataToDisplay (MyDataset dataset, String groupName) {
+        
+        setDisplayedData(dataset.getDataset().get(groupName));
+        for (int i = 0; i<getDisplayedData().size(); i++) {
+            series.add(i+1, getDisplayedData().get(i).getCities().entrySet().iterator().next().getValue());
+        }
+    
+        scatterPlot = ChartFactory.createScatterPlot(
+                "Scatter Plot",
+                "placeholder",
+                "Number Of People",
+                plot
+        );
         
     }
     

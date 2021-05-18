@@ -1,8 +1,11 @@
 package model;
 
 import util.Category;
+import view.Tool;
 
 import java.util.*;
+
+import static model.DataType.*;
 
 public class JourneyToWork extends MyDataset {
     
@@ -54,17 +57,14 @@ public class JourneyToWork extends MyDataset {
      * Lots and lots of hard code
      */
     @Override
-    public void assignValidGroupCharts () {
+    public void assignValidGroupCharts (Tool[] tools) {
         
-        getValidGroupCharts().put("MAIN_MODE_15_YRS_PLUS_", new HashSet<>());
-        getValidGroupCharts().get("MAIN_MODE_15_YRS_PLUS_").add(DataType.BAR_CHART);
-        getValidGroupCharts().get("MAIN_MODE_15_YRS_PLUS_").add(DataType.PIE_CHART);
+        tools[BAR_CHART.getValue()].getValidGroups().add("MAIN_MODE_15_YRS_PLUS_");
+    
+        tools[PIE_CHART.getValue()].getValidGroups().add("MAIN_MODE_15_YRS_PLUS_");
         
-        getValidGroupCharts().put("TIME_LEAVE_15_YRS_PLUS", new HashSet<>());
-        getValidGroupCharts().get("TIME_LEAVE_15_YRS_PLUS").add(DataType.LINE_CHART);
-        
-        getValidGroupCharts().put("COMMUTE_TIME_15_YRS_PLUS", new HashSet<>());
-        getValidGroupCharts().get("COMMUTE_TIME_15_YRS_PLUS").add(DataType.LINE_CHART);
+        tools[LINE_CHART.getValue()].getValidGroups().add("TIME_LEAVE_15_YRS_PLUS");
+        tools[LINE_CHART.getValue()].getValidGroups().add("COMMUTE_TIME_15_YRS_PLUS");
         
     }
     
