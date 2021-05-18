@@ -55,9 +55,8 @@ public class DensityMapGUI extends Tool {
 
     private JLabel[] mapLabels = new JLabel[9];
 
-    public DensityMapGUI (int x, int y, int width, int height, ArrayList<Category> dataset) {
+    public DensityMapGUI () {
 
-        super(x, y, width, height, dataset);
         setLayout(null);
         setBackground(getBackgroundColour());
 

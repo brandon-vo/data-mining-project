@@ -1,14 +1,13 @@
 package view;
 
 import util.Category;
-import
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class CommuteVsShelterCost extends Tool implements ActionListener {
+public class CommuteVsShelterCostGUI extends Tool implements ActionListener {
     
     private JLabel titleLabel = new JLabel(new ImageIcon("img/shelterCostVsCommonCommuteTypeLabel.png"));
     private JLabel currentDataDisplay = new JLabel("the current city being displayed");
@@ -19,15 +18,12 @@ public class CommuteVsShelterCost extends Tool implements ActionListener {
     private JButton auroraButton = new JButton("Aurora");
     private JButton newMarketButton = new JButton("Newmarket");
     
-    
-    public CommuteVsShelterCost (int x, int y, int width, int height, ArrayList<Category> datasets) {
+    public CommuteVsShelterCostGUI () {
         
-        super(x, y, width, height, datasets);
-        setSize(width, height);
         setLayout(null);
         setBackground(getBackgroundColour());
         
-        markhamButton.setFont(new Font("Tahoma", 15));
+        markhamButton.setFont(new Font("Tahoma",Font.PLAIN, 15));
         vaughnButton.setFont(new Font("Tahoma",Font.PLAIN, 15));
         richmondButton.setFont(new Font("Tahoma",Font.PLAIN, 15));
         auroraButton.setFont(new Font("Tahoma",Font.PLAIN, 15));
@@ -49,7 +45,7 @@ public class CommuteVsShelterCost extends Tool implements ActionListener {
         vaughnButton.setBounds(320, 550, 100, 20);
         richmondButton.setBounds(440, 550, 100, 20);
         auroraButton.setBounds(560, 550, 100, 20);
-        newMarketButton.setBounds();
+        newMarketButton.setBounds(380, 600, 100, 20);
         
         setVisible(true);
     }

@@ -14,12 +14,10 @@ public class TransportationPanel extends JPanel {
 	private JButton vaughanButton = new JButton("VAUGHAN");
 	private JButton richmondHillButton = new JButton("RICHMOND HILL");
 	
-	public TransportationPanel() {
+	public TransportationPanel () {
 		
 		setLayout(null);
 		setBorder(BorderFactory.createLineBorder(Color.black));
-		
-
 		
 		citiesLabel.setBounds(105, 20, 200, 40);
 		add(citiesLabel);

@@ -2,23 +2,15 @@ package view;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 public class MainFrame extends JFrame {
 	
 	public static final int WIDTH = 1366;
 	public static final int HEIGHT = 768;
 	
-	private JButton transportationAndHousingButton = new JButton("TRANSPORTATION AND HOUSING");
-	private JButton densityMapButton = new JButton("DENSITY MAP");
-	private JButton lineChartButton = new JButton("LINE CHART");
-	private JButton scatterPlotButton = new JButton("SCATTER PLOT");
-	private JButton doubleBarButton = new JButton("DOUBLE BAR GRAPH");
 	private JLabel titleLabel = new JLabel(new ImageIcon("img/mainFrameTitleLabel.png"));
 	
+	private final JButton[] buttons;
 	private Tool[] tools;
 	
 	public MainFrame () {
@@ -31,89 +23,48 @@ public class MainFrame extends JFrame {
 
 		titleLabel.setBounds(0, 0, 1366, 768);
 		add(titleLabel);
-
-		transportationAndHousingButton.setBounds(450, 220, 470, 40);
-		transportationAndHousingButton.setBorder(null);
-		transportationAndHousingButton.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		transportationAndHousingButton.setBackground(new Color(145, 172, 219));
-		add(transportationAndHousingButton);
-
-		densityMapButton.setBounds(450, 300, 470, 40);
-		densityMapButton.setBorder(null);
-		densityMapButton.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		densityMapButton.setBackground(new Color(145, 172, 219));
-		add(densityMapButton);
 		
-		// This should be done in the application controller
-		densityMapButton.addActionListener(e->{
+		tools = new Tool[] {
+				new PieChartGUI(),
+				new DensityMapGUI(),
+				new LineChartGUI(),
+				new HousingTrendGUI(),
+				new CommuteVsShelterCostGUI()
+		};
+		
+		buttons = new JButton[5];
+		buttons[0] = new JButton("TRANSPORTATION AND HOUSING");
+		buttons[1] = new JButton("DENSITY MAP");
+		buttons[2] = new JButton("LINE CHART");
+		buttons[3] = new JButton("SCATTER PLOT");
+		buttons[4] = new JButton("DOUBLE BAR GRAPH");
+		
+		for (int i = 0; i<buttons.length; ++i) {
 			
-			getContentPane().removeAll();
-			getContentPane().repaint();
-			add(densityMap);
-			densityMap.setVisible(true);
+			buttons[i].setBounds(450, 220+i*80, 470, 40);
+			buttons[i].setBorder(null);
+			buttons[i].setFont(new Font("Tahoma", Font.PLAIN, 15));
+			buttons[i].setBackground(new Color(145, 172, 219));
+			add(buttons[i]);
 			
-		});
-
-		lineChartButton.setBounds(450, 380, 470, 40);
-		lineChartButton.setBorder(null);
-		lineChartButton.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lineChartButton.setBackground(new Color(145, 172, 219));
-		add(lineChartButton);
-
-		scatterPlotButton.setBounds(450, 460, 470, 40);
-		scatterPlotButton.setBorder(null);
-		scatterPlotButton.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		scatterPlotButton.setBackground(new Color(145, 172, 219));
-		add(scatterPlotButton);
-
-		doubleBarButton.setBounds(450, 540, 470, 40);
-		doubleBarButton.setBorder(null);
-		doubleBarButton.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		doubleBarButton.setBackground(new Color(145, 172, 219));
-		add(doubleBarButton);
+			final int j = i;
+			buttons[i].addActionListener(e->{
+				
+				getContentPane().removeAll();
+				getContentPane().repaint();
+				add(tools[j]);
+				tools[j].setVisible(true);
+				
+			});
+			
+		}
 		
 		setVisible(true);
 		
 	}
-
-	public JButton getTransportationAndHousingButton() {
-		return transportationAndHousingButton;
-	}
-
-	public void setTransportationAndHousingButton(JButton transportationAndHousingButton) {
-		this.transportationAndHousingButton = transportationAndHousingButton;
-	}
-
-	public JButton getDensityMapButton() {
-		return densityMapButton;
-	}
-
-	public void setDensityMapButton(JButton densityMapButton) {
-		this.densityMapButton = densityMapButton;
-	}
-
-	public JButton getLineChartButton() {
-		return lineChartButton;
-	}
-
-	public void setLineChartButton(JButton lineChartButton) {
-		this.lineChartButton = lineChartButton;
-	}
-
-	public JButton getScatterPlotButton() {
-		return scatterPlotButton;
-	}
-
-	public void setScatterPlotButton(JButton scatterPlotButton) {
-		this.scatterPlotButton = scatterPlotButton;
-	}
-
-	public JButton getDoubleBarButton() {
-		return doubleBarButton;
-	}
-
-	public void setDoubleBarButton(JButton doubleBarButton) {
-		this.doubleBarButton = doubleBarButton;
+	
+	public JButton getButton (int index) {
+		return buttons[index];
 	}
 	
 }

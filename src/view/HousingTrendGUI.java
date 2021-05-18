@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.TreeMap;
 
-public class HousingTrendPanel extends Tool {
+public class HousingTrendGUI extends Tool {
     
     private JButton location = new JButton("LOCATION");
     private JButton variable = new JButton("VARIABLE");
@@ -22,9 +22,8 @@ public class HousingTrendPanel extends Tool {
     private XYSeriesCollection plot;
     private XYSeries series;
     
-    public HousingTrendPanel (int x, int y, int width, int height, ArrayList<Category> datasets) {
+    public HousingTrendGUI () {
     
-        super(x, y, width, height, datasets);
         setLayout(null);
         
         setBackground(getBackgroundColour());
@@ -38,8 +37,10 @@ public class HousingTrendPanel extends Tool {
         
         plot = new XYSeriesCollection();
         series = new XYSeries("House");
-        for (int i = 0; i<datasets.size(); i++) {
-            series.add(i+1, datasets.get(i).getCities().entrySet().iterator().next().getValue());
+        
+        // TODO dataset defaults to nothing (unneeded code)
+        for (int i = 0; i<getDataset().size(); i++) {
+            series.add(i+1, getDataset().get(i).getCities().entrySet().iterator().next().getValue());
         }
         plot.addSeries(series);
         
@@ -52,8 +53,9 @@ public class HousingTrendPanel extends Tool {
         
         chPanel = new ChartPanel(scatterPlot);
         chPanel.setPreferredSize(new Dimension(800,500));
-        add
+        add(chPanel);
         
+        setVisible(true);
         
     }
     

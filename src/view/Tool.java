@@ -1,5 +1,7 @@
 package view;
 
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.general.AbstractDataset;
 import org.jfree.data.general.Dataset;
@@ -17,21 +19,21 @@ import java.util.TreeMap;
 
 public abstract class Tool extends JPanel {
     
+    private ArrayList<Category> dataset;
+    
     private static final String BACK_BUTTON_IMAGE_FILE = "img/backButton.png";
     private final JLabel backButton;
     private final Color backgroundColour;
-    private final ArrayList<Category> datasets;
-    private AbstractDataset currentDataset;
     
-    public Tool (int x, int y, int width, int height, ArrayList<Category> datasets) {
+    public Tool () {
         
-        setBounds(x, y, width, height);
-        this.datasets = datasets;
+        setBounds(0, 0, MainFrame.WIDTH, MainFrame.HEIGHT);
+        this.dataset = new ArrayList<>();
+    
         backButton = new JLabel(new ImageIcon(BACK_BUTTON_IMAGE_FILE));
         backgroundColour = new Color(243, 243, 243);
-
         backButton.setBounds(1315, 17, 20, 20);
-
+        
     }
     
     public JLabel getBackButton () {
@@ -42,10 +44,12 @@ public abstract class Tool extends JPanel {
         return backgroundColour;
     }
     
-    public AbstractDataset getCurrentDataset () {
-        return currentDataset;
+    public void setDataset (ArrayList<Category> dataset) {
+        this.dataset = dataset;
     }
     
-    public abstract void setCurrentDataset (int index);
+    public ArrayList<Category> getDataset () {
+        return dataset;
+    }
     
 }
