@@ -16,16 +16,17 @@ public class ApplicationController implements ActionListener, MouseListener {
 
 	// GUI
 	public MainFrame mainFrame;
-	private final Tool[] tools = new Tool[DataType.values().length];
+	private final Tool[] tools = new Tool[DataType.values().length+1];
 	
-	private MyDataset[] datasets;
+	private final MyDataset[] datasets;
 	
 	public ApplicationController() {
 		
 		mainFrame = new MainFrame();
 		
 		// Initialize the tools (must be before importing)
-		tools[PIE_CHART.getValue()] = new PieChartGUI();
+		tools[PIE_CHART.getValue()] = new PieChartUtil();
+		tools[PIE_CHART.getValue()+1] = new PieChartUtil();
 		tools[DENSITY_MAP.getValue()] = new DensityMapGUI();
 		tools[LINE_CHART.getValue()] = new LineChartGUI();
 		tools[SCATTER_CHART.getValue()] = new HousingTrendGUI();
@@ -49,7 +50,7 @@ public class ApplicationController implements ActionListener, MouseListener {
 	
 	public void setUpListeners () {
 		
-		for (int i = 0; i<tools.length; ++i) {
+		for (int i = 0; i<DataType.values().length; ++i) {
 			
 			// Add functionality to the switch frames buttons
 			final int j = i;

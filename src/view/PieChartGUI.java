@@ -1,46 +1,25 @@
 package view;
 
 import model.MyDataset;
-import util.Category;
 
-import java.util.ArrayList;
+import javax.swing.*;
 
 public class PieChartGUI extends Tool {
 
-    private TransportationPanel transportationPanel = new TransportationPanel();
-    private HousingPanel housingPanel = new HousingPanel();
+    private PieChartUtil[] pieCharts;
 
     public PieChartGUI () {
         
-        transportationPanel.setBounds(0, 0, MainFrame.WIDTH, MainFrame.HEIGHT/2);
-        add(transportationPanel);
-
-        housingPanel.setBounds(0, MainFrame.HEIGHT/2, MainFrame.WIDTH,MainFrame.HEIGHT/2);
-        add(housingPanel);
-
-        setVisible(true);
-
-    }
+        pieCharts = new PieChartUtil[2];
+        
+        pieCharts[0] = new PieChartUtil();
+        pieCharts[0].setBounds(0, 0, MainFrame.WIDTH, MainFrame.HEIGHT/2);
+        add(pieCharts[0]);
     
-    @Override
-    public void initializeDataToDisplay (MyDataset dataset, String groupName) {
-    
-    }
-    
-    public TransportationPanel getTransportationPanel () {
-        return transportationPanel;
-    }
-
-    public void setTransportationPanel (TransportationPanel transportationPanel) {
-        this.transportationPanel = transportationPanel;
-    }
-
-    public HousingPanel getHousingPanel () {
-        return housingPanel;
-    }
-
-    public void setHousingPanel (HousingPanel housingPanel) {
-        this.housingPanel = housingPanel;
+        pieCharts[1] = new PieChartUtil();
+        pieCharts[1].setBounds(0, MainFrame.HEIGHT/2, MainFrame.WIDTH,MainFrame.HEIGHT/2);
+        add(pieCharts[1]);
+        
     }
     
 }

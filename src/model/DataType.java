@@ -3,10 +3,10 @@ package model;
 public enum DataType {
     
     PIE_CHART(0, "PIE CHART"),
-    DENSITY_MAP(1, "DENSITY MAP"),
-    LINE_CHART(2, "LINE CHART"),
-    SCATTER_CHART(3, "SCATTER PLOT"),
-    BAR_CHART(4, "DOUBLE BAR GRAPH");
+    DENSITY_MAP(2, "DENSITY MAP"),
+    LINE_CHART(3, "LINE CHART"),
+    SCATTER_CHART(4, "SCATTER PLOT"),
+    BAR_CHART(5, "DOUBLE BAR GRAPH");
     
     private final int value;
     private final String chartDescription;

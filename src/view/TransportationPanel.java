@@ -30,10 +30,9 @@ public class TransportationPanel extends JPanel {
 		chartPanel.setBounds(500, 5, 500, 340);
 		add(chartPanel);
 
-		setVisible(true);
 	}
 
-	private static PieDataset createDataset(){
+	private static PieDataset createDataset () {
 		DefaultPieDataset dataset = new DefaultPieDataset();
 		dataset.setValue("MARKHAM", 50 );
 		dataset.setValue("VAUGHAN", 70);

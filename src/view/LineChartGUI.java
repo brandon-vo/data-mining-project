@@ -106,7 +106,7 @@ public class LineChartGUI extends Tool implements MouseListener {
     public void initializeDataToDisplay (MyDataset dataset, String groupName) {
         
         setDataGroup(dataset.getDataset().get(groupName));
-    
+        
         // Initialize the dataset JComboBox
         ArrayList<String> items = new ArrayList<>();
         items.add(groupName);
@@ -169,6 +169,7 @@ public class LineChartGUI extends Tool implements MouseListener {
                 PlotOrientation.VERTICAL, true, false, false);
         lineChart.setBackgroundPaint(BACKGROUND_COLOUR);
         chartPanel = new ChartPanel(lineChart);
+        chartPanel.addMouseListener(this);
         add(chartPanel);
     
     }
@@ -181,7 +182,7 @@ public class LineChartGUI extends Tool implements MouseListener {
     
     @Override
     public void mouseClicked (MouseEvent e) {
-        // TODO
+        System.out.println("hi");
     }
     
     @Override

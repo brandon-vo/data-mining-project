@@ -30,6 +30,7 @@ public class HousingTrendGUI extends Tool implements ItemListener {
         put("NO", 0);
     }};
     
+    private JLabel housingTrendTitle = new JLabel("img/title/housingTrendTitle.png");
     private JLabel selectLocation = new JLabel("Select Location");
     private JLabel selectVariable = new JLabel("Select Variable");
     private JComboBox location;
@@ -39,10 +40,10 @@ public class HousingTrendGUI extends Tool implements ItemListener {
     private XYSeriesCollection displayedData;
     
     public HousingTrendGUI () {
-    
-        setLayout(null);
-        add(getBackButton());
-
+        
+        housingTrendTitle.setBounds(0,0,100,50);
+        add(housingTrendTitle);
+        
         selectLocation.setBounds(200,100,100,50);
         add(selectLocation);
         String locationName[]={"Vaughan","Richmond Hill","Markham","East Gwillimbury","Newmarket","Georgina","King"};

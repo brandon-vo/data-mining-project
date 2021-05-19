@@ -29,9 +29,7 @@ public class HousingPanel extends JPanel {
 
 		chartPanel.setBounds(500, 5, 500, 340);
 		add(chartPanel);
-
-		setVisible(true);
-
+		
 	}
 
 	private static PieDataset createDataset(){
