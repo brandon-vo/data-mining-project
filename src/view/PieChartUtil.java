@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.Color;
+import java.util.ArrayList;
 
 import model.MyDataset;
 import model.ProfileOfHousing;
@@ -17,28 +18,33 @@ import javax.swing.JPanel;
 
 public class PieChartUtil extends JPanel {
     
-    private JButton cityButton = new JButton("SELECT CITY");
+    private final JButton cityButton = new JButton("SELECT CITY");
     
+    private ArrayList<Category> dataGroup;
     private DefaultPieDataset<String> displayedData;
     
-    public PieChartUtil (int x, int y, int width, int height) {
+    public PieChartUtil (int chartNum) {
+        
+        setLayout(null);
         
         setBorder(BorderFactory.createLineBorder(Color.black));
-        
-        cityButton.setBounds();
+        cityButton.setBounds(50, MainFrame.HEIGHT/4-25, 200, 50);
         add(cityButton);
         
     }
     
-    @Override
     public void initializeDataToDisplay (MyDataset dataset, String groupName) {
+        
+        // Copy the given group into the dataGroup field
+        dataGroup = new ArrayList<>(dataset.getDataset().get(groupName));
     
         displayedData = createDataset(MyDataset.getCities()[0]);
         JFreeChart chart = ChartFactory.createPieChart(groupName, displayedData,
                 true, false, false);
-        chart.setBackgroundPaint(BACKGROUND_COLOUR);
+        chart.setBackgroundPaint(Tool.BACKGROUND_COLOUR);
+        
         ChartPanel chartPanel = new ChartPanel(chart);
-        chartPanel.setBounds(500, 5, 500, 340);
+        chartPanel.setBounds(500, 25, 500, MainFrame.HEIGHT/2-100);
         add(chartPanel);
         
     }
@@ -47,12 +53,12 @@ public class PieChartUtil extends JPanel {
         
         // Get the total people
         double totalPeople = 0;
-        for (Category category: getDataGroup()) {
+        for (Category category: dataGroup) {
             totalPeople += category.getCities().get(city);
         }
     
         displayedData = new DefaultPieDataset<>();
-        for (Category category: getDataGroup()) {
+        for (Category category: dataGroup) {
             displayedData.setValue(category.getCategoryName(),
                     category.getCities().get(city)/totalPeople);
         }
@@ -63,10 +69,6 @@ public class PieChartUtil extends JPanel {
     
     public JButton getCityButton() {
         return cityButton;
-    }
-    
-    public void setCityButton(JButton cityButton) {
-        this.cityButton = cityButton;
     }
     
 }

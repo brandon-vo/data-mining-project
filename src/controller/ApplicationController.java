@@ -16,7 +16,7 @@ public class ApplicationController implements ActionListener, MouseListener {
 
 	// GUI
 	public MainFrame mainFrame;
-	private final Tool[] tools = new Tool[DataType.values().length+1];
+	private final Tool[] tools = new Tool[DataType.values().length];
 	
 	private final MyDataset[] datasets;
 	
@@ -25,8 +25,7 @@ public class ApplicationController implements ActionListener, MouseListener {
 		mainFrame = new MainFrame();
 		
 		// Initialize the tools (must be before importing)
-		tools[PIE_CHART.getValue()] = new PieChartUtil();
-		tools[PIE_CHART.getValue()+1] = new PieChartUtil();
+		tools[PIE_CHART.getValue()] = new PieChartGUI();
 		tools[DENSITY_MAP.getValue()] = new DensityMapGUI();
 		tools[LINE_CHART.getValue()] = new LineChartGUI();
 		tools[SCATTER_CHART.getValue()] = new HousingTrendGUI();
@@ -55,14 +54,19 @@ public class ApplicationController implements ActionListener, MouseListener {
 			// Add functionality to the switch frames buttons
 			final int j = i;
 			mainFrame.getMenuPanel().getButton(i).addActionListener(e->{
+				
 				switchFrame(tools[j]);
-				if (!tools[j].getValidGroups(0).isEmpty()) {
+				if (tools[j]==tools[PIE_CHART.getValue()]) {
+					PieChartGUI pieChartGUI = (PieChartGUI) tools[j];
+					pieChartGUI.initializeDataToDisplay(datasets);
+				} else if (!tools[j].getValidGroups(0).isEmpty()) {
 					tools[j].initializeDataToDisplay(datasets[0],
 							tools[j].getValidGroups(0).get(0));
 				} else {
 					tools[j].initializeDataToDisplay(datasets[1],
 							tools[j].getValidGroups(1).get(0));
 				}
+				
 			});
 			
 			// Add functionality to the back buttons

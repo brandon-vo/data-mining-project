@@ -11,15 +11,22 @@ public class PieChartGUI extends Tool {
     public PieChartGUI () {
         
         pieCharts = new PieChartUtil[2];
+        for (int i = 0; i<pieCharts.length; ++i) {
+            pieCharts[i] = new PieChartUtil(i);
+            pieCharts[i].setBounds(0, i*MainFrame.HEIGHT/2, MainFrame.WIDTH, MainFrame.HEIGHT/2);
+            add(pieCharts[i]);
+        }
         
-        pieCharts[0] = new PieChartUtil();
-        pieCharts[0].setBounds(0, 0, MainFrame.WIDTH, MainFrame.HEIGHT/2);
-        add(pieCharts[0]);
+    }
     
-        pieCharts[1] = new PieChartUtil();
-        pieCharts[1].setBounds(0, MainFrame.HEIGHT/2, MainFrame.WIDTH,MainFrame.HEIGHT/2);
-        add(pieCharts[1]);
-        
+    // Ignore the method
+    @Override
+    public void initializeDataToDisplay (MyDataset dataset, String groupName) {
+    }
+    
+    public void initializeDataToDisplay (MyDataset[] dataset) {
+        pieCharts[0].initializeDataToDisplay(dataset[0], getValidGroups(0).get(0));
+        pieCharts[1].initializeDataToDisplay(dataset[1], getValidGroups(1).get(0));
     }
     
 }
