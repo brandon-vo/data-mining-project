@@ -1,67 +1,50 @@
 package view;
 
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.data.general.DefaultPieDataset;
+import org.jfree.data.general.PieDataset;
+
 import java.awt.Color;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class TransportationPanel extends JPanel {
-	
-	private JLabel citiesLabel = new JLabel("CITIES");
-	private JButton markhamButton = new JButton("MARKHAM");
-	private JButton vaughanButton = new JButton("VAUGHAN");
-	private JButton richmondHillButton = new JButton("RICHMOND HILL");
-	
+
+	private JButton cityButton = new JButton("SELECT CITY");
+
 	public TransportationPanel () {
-		
+
 		setBorder(BorderFactory.createLineBorder(Color.black));
-		
-		citiesLabel.setBounds(105, 20, 200, 40);
-		add(citiesLabel);
-		
-		markhamButton.setBounds(20, 80, 200, 40);
-		add(markhamButton);
-		
-		vaughanButton.setBounds(20, 140, 200, 40);
-		add(vaughanButton);
-		
-		richmondHillButton.setBounds(20, 200, 200, 40);
-		add(richmondHillButton);
+
+		cityButton.setBounds(50, 60, 200, 200);
+		add(cityButton);
+
+		PieDataset dataset = createDataset();
+		JFreeChart chart = ChartFactory.createPieChart("Types of transportation", dataset, true, true, false);
+		ChartPanel chartPanel = new ChartPanel(chart);
+
+		chartPanel.setBounds(500, 5, 500, 340);
+		add(chartPanel);
+
+		setVisible(true);
 	}
 
-	public JLabel getCitiesLabel() {
-		return citiesLabel;
+	private static PieDataset createDataset(){
+		DefaultPieDataset dataset = new DefaultPieDataset();
+		dataset.setValue("MARKHAM", 50 );
+		dataset.setValue("VAUGHAN", 70);
+		return dataset;
 	}
 
-	public void setCitiesLabel(JLabel citiesLabel) {
-		this.citiesLabel = citiesLabel;
+	public JButton getCityButton() {
+		return cityButton;
 	}
 
-	public JButton getMarkhamButton() {
-		return markhamButton;
+	public void setCityButton(JButton cityButton) {
+		this.cityButton = cityButton;
 	}
-
-	public void setMarkhamButton(JButton markhamButton) {
-		this.markhamButton = markhamButton;
-	}
-
-	public JButton getVaughanButton() {
-		return vaughanButton;
-	}
-
-	public void setVaughanButton(JButton vaughanButton) {
-		this.vaughanButton = vaughanButton;
-	}
-
-	public JButton getRichmondHillButton() {
-		return richmondHillButton;
-	}
-
-	public void setRichmondHillButton(JButton richmondHillButton) {
-		this.richmondHillButton = richmondHillButton;
-	}
-
-
 }
