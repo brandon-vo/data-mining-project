@@ -55,11 +55,6 @@ public class DensityMapGUI extends Tool {
     
     public DensityMapGUI () {
         
-        setLayout(null);
-        setBackground(BACKGROUND_COLOUR);
-        
-        add(getBackButton());
-        
         densityMapTitleLabel.setBounds(0, 0, MainFrame.WIDTH, MainFrame.HEIGHT);
         add(densityMapTitleLabel);
 
@@ -71,7 +66,7 @@ public class DensityMapGUI extends Tool {
         submitButton.setBounds(1065, 400, 125, 50);
         submitButton.setBorder(null);
         submitButton.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        submitButton.setBackground(new Color(145, 172, 219));
+        submitButton.setBackground(BUTTON_COLOUR);
         add(submitButton);
         
         auroraLabel.setBounds(285, 415, 100, 100);
@@ -101,12 +96,12 @@ public class DensityMapGUI extends Tool {
         vaughanLabel.setBounds(200, 580, 100, 100);
         add(vaughanLabel);
         
-        userPanel.setBounds(0, 0, 1366, 768);
+        userPanel.setBounds(0, 0, MainFrame.WIDTH, MainFrame.HEIGHT);
         add(userPanel);
         
         dataList.setBounds(35, 130, 240, 25);
         dataList.setFont(new Font("Tahoma", Font.PLAIN, 12));
-        dataList.setForeground(new Color(18, 71, 115));
+        dataList.setBackground(COMBO_BOX_COLOUR);
         add(dataList);
         
         try {
@@ -125,8 +120,6 @@ public class DensityMapGUI extends Tool {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        
-        setVisible(true);
         
     }
     

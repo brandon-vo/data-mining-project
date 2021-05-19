@@ -10,6 +10,9 @@ import java.util.ArrayList;
 public abstract class Tool extends JPanel {
     
     public static final Color BACKGROUND_COLOUR = new Color(243, 243, 243);
+    public static final Color BUTTON_COLOUR = new Color(145, 172, 219);
+    public static final Color COMBO_BOX_COLOUR = new Color(183, 183, 183);
+    
     private static final String BACK_BUTTON_IMAGE_FILE = "img/backButton.png";
     
     private final ArrayList<String>[] validGroups;
@@ -19,6 +22,7 @@ public abstract class Tool extends JPanel {
     
     public Tool () {
     
+        setLayout(null);
         setBounds(0, 0, MainFrame.WIDTH, MainFrame.HEIGHT);
         setBackground(BACKGROUND_COLOUR);
         validGroups = new ArrayList[2];
@@ -28,6 +32,7 @@ public abstract class Tool extends JPanel {
     
         backButton = new JButton(new ImageIcon(BACK_BUTTON_IMAGE_FILE));
         backButton.setBounds(1315, 17, 20, 20);
+        add(backButton);
         
     }
     

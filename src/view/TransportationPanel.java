@@ -16,7 +16,6 @@ public class TransportationPanel extends JPanel {
 	
 	public TransportationPanel () {
 		
-		setLayout(null);
 		setBorder(BorderFactory.createLineBorder(Color.black));
 		
 		citiesLabel.setBounds(105, 20, 200, 40);

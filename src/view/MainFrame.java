@@ -9,7 +9,7 @@ public class MainFrame extends JFrame {
 	public static final int HEIGHT = 768;
 	
 	private final MenuPanel menuPanel;
-	
+
 	public MainFrame () {
 		
 		setTitle("DATA MINING PROJECT - FELIX DANIEL BRANDON SEAN STEVEN");
