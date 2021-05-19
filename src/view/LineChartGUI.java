@@ -1,6 +1,11 @@
 package view;
 
 import model.MyDataset;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
 import util.Category;
 
 import javax.swing.*;
@@ -8,10 +13,21 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Map;
+
+import static javax.swing.text.html.CSS.Attribute.PADDING;
 
 public class LineChartGUI extends Tool implements MouseListener {
     
+    private static final int MAX_CITIES = 5;
     private static final String LINE_CHART_TITLE_FILE = "./img/titles/lineChartTitle.png";
+    
+    private static final Font FONT = new Font("Tahoma", Font.PLAIN, 17);
+    private static final int PADDING = 30;
+    private static final int USER_INPUT_X = MainFrame.WIDTH*3/4;
+    private static final int USER_INPUT_WIDTH = MainFrame.WIDTH/4-PADDING*2;
+    private static final int USER_INPUT_HEIGHT = PADDING*2;
     
     private JLabel lineChartTitleLabel;
     private JLabel datasetLabel;
@@ -23,17 +39,16 @@ public class LineChartGUI extends Tool implements MouseListener {
     
     private JButton selectVisibleCities;
     
+    // JFreeChart
+    private DefaultCategoryDataset displayedData;
+    private JFreeChart chart;
+    private ChartPanel chartPanel;
+    
     public LineChartGUI () {
     
         lineChartTitleLabel = new JLabel(new ImageIcon(LINE_CHART_TITLE_FILE));
         lineChartTitleLabel.setBounds(0, 0, MainFrame.WIDTH, MainFrame.HEIGHT);
         add(lineChartTitleLabel);
-        
-        final Font FONT = new Font("Tahoma", Font.PLAIN, 17);
-        final int PADDING = 30;
-        final int USER_INPUT_X = MainFrame.WIDTH*3/4;
-        final int USER_INPUT_WIDTH = MainFrame.WIDTH/4-PADDING*2;
-        final int USER_INPUT_HEIGHT = PADDING*2;
         
         int currentHeight = PADDING*4;
         
@@ -86,12 +101,14 @@ public class LineChartGUI extends Tool implements MouseListener {
         selectVisibleCities.setBackground(BUTTON_COLOUR);
         add(selectVisibleCities);
         
+        displayedData = new DefaultCategoryDataset();
+        
     }
     
     @Override
     public void setDataToDisplay (MyDataset dataset, String groupName) {
         
-        setDisplayedData(dataset.getDataset().get(groupName));
+        setDataGroup(dataset.getDataset().get(groupName));
     
         // Initialize the dataset JComboBox
         ArrayList<String> items = new ArrayList<>();
@@ -106,8 +123,8 @@ public class LineChartGUI extends Tool implements MouseListener {
         
         // Initialize the bounds JComboBoxes
         items.clear();
-        for (int i = 0; i<getDisplayedData().size(); ++i) {
-            items.add(getDisplayedData().get(i).getCategoryName());
+        for (int i = 0; i<getDataGroup().size(); ++i) {
+            items.add(getDataGroup().get(i).getCategoryName());
         }
         middleMan = new String[items.size()];
         items.toArray(middleMan);
@@ -121,6 +138,47 @@ public class LineChartGUI extends Tool implements MouseListener {
         }
         items.toArray(middleMan);
         bounds[1].setModel(new DefaultComboBoxModel<>(middleMan));
+        
+        items.clear();
+        middleMan = MyDataset.getCities();
+        items.addAll(Arrays.asList(middleMan).subList(0, MAX_CITIES));
+        createDisplayedData(items);
+        
+        createChart(groupName);
+        chartPanel.setBounds(PADDING, PADDING*4, USER_INPUT_X-PADDING*2, MainFrame.HEIGHT-PADDING*7);
+        
+    }
+    
+    public void createDisplayedData (ArrayList<String> displayableCities) {
+    
+        displayedData.clear();
+        
+        // Create the city lines
+        for (Category category: getDataGroup()) {
+            for (String city: displayableCities) {
+                displayedData.addValue(category.getCities().get(city), city, category.getCategoryName());
+            }
+        }
+    
+    }
+    
+    public void createChart (String groupName) {
+    
+        String chartTitle = "Number of People vs "+groupName;
+        String categoryAxisLabel = groupName;
+        String valueAxisLabel = "Number of People";
+    
+        chart = ChartFactory.createLineChart(chartTitle, categoryAxisLabel, valueAxisLabel, displayedData,
+                PlotOrientation.VERTICAL, true, false, false);
+        chartPanel = new ChartPanel(chart);
+        chartPanel.setBackground(BACKGROUND_COLOUR);
+        add(chartPanel);
+    
+    }
+    
+    public void updateChart () {
+        
+        // TODO
         
     }
     

@@ -47,9 +47,9 @@ public class HousingTrendGUI extends Tool {
     @Override
     public void setDataToDisplay (MyDataset dataset, String groupName) {
         
-        setDisplayedData(dataset.getDataset().get(groupName));
-        for (int i = 0; i<getDisplayedData().size(); i++) {
-            series.add(i+1, getDisplayedData().get(i).getCities().entrySet().iterator().next().getValue());
+        setDataGroup(dataset.getDataset().get(groupName));
+        for (int i = 0; i<getDataGroup().size(); i++) {
+            series.add(i+1, getDataGroup().get(i).getCities().entrySet().iterator().next().getValue());
         }
     
         scatterPlot = ChartFactory.createScatterPlot(

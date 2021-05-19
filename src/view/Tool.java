@@ -16,7 +16,7 @@ public abstract class Tool extends JPanel {
     private static final String BACK_BUTTON_IMAGE_FILE = "img/backButton.png";
     
     private final ArrayList<String>[] validGroups;
-    private final ArrayList<Category> displayedData;
+    private final ArrayList<Category> dataGroup;
     
     private final JButton backButton;
     
@@ -28,7 +28,7 @@ public abstract class Tool extends JPanel {
         validGroups = new ArrayList[2];
         validGroups[0] = new ArrayList<>();
         validGroups[1] = new ArrayList<>();
-        displayedData = new ArrayList<>();
+        dataGroup = new ArrayList<>();
     
         backButton = new JButton(new ImageIcon(BACK_BUTTON_IMAGE_FILE));
         backButton.setBounds(1315, 17, 20, 20);
@@ -44,13 +44,13 @@ public abstract class Tool extends JPanel {
         return validGroups[dataset];
     }
     
-    public ArrayList<Category> getDisplayedData () {
-        return displayedData;
+    public ArrayList<Category> getDataGroup () {
+        return dataGroup;
     }
     
-    public void setDisplayedData (ArrayList<Category> displayedData) {
-        this.displayedData.clear();
-        this.displayedData.addAll(displayedData);
+    public void setDataGroup (ArrayList<Category> dataGroup) {
+        this.dataGroup.clear();
+        this.dataGroup.addAll(dataGroup);
     }
     
     /**

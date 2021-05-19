@@ -101,7 +101,9 @@ public abstract class MyDataset {
     }
     
     public static String[] getCities () {
-        return (String[]) cityCount.keySet().toArray();
+        String[] cities = new String[cityCount.size()];
+        cityCount.keySet().toArray(cities);
+        return cities;
     }
     
     public HashSet<String> getCities (ArrayList<ArrayList<String>> dataset) {
