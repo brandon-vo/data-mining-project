@@ -24,6 +24,8 @@ public class DensityMapGUI extends Tool {
             "Household Renters" };
     private JComboBox dataList = new JComboBox<>(dataOptions);
     private JButton submitButton = new JButton("SUBMIT");
+    private JTextArea userResults = new JTextArea();
+
     private JLabel auroraLabel = new JLabel(new ImageIcon("img/densityMap/map/labels/auroraLabel.png"));
     private JLabel eastGwillimburyLabel = new JLabel(new ImageIcon("img/densityMap/map/labels/eastGwillimburyLabel.png"));
     private JLabel georginaLabel = new JLabel(new ImageIcon("img/densityMap/map/labels/georginaLabel.png"));
@@ -49,7 +51,6 @@ public class DensityMapGUI extends Tool {
     
     private String[] mapNames = { "aurora", "eastGwillimbury", "georgina", "king", "markham",
             "newmarket", "richmondHill", "stouffville", "vaughan" };
-    
     private JLabel[] mapLabels = new JLabel[9];
     
     public DensityMapGUI () {
@@ -59,9 +60,14 @@ public class DensityMapGUI extends Tool {
         
         add(getBackButton());
         
-        densityMapTitleLabel.setBounds(0, 0, WIDTH, HEIGHT);
+        densityMapTitleLabel.setBounds(0, 0, MainFrame.WIDTH, MainFrame.HEIGHT);
         add(densityMapTitleLabel);
-        
+
+        userResults.setBounds(950, 470, 350, 200);
+        userResults.setEditable(false);
+        userResults.setText("Please input your data to compare your results!");
+        add(userResults);
+
         submitButton.setBounds(1065, 400, 125, 50);
         submitButton.setBorder(null);
         submitButton.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -112,7 +118,7 @@ public class DensityMapGUI extends Tool {
                                 new RedBlueSwapFilter()));
                 
                 mapLabels[cityMap] = new JLabel(new ImageIcon(newColouredMap));
-                mapLabels[cityMap].setBounds(0, 0, WIDTH, HEIGHT);
+                mapLabels[cityMap].setBounds(0, 0, MainFrame.WIDTH, MainFrame.HEIGHT);
                 add(mapLabels[cityMap]);
             }
             
@@ -133,8 +139,13 @@ public class DensityMapGUI extends Tool {
         public int filterRGB (int x, int y, int rgb) {
             return ((rgb&0xFFE5E7E9));
             // 0xFFE5E7E9 grey
-            // 0xff00ff00
-            //0xFF005CB2
+            // 0xFFE2F1FC
+            // 0xFFBBDEFB
+            // 0xFF90CAF9
+            // 0xFF64B5F6
+            // 0xFF1E88E5
+            // 0xFF1565C0
+
         }
     }
     
