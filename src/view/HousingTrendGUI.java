@@ -9,35 +9,48 @@ import org.jfree.data.xy.XYSeriesCollection;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 
-public class HousingTrendGUI extends Tool {
+public class HousingTrendGUI extends Tool implements ItemListener {
     
-    private JButton location = new JButton("LOCATION");
-    private JButton variable = new JButton("VARIABLE");
+    private JLabel selectLocation = new JLabel("Select Location");
+    private JLabel selectVariable = new JLabel("Select Variable");
+    private JComboBox location;
+    private JComboBox variable;
     private ChartPanel chPanel;
-    private JFreeChart scatterPlot; // TODO not initialized
+    private JFreeChart scatterPlot;
     private XYSeriesCollection plot;
     private XYSeries series;
     
     public HousingTrendGUI () {
     
         setLayout(null);
-        
         add(getBackButton());
-        
-        location.setBounds(200,100,100,100);
+
+        selectLocation.setBounds(200,100,100,50);
+        add(selectLocation);
+        String locationName[]={"Vaughan","Richmond Hill","Markham","East Gwillimbury","Newmarket","Georgina","King"};
+        location= new JComboBox(locationName);
+        location.addItemListener(this::itemStateChanged);
+        location.setBounds(200,200,100,100);
         add(location);
-        
-        variable.setBounds(200,400,100,100);
+
+        selectVariable.setBounds(200,400,100,50);
+        add(selectVariable);
+        String variableName[]={"room","bed","maintainer"};
+        variable= new JComboBox(variableName);
+        variable.addItemListener(this::itemStateChanged);
+        variable.setBounds(200,500,100,100);
         add(variable);
         
         plot = new XYSeriesCollection();
         series = new XYSeries("House");
         
         plot.addSeries(series);
-        
+
         chPanel = new ChartPanel(scatterPlot);
-        chPanel.setPreferredSize(new Dimension(800,500));
+        chPanel.setBounds(450,100,800,500);
         add(chPanel);
         
         setVisible(true);
@@ -60,5 +73,9 @@ public class HousingTrendGUI extends Tool {
         );
         
     }
-    
+
+    @Override
+    public void itemStateChanged(ItemEvent e) {
+
+    }
 }
