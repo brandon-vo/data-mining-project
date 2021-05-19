@@ -6,22 +6,37 @@ import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
+import util.Category;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.HashMap;
+import java.util.Map;
 
 public class HousingTrendGUI extends Tool implements ItemListener {
+    
+    private static final HashMap<String, Integer> stringToInteger = new HashMap<>() {{
+        put("ONE", 1);
+        put("TWO", 2);
+        put("THREE", 3);
+        put("FOUR", 4);
+        put("FIVE", 5);
+        put("SIX", 6);
+        put("SEVEN", 7);
+        put("EIGHT", 8);
+        put("NINE", 9);
+        put("ZERO", 0);
+        put("NO", 0);
+    }};
     
     private JLabel selectLocation = new JLabel("Select Location");
     private JLabel selectVariable = new JLabel("Select Variable");
     private JComboBox location;
     private JComboBox variable;
-    private ChartPanel chPanel;
-    private JFreeChart scatterPlot;
-    private XYSeriesCollection plot;
-    private XYSeries series;
+    private ChartPanel chartPanel;
+    private JFreeChart scatterPlotChart;
+    private XYSeriesCollection displayedData;
     
     public HousingTrendGUI () {
     
@@ -44,14 +59,7 @@ public class HousingTrendGUI extends Tool implements ItemListener {
         variable.setBounds(200,500,100,100);
         add(variable);
         
-        plot = new XYSeriesCollection();
-        series = new XYSeries("House");
-        
-        plot.addSeries(series);
-
-        chPanel = new ChartPanel(scatterPlot);
-        chPanel.setBounds(450,100,800,500);
-        add(chPanel);
+        displayedData = new XYSeriesCollection();
         
         setVisible(true);
         
@@ -61,16 +69,38 @@ public class HousingTrendGUI extends Tool implements ItemListener {
     public void setDataToDisplay (MyDataset dataset, String groupName) {
         
         setDataGroup(dataset.getDataset().get(groupName));
-        for (int i = 0; i<getDataGroup().size(); i++) {
-            series.add(i+1, getDataGroup().get(i).getCities().entrySet().iterator().next().getValue());
-        }
+        createDisplayedData(MyDataset.getCities()[0]);
     
-        scatterPlot = ChartFactory.createScatterPlot(
-                "Scatter Plot",
-                "placeholder",
+        scatterPlotChart = ChartFactory.createScatterPlot(
+                "Number of People vs "+groupName,
+                groupName,
                 "Number Of People",
-                plot
+                displayedData
         );
+        scatterPlotChart.setBackgroundPaint(BACKGROUND_COLOUR);
+        chartPanel = new ChartPanel(scatterPlotChart);
+        chartPanel.setBounds(300, 100, MainFrame.WIDTH/2, MainFrame.HEIGHT/2);
+        add(chartPanel);
+        
+    }
+    
+    public void createDisplayedData (String cityName) {
+        
+        // TODO clear any data from before
+        XYSeries city = new XYSeries(cityName);
+        
+        for (Category category: getDataGroup()) {
+        
+            // TODO resolve 1-4 since there are 2 numbers there
+            for (Map.Entry<String, Integer> identifiers: stringToInteger.entrySet()) {
+                if (category.getCategoryName().contains(identifiers.getKey())) {
+                    city.add(identifiers.getValue(), category.getCities().get(cityName));
+                    break;
+                }
+            }
+            
+        }
+        displayedData.addSeries(city);
         
     }
 

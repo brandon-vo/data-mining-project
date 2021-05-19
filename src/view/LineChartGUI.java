@@ -2,7 +2,6 @@ package view;
 
 import model.MyDataset;
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartFrame;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
@@ -15,10 +14,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Map;
-
-import static javax.swing.text.html.CSS.Attribute.BACKGROUND;
-import static javax.swing.text.html.CSS.Attribute.PADDING;
 
 public class LineChartGUI extends Tool implements MouseListener {
     
@@ -43,7 +38,7 @@ public class LineChartGUI extends Tool implements MouseListener {
     
     // JFreeChart
     private DefaultCategoryDataset displayedData;
-    private JFreeChart chart;
+    private JFreeChart lineChart;
     private ChartPanel chartPanel;
     
     public LineChartGUI () {
@@ -170,10 +165,10 @@ public class LineChartGUI extends Tool implements MouseListener {
         String categoryAxisLabel = groupName;
         String valueAxisLabel = "Number of People";
     
-        chart = ChartFactory.createLineChart(chartTitle, categoryAxisLabel, valueAxisLabel, displayedData,
+        lineChart = ChartFactory.createLineChart(chartTitle, categoryAxisLabel, valueAxisLabel, displayedData,
                 PlotOrientation.VERTICAL, true, false, false);
-        chart.setBackgroundPaint(BACKGROUND_COLOUR);
-        chartPanel = new ChartPanel(chart);
+        lineChart.setBackgroundPaint(BACKGROUND_COLOUR);
+        chartPanel = new ChartPanel(lineChart);
         add(chartPanel);
     
     }
