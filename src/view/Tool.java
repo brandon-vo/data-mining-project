@@ -57,6 +57,6 @@ public abstract class Tool extends JPanel {
      * Function to set the data that will be displayed on the screen
      * @param dataset = where the data will be taken from
      */
-    public abstract void setDataToDisplay (MyDataset dataset, String groupName);
+    public abstract void initializeDataToDisplay (MyDataset dataset, String groupName);
     
 }

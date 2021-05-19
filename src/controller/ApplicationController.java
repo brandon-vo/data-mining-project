@@ -1,9 +1,7 @@
 package controller;
 
 import model.DataType;
-import model.JourneyToWork;
 import model.MyDataset;
-import model.ProfileOfHousing;
 import view.*;
 
 import javax.swing.*;
@@ -58,10 +56,10 @@ public class ApplicationController implements ActionListener, MouseListener {
 			mainFrame.getMenuPanel().getButton(i).addActionListener(e->{
 				switchFrame(tools[j]);
 				if (!tools[j].getValidGroups(0).isEmpty()) {
-					tools[j].setDataToDisplay(datasets[0],
+					tools[j].initializeDataToDisplay(datasets[0],
 							tools[j].getValidGroups(0).get(0));
 				} else {
-					tools[j].setDataToDisplay(datasets[1],
+					tools[j].initializeDataToDisplay(datasets[1],
 							tools[j].getValidGroups(1).get(0));
 				}
 			});

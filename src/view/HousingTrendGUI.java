@@ -66,7 +66,7 @@ public class HousingTrendGUI extends Tool implements ItemListener {
     }
     
     @Override
-    public void setDataToDisplay (MyDataset dataset, String groupName) {
+    public void initializeDataToDisplay (MyDataset dataset, String groupName) {
         
         setDataGroup(dataset.getDataset().get(groupName));
         createDisplayedData(MyDataset.getCities()[0]);

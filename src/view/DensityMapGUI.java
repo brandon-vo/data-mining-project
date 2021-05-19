@@ -167,7 +167,7 @@ public class DensityMapGUI extends Tool {
     }
 
     @Override
-    public void setDataToDisplay (MyDataset dataset, String groupName) {
+    public void initializeDataToDisplay (MyDataset dataset, String groupName) {
         // TODO
     }
 

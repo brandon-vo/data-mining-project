@@ -103,7 +103,7 @@ public class LineChartGUI extends Tool implements MouseListener {
     }
     
     @Override
-    public void setDataToDisplay (MyDataset dataset, String groupName) {
+    public void initializeDataToDisplay (MyDataset dataset, String groupName) {
         
         setDataGroup(dataset.getDataset().get(groupName));
     

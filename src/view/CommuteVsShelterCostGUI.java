@@ -52,7 +52,7 @@ public class CommuteVsShelterCostGUI extends Tool implements ActionListener {
     }
     
     @Override
-    public void setDataToDisplay (MyDataset dataset, String groupName) {
+    public void initializeDataToDisplay (MyDataset dataset, String groupName) {
         // TODO since this requires two groups at once, the first
         //  you need another displayedData field
     }
