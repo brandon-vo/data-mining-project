@@ -36,8 +36,8 @@ public class HousingPanel extends JPanel {
 
 	private static PieDataset createDataset(){
 		DefaultPieDataset dataset = new DefaultPieDataset();
-		dataset.setValue("MARKHAM", 50 );
-		dataset.setValue("VAUGHAN", 70);
+		dataset.setValue("Condo", 50 );
+		dataset.setValue("Not Condo", 70);
 		return dataset;
 	}
 
