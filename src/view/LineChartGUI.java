@@ -104,8 +104,8 @@ public class LineChartGUI extends Tool {
         return selectDatasetBox;
     }
     
-    public JComboBox<String>[] getChartBounds () {
-        return chartBounds;
+    public JComboBox<String> getChartBounds (int index) {
+        return chartBounds[index];
     }
     
     public JButton getSelectVisibleCities () {
@@ -194,12 +194,6 @@ public class LineChartGUI extends Tool {
         chartPanel = new ChartPanel(lineChart);
         add(chartPanel);
     
-    }
-    
-    public void updateChart () {
-        
-        // TODO
-        
     }
     
 }

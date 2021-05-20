@@ -1,5 +1,7 @@
 package controller;
 
+import org.jfree.data.general.DatasetChangeEvent;
+import org.jfree.data.general.DatasetChangeListener;
 import view.LineChartGUI;
 
 import java.awt.event.ActionEvent;
@@ -7,7 +9,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-public class LineChartController implements ActionListener, MouseListener {
+public class LineChartController implements ActionListener, MouseListener, DatasetChangeListener {
     
     private LineChartGUI gui;
     
@@ -21,7 +23,10 @@ public class LineChartController implements ActionListener, MouseListener {
     public void setUpListeners () {
         
         gui.getSelectDatasetBox().addActionListener(this);
-//        gui.get
+        gui.getChartBounds(0).addActionListener(this);
+        gui.getChartBounds(1).addActionListener(this);
+        gui.getSelectVisibleCities().addActionListener(this);
+        gui.getDisplayedData().addChangeListener(this);
         
     }
     
@@ -52,6 +57,11 @@ public class LineChartController implements ActionListener, MouseListener {
     
     @Override
     public void mouseExited (MouseEvent e) {
+    
+    }
+    
+    @Override
+    public void datasetChanged (DatasetChangeEvent datasetChangeEvent) {
     
     }
     
