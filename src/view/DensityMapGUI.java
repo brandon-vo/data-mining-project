@@ -90,11 +90,11 @@ public class DensityMapGUI extends Tool {
         submitButton.setBorder(null);
         submitButton.setFont(new Font("Tahoma", Font.PLAIN, 15));
         submitButton.setBackground(BUTTON_COLOUR);
-        //submitButton.setEnabled(false);
+        submitButton.setEnabled(false);
         add(submitButton);
         
         // City labels
-        auroraLabel.setBounds(285, 415, 100, 100);
+        auroraLabel.setBounds(285, 440, 100, 50);
         add(auroraLabel);
         
         eastGwillimburyLabel.setBounds(315, 280, 100, 100);
