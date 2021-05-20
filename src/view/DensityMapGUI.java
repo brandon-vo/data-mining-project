@@ -36,7 +36,7 @@ public class DensityMapGUI extends Tool {
             "Stouffville",
             "Vaughan",};
     private JComboBox cityList = new JComboBox<>(cityOptions);
-    
+    private JComboBox questionList = new JComboBox();
     private JButton submitButton = new JButton("SUBMIT");
     private JTextArea userResults = new JTextArea();
     
@@ -75,7 +75,7 @@ public class DensityMapGUI extends Tool {
         // User results text area
         userResults.setBounds(950, 470, 350, 200);
         userResults.setEditable(false);
-        userResults.setText("Please input your data to compare your results!");
+        userResults.setText("Please select a dataset!");
         add(userResults);
         
         // List of cities combo box
@@ -84,6 +84,12 @@ public class DensityMapGUI extends Tool {
         cityList.setBackground(COMBO_BOX_COLOUR);
         cityList.setEnabled(false);
         add(cityList);
+
+        questionList.setBounds(950, 200, 240, 25);
+        questionList.setFont(new Font("Tahoma", Font.PLAIN, 12));
+        questionList.setBackground(COMBO_BOX_COLOUR);
+        questionList.setEnabled(false);
+        add(questionList);
         
         // Submit button
         submitButton.setBounds(1065, 400, 125, 50);
@@ -188,7 +194,15 @@ public class DensityMapGUI extends Tool {
     public void setCityList(JComboBox cityList) {
         this.cityList = cityList;
     }
-    
+
+    public JComboBox getQuestionList() {
+        return questionList;
+    }
+
+    public void setQuestionList(JComboBox questionList) {
+        this.questionList = questionList;
+    }
+
     public JButton getSubmitButton() {
         return submitButton;
     }
@@ -269,4 +283,11 @@ public class DensityMapGUI extends Tool {
         this.vaughanLabel = vaughanLabel;
     }
 
+    public JTextArea getUserResults() {
+        return userResults;
+    }
+
+    public void setUserResults(JTextArea userResults) {
+        this.userResults = userResults;
+    }
 }

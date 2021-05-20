@@ -10,12 +10,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.RGBImageFilter;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DensityMapController implements ActionListener, MouseListener {
-
-    // get selected value for data type
-    // get data of selected value
-    // change map colours based on data
 
     private DensityMapGUI gui;
 
@@ -44,6 +42,8 @@ public class DensityMapController implements ActionListener, MouseListener {
     public void enableComponents(boolean enable) {
         gui.getCityList().setEnabled(enable);
         gui.getSubmitButton().setEnabled(enable);
+        gui.getUserResults().setEnabled(enable);
+        gui.getQuestionList().setEnabled(enable);
     }
 
     public void getSelectedData() {
@@ -51,26 +51,33 @@ public class DensityMapController implements ActionListener, MouseListener {
             System.out.println("set the map to full grey");
             enableComponents(false);
             updateSelectedData(0);
+            updateQuestionBox(0);
+            gui.getUserResults().setText("Please select a dataset!");
         } else if (gui.getDataList().getSelectedIndex() == 1) {
-            System.out.println("dwell");
             enableComponents(true);
             updateSelectedData(1);
+            updateQuestionBox(1);
+            gui.getUserResults().setText("Average Dwelling Value");
         } else if (gui.getDataList().getSelectedIndex() == 2) {
-            System.out.println("avg monthly cost owner");
             enableComponents(true);
             updateSelectedData(2);
+            updateQuestionBox(2);
+            gui.getUserResults().setText("Average Owner Monthly Cost");
         } else if (gui.getDataList().getSelectedIndex() == 3) {
-            System.out.println("avg monthly cost rent");
             enableComponents(true);
             updateSelectedData(3);
+            updateQuestionBox(3);
+            gui.getUserResults().setText("Average Renter Monthly Cost");
         } else if (gui.getDataList().getSelectedIndex() == 4) {
-            System.out.println("owners");
             enableComponents(true);
             updateSelectedData(4);
+            updateQuestionBox(4);
+            gui.getUserResults().setText("Household Owners");
         } else if (gui.getDataList().getSelectedIndex() == 5) {
-            System.out.println("renters");
             enableComponents(true);
             updateSelectedData(5);
+            updateQuestionBox(5);
+            gui.getUserResults().setText("Household Renters");
         }
     }
 
@@ -81,6 +88,43 @@ public class DensityMapController implements ActionListener, MouseListener {
         // index 3 = average monthly cost renters
         // index 4 = household owners
         // index 5 = household renters
+    }
+
+    // Set question combo box
+    public void updateQuestionBox(int index) {
+        List<String> questions = new ArrayList<>();
+
+        if (index == 1) {
+            String[] list = new String[]{"- Select value of your dwelling -",
+                    "0-500,000", "500,000-1,000,000", "1,000,000-1,500,000", "1,500,000-2,000,000",
+                    "2,000,000-2,500,000", "2,500,000-3,000,000", "3,000,000-3,500,000"};
+            for (int x = 0; x < list.length; x++)
+                questions.add(list[x]);
+        } else if (index == 2) {
+            String[] list = new String[]{"- Select average monthly shelter cost -",
+                    "0-500", "500-1,000", "1,000-1,500", "1,500-2,000", "2,000-2,500",
+                    "2,500-3,000", "3,000-3,500", "3,500-4,000"};
+            for (int x = 0; x < list.length; x++)
+                questions.add(list[x]);
+        } else if (index == 3) {
+            String[] list = new String[]{"- Select average monthly shelter cost -",
+                    "0-500", "500-1,000", "1,000-1,500", "1,500-2,000", "2,000-2,500",
+                    "2,500-3,000"};
+            for (int x = 0; x < list.length; x++)
+                questions.add(list[x]);
+        } else if (index == 4) {
+            String[] list = new String[]{"- Are you a household owner? -",
+                    "Yes", "No"};
+            for (int x = 0; x < list.length; x++)
+                questions.add(list[x]);
+        } else if (index == 5) {
+            String[] list = new String[]{"- Are you a household renter? -",
+                    "Yes", "No"};
+            for (int x = 0; x < list.length; x++)
+                questions.add(list[x]);
+        }
+
+        gui.getQuestionList().setModel(new DefaultComboBoxModel<>(questions.toArray(new String[0])));
     }
 
     // Change map colour
@@ -102,9 +146,8 @@ public class DensityMapController implements ActionListener, MouseListener {
     public void actionPerformed(ActionEvent e) {
 
         if (e.getSource() == gui.getSubmitButton()) {
-            System.out.println("submit button");
+            JOptionPane.showMessageDialog(null, "not done", "not done", JOptionPane.INFORMATION_MESSAGE);
         } else if (e.getSource() == gui.getDataList()) {
-            System.out.println(gui.getDataList().getSelectedItem());
             getSelectedData();
         }
 
