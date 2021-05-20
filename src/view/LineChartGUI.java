@@ -100,18 +100,6 @@ public class LineChartGUI extends Tool {
         
     }
     
-    public JLabel getLineChartTitleLabel () {
-        return lineChartTitleLabel;
-    }
-    
-    public JLabel getDatasetLabel () {
-        return datasetLabel;
-    }
-    
-    public JLabel[] getBoundLabels () {
-        return boundLabels;
-    }
-    
     public JComboBox<String> getSelectDatasetBox () {
         return selectDatasetBox;
     }
@@ -162,7 +150,7 @@ public class LineChartGUI extends Tool {
         items.toArray(middleMan);
         chartBounds[0].setModel(new DefaultComboBoxModel<>(middleMan));
         
-        // Reverse the array
+        // Reverse the array to display in descending order for the end bound
         for (int i = 0; i<middleMan.length/2; ++i) {
             String temp = middleMan[i];
             middleMan[i] = middleMan[middleMan.length-1-i];

@@ -2,17 +2,31 @@ package controller;
 
 import view.LineChartGUI;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-public class LineChartController implements MouseListener {
+public class LineChartController implements ActionListener, MouseListener {
     
     private LineChartGUI gui;
     
     public LineChartController (LineChartGUI gui) {
     
         this.gui = gui;
+        setUpListeners();
+    
+    }
+    
+    public void setUpListeners () {
         
+        gui.getSelectDatasetBox().addActionListener(this);
+//        gui.get
+        
+    }
+    
+    @Override
+    public void actionPerformed (ActionEvent e) {
     
     }
     

@@ -25,8 +25,7 @@ public class ApplicationController {
 		mainFrame = new MainFrame();
 		
 		// Initialize the tools (must be before importing)
-//		tools[PIE_CHART.getValue()] = new PieChartUtil();
-//		tools[PIE_CHART.getValue()+1] = new PieChartUtil();
+		tools[PIE_CHART.getValue()] = new PieChartGUI();
 		tools[DENSITY_MAP.getValue()] = new DensityMapGUI();
 		tools[LINE_CHART.getValue()] = new LineChartGUI();
 		tools[SCATTER_CHART.getValue()] = new HousingTrendGUI();

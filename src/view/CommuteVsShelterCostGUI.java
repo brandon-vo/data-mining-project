@@ -21,7 +21,6 @@ public class CommuteVsShelterCostGUI extends Tool implements ActionListener {
     private JLabel currentDataDisplay = new JLabel("currentDisplayedDate");
     private JLabel buttonTitleLabel = new JLabel("Select City for Data Display");
     
-    // TODO call MyDataset.getCities() to get the names of all the cities instead
     private JButton markhamButton = new JButton("Markham");
     private JButton vaughnButton = new JButton("Vaughn");
     private JButton richmondButton = new JButton("Richmond Hill");
