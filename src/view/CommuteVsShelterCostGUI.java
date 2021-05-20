@@ -28,13 +28,10 @@ public class CommuteVsShelterCostGUI extends Tool implements ActionListener {
     private JButton auroraButton = new JButton("Aurora");
     private JButton newMarketButton = new JButton("Newmarket");
     
-<<<<<<< HEAD
     private DefaultCategoryDataset displayedData = new DefaultCategoryDataset();
     private JFreeChart barChart;
     private ChartPanel chartPanel;
-=======
     private ArrayList<Category> dataGroup2;
->>>>>>> 2eaa5ba31b8d0c0c038e1a6a5e8949e00e246c83
     
     public CommuteVsShelterCostGUI () {
         
@@ -81,7 +78,6 @@ public class CommuteVsShelterCostGUI extends Tool implements ActionListener {
         
         // TODO since this requires two groups at once, the first
         //  you need another displayedData field
-<<<<<<< HEAD
         String groupNameJourneyToWork = getValidGroups(0).get(0);
         String groupNameProfileOfHousing = getValidGroups(1).get(0);
     
@@ -97,9 +93,6 @@ public class CommuteVsShelterCostGUI extends Tool implements ActionListener {
         String chartTitle = " Commute Type V.S" + groupNameProfileOfHousing;
         String xAxisLabel = groupNameProfileOfHousing;
         String valueAxisLabel = "Number of People";
-=======
-
->>>>>>> 2eaa5ba31b8d0c0c038e1a6a5e8949e00e246c83
         
         barChart = ChartFactory.createBarChart(chartTitle, xAxisLabel, valueAxisLabel, displayedData, PlotOrientation.VERTICAL,
                 true, false, false);
