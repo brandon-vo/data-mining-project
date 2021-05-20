@@ -2,6 +2,7 @@ package controller;
 
 import model.MyDataset;
 import view.DensityMapGUI;
+import view.Tool;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -18,10 +19,17 @@ public class DensityMapController implements ActionListener, MouseListener {
     
     private DensityMapGUI gui;
     
-    public DensityMapController (DensityMapGUI gui) {
+    DensityMapController (Tool gui) {
+
+        this.gui = (DensityMapGUI) gui;
+        setUpListeners();
         
-        this.gui = gui;
+    }
+
+    // Setup listeners
+    public void setUpListeners() {
         gui.getSubmitButton().addActionListener(this);
+        gui.getDataList().addActionListener(this);
         gui.getAuroraLabel().addMouseListener(this);
         gui.getEastGwillimburyLabel().addMouseListener(this);
         gui.getGeorginaLabel().addMouseListener(this);
@@ -31,7 +39,6 @@ public class DensityMapController implements ActionListener, MouseListener {
         gui.getRichmondHillLabel().addMouseListener(this);
         gui.getStouffvilleLabel().addMouseListener(this);
         gui.getVaughanLabel().addMouseListener(this);
-        
     }
     
     // Change map colour

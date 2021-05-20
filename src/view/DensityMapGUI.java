@@ -169,16 +169,8 @@ public class DensityMapGUI extends Tool {
     @Override
     public void initializeDataToDisplay (MyDataset[] dataset) {
     
-        String profileOfHousing = getValidGroups(1).get(0);
-        setDataGroup(dataset[1].getDataset().get(profileOfHousing));
-    }
-    
-    public String[] getDataOptions () {
-        return dataOptions;
-    }
-    
-    public void setDataOptions (String[] dataOptions) {
-        this.dataOptions = dataOptions;
+//        String profileOfHousing = getValidGroups(1).get(0);
+//        setDataGroup(dataset[1].getDataset().get(profileOfHousing));
     }
     
     public JComboBox getDataList () {
@@ -187,6 +179,14 @@ public class DensityMapGUI extends Tool {
     
     public void setDataList (JComboBox dataList) {
         this.dataList = dataList;
+    }
+
+    public JComboBox getCityList() {
+        return cityList;
+    }
+
+    public void setCityList(JComboBox cityList) {
+        this.cityList = cityList;
     }
     
     public JButton getSubmitButton() {
@@ -268,4 +268,5 @@ public class DensityMapGUI extends Tool {
     public void setVaughanLabel(JLabel vaughanLabel) {
         this.vaughanLabel = vaughanLabel;
     }
+
 }

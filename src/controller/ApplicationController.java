@@ -30,7 +30,9 @@ public class ApplicationController {
 		tools[LINE_CHART.getValue()] = new LineChartGUI();
 		tools[SCATTER_CHART.getValue()] = new HousingTrendGUI();
 		tools[BAR_CHART.getValue()] = new CommuteVsShelterCostGUI();
-		
+
+		new DensityMapController(tools[DENSITY_MAP.getValue()]);
+
 		// Assign the data to the fields
 		FileImportController files = new FileImportController();
 		files.importFiles();
