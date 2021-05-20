@@ -19,11 +19,7 @@ public class PieChartGUI extends Tool {
         
     }
     
-    // Ignore the method
     @Override
-    public void initializeDataToDisplay (MyDataset dataset, String groupName) {
-    }
-    
     public void initializeDataToDisplay (MyDataset[] dataset) {
         pieCharts[0].initializeDataToDisplay(dataset[0], getValidGroups(0).get(0));
         pieCharts[1].initializeDataToDisplay(dataset[1], getValidGroups(1).get(0));

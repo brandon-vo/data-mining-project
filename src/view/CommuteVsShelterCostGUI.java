@@ -29,7 +29,9 @@ public class CommuteVsShelterCostGUI extends Tool implements ActionListener {
     private JButton auroraButton = new JButton("Aurora");
     private JButton newMarketButton = new JButton("Newmarket");
     
-    private ArrayList<Category> dataset2;
+    private DefaultCategoryDataset displayedData = new DefaultCategoryDataset();
+    private JFreeChart barChart;
+    private ChartPanel chartPanel;
     
     public CommuteVsShelterCostGUI () {
         
@@ -61,19 +63,45 @@ public class CommuteVsShelterCostGUI extends Tool implements ActionListener {
         add(newMarketButton);
         
         setVisible(true);
+        
     }
     
     @Override
-    public void initializeDataToDisplay (MyDataset dataset, String groupName) {
+    public void initializeDataToDisplay (MyDataset[] dataset) {
         
         // TODO since this requires two groups at once, the first
         //  you need another displayedData field
+        String groupNameJourneyToWork = getValidGroups(0).get(0);
+        String groupNameProfileOfHousing = getValidGroups(1).get(0);
+    
+        setDataGroup(dataset[0].getDataset().get(groupNameJourneyToWork));
+        setDataGroup(dataset[1].getDataset().get(groupNameProfileOfHousing));
         
+        createChart(groupNameProfileOfHousing);
+    
+    }
+    
+    public void createChart (String groupNameProfileOfHousing) {
         
+        String chartTitle = " Commute Type V.S" + groupNameProfileOfHousing;
+        String xAxisLabel = groupNameProfileOfHousing;
+        String valueAxisLabel = "Number of People";
+        
+        barChart = ChartFactory.createBarChart(chartTitle, xAxisLabel, valueAxisLabel, displayedData, PlotOrientation.VERTICAL,
+                true, false, false);
+        chartPanel = new ChartPanel(barChart);
+        
+//        chartPanel.setBounds(,)
+        
+    
+    }
+    
+    public void createDisplayedData(){
+    
     }
     
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed (ActionEvent e) {
     
     }
     

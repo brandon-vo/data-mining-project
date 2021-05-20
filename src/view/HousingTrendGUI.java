@@ -67,9 +67,10 @@ public class HousingTrendGUI extends Tool implements ItemListener {
     }
     
     @Override
-    public void initializeDataToDisplay (MyDataset dataset, String groupName) {
+    public void initializeDataToDisplay (MyDataset[] dataset) {
         
-        setDataGroup(dataset.getDataset().get(groupName));
+        String groupName = getValidGroups(1).get(0);
+        setDataGroup(dataset[1].getDataset().get(groupName));
         createDisplayedData(MyDataset.getCities()[0]);
     
         scatterPlotChart = ChartFactory.createScatterPlot(
@@ -106,7 +107,8 @@ public class HousingTrendGUI extends Tool implements ItemListener {
     }
 
     @Override
-    public void itemStateChanged(ItemEvent e) {
+    public void itemStateChanged (ItemEvent e) {
 
     }
+    
 }

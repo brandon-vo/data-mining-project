@@ -14,6 +14,8 @@ public class FileImportController {
     private static final String JOURNEY_TO_WORK_FILE = "./datasets/Profile_of_Journey_to_Work_by_Dissemination_Area,_2016_Census.csv";
     private static final String PROFILE_OF_HOUSING_FILE = "./datasets/Profile_of_Housing_by_Dissemination_Area,_2016_Census.csv";
     
+    private ArrayList<ArrayList<String>>[] rawData;
+    
     private JourneyToWork journeyToWork;
     private ProfileOfHousing profileOfHousing;
     

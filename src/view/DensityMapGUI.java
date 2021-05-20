@@ -6,11 +6,8 @@ import model.MyDataset;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.awt.image.FilteredImageSource;
-import java.awt.image.RGBImageFilter;
 import java.io.File;
 import java.io.IOException;
 
@@ -53,7 +50,6 @@ public class DensityMapGUI extends Tool {
     private JLabel stouffvilleLabel = new JLabel(new ImageIcon("img/densityMap/map/labels/stouffvilleLabel.png"));
     private JLabel vaughanLabel = new JLabel(new ImageIcon("img/densityMap/map/labels/vaughanLabel.png"));
     
-    // TODO call MyDataset.getCities() instead to get the names of all the cities
     private BufferedImage aurora;
     private BufferedImage eastGwillimbury;
     private BufferedImage georgina;
@@ -72,20 +68,24 @@ public class DensityMapGUI extends Tool {
     
     public DensityMapGUI () {
         
+        // Title label
         densityMapTitleLabel.setBounds(0, 0, MainFrame.WIDTH, MainFrame.HEIGHT);
         add(densityMapTitleLabel);
         
+        // User results text area
         userResults.setBounds(950, 470, 350, 200);
         userResults.setEditable(false);
         userResults.setText("Please input your data to compare your results!");
         add(userResults);
         
+        // List of cities combo box
         cityList.setBounds(950, 130, 240, 25);
         cityList.setFont(new Font("Tahoma", Font.PLAIN, 12));
         cityList.setBackground(COMBO_BOX_COLOUR);
         cityList.setEnabled(false);
         add(cityList);
         
+        // Submit button
         submitButton.setBounds(1065, 400, 125, 50);
         submitButton.setBorder(null);
         submitButton.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -93,6 +93,7 @@ public class DensityMapGUI extends Tool {
         //submitButton.setEnabled(false);
         add(submitButton);
         
+        // City labels
         auroraLabel.setBounds(285, 415, 100, 100);
         add(auroraLabel);
         
@@ -123,16 +124,19 @@ public class DensityMapGUI extends Tool {
         userPanel.setBounds(0, 0, MainFrame.WIDTH, MainFrame.HEIGHT);
         add(userPanel);
         
+        // List of data combo box
         dataList.setBounds(35, 130, 240, 25);
         dataList.setFont(new Font("Tahoma", Font.PLAIN, 12));
         dataList.setBackground(COMBO_BOX_COLOUR);
         add(dataList);
         
-        for (int z = 0; z < maps.length; z++) {
-            changeMapColour(z);
+        for (int cityIndex = 0; cityIndex < maps.length; cityIndex++) {
+            changeMapColour(cityIndex);
         }
+        
     }
     
+    // Change map colour
     public void changeMapColour (int mapIndex) {
         try {
             for (int cityMap = 0; cityMap<maps.length; cityMap++) {
@@ -163,8 +167,10 @@ public class DensityMapGUI extends Tool {
     }
     
     @Override
-    public void initializeDataToDisplay(MyDataset dataset, String groupName) {
+    public void initializeDataToDisplay (MyDataset[] dataset) {
     
+        String profileOfHousing = getValidGroups(1).get(0);
+        setDataGroup(dataset[1].getDataset().get(profileOfHousing));
     }
     
     public String[] getDataOptions () {

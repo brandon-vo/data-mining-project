@@ -10,12 +10,10 @@ import util.Category;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class LineChartGUI extends Tool implements MouseListener {
+public class LineChartGUI extends Tool {
     
     private static final int MAX_CITIES = 5;
     private static final String LINE_CHART_TITLE_FILE = "./img/titles/lineChartTitle.png";
@@ -32,7 +30,7 @@ public class LineChartGUI extends Tool implements MouseListener {
     
     // User input
     private JComboBox<String> selectDatasetBox;
-    private JComboBox<String>[] bounds;     // bounds[0] = start bound, bounds[1] = end bound
+    private JComboBox<String>[] chartBounds;     // bounds[0] = start bound, bounds[1] = end bound
     
     private JButton selectVisibleCities;
     
@@ -77,16 +75,16 @@ public class LineChartGUI extends Tool implements MouseListener {
         boundLabels[0].setText("Start");
         boundLabels[1].setText("End");
     
-        bounds = new JComboBox[2];
+        chartBounds = new JComboBox[2];
         currentHeight += USER_INPUT_HEIGHT;
-        for (int i = 0; i<bounds.length; ++i) {
+        for (int i = 0; i<chartBounds.length; ++i) {
     
-            bounds[i] = new JComboBox<>();
-            bounds[i].setBounds(USER_INPUT_X+i*USER_INPUT_WIDTH*3/5, currentHeight,
+            chartBounds[i] = new JComboBox<>();
+            chartBounds[i].setBounds(USER_INPUT_X+i*USER_INPUT_WIDTH*3/5, currentHeight,
                     USER_INPUT_WIDTH*2/5, USER_INPUT_HEIGHT);
-            bounds[i].setFont(FONT);
-            bounds[i].setBackground(COMBO_BOX_COLOUR);
-            add(bounds[i]);
+            chartBounds[i].setFont(FONT);
+            chartBounds[i].setBackground(COMBO_BOX_COLOUR);
+            add(chartBounds[i]);
             
         }
         
@@ -102,10 +100,47 @@ public class LineChartGUI extends Tool implements MouseListener {
         
     }
     
+    public JLabel getLineChartTitleLabel () {
+        return lineChartTitleLabel;
+    }
+    
+    public JLabel getDatasetLabel () {
+        return datasetLabel;
+    }
+    
+    public JLabel[] getBoundLabels () {
+        return boundLabels;
+    }
+    
+    public JComboBox<String> getSelectDatasetBox () {
+        return selectDatasetBox;
+    }
+    
+    public JComboBox<String>[] getChartBounds () {
+        return chartBounds;
+    }
+    
+    public JButton getSelectVisibleCities () {
+        return selectVisibleCities;
+    }
+    
+    public DefaultCategoryDataset getDisplayedData () {
+        return displayedData;
+    }
+    
+    public JFreeChart getLineChart () {
+        return lineChart;
+    }
+    
+    public ChartPanel getChartPanel () {
+        return chartPanel;
+    }
+    
     @Override
-    public void initializeDataToDisplay (MyDataset dataset, String groupName) {
+    public void initializeDataToDisplay (MyDataset[] dataset) {
         
-        setDataGroup(dataset.getDataset().get(groupName));
+        String groupName = getValidGroups(0).get(0);
+        setDataGroup(dataset[0].getDataset().get(groupName));
         
         // Initialize the dataset JComboBox
         ArrayList<String> items = new ArrayList<>();
@@ -125,7 +160,7 @@ public class LineChartGUI extends Tool implements MouseListener {
         }
         middleMan = new String[items.size()];
         items.toArray(middleMan);
-        bounds[0].setModel(new DefaultComboBoxModel<>(middleMan));
+        chartBounds[0].setModel(new DefaultComboBoxModel<>(middleMan));
         
         // Reverse the array
         for (int i = 0; i<middleMan.length/2; ++i) {
@@ -134,7 +169,7 @@ public class LineChartGUI extends Tool implements MouseListener {
             middleMan[middleMan.length-1-i] = temp;
         }
         items.toArray(middleMan);
-        bounds[1].setModel(new DefaultComboBoxModel<>(middleMan));
+        chartBounds[1].setModel(new DefaultComboBoxModel<>(middleMan));
         
         items.clear();
         middleMan = MyDataset.getCities();
@@ -169,7 +204,6 @@ public class LineChartGUI extends Tool implements MouseListener {
                 PlotOrientation.VERTICAL, true, false, false);
         lineChart.setBackgroundPaint(BACKGROUND_COLOUR);
         chartPanel = new ChartPanel(lineChart);
-        chartPanel.addMouseListener(this);
         add(chartPanel);
     
     }
@@ -178,31 +212,6 @@ public class LineChartGUI extends Tool implements MouseListener {
         
         // TODO
         
-    }
-    
-    @Override
-    public void mouseClicked (MouseEvent e) {
-        System.out.println("hi");
-    }
-    
-    @Override
-    public void mousePressed (MouseEvent e) {
-        // TODO
-    }
-    
-    @Override
-    public void mouseReleased (MouseEvent e) {
-        // TODO
-    }
-    
-    @Override
-    public void mouseEntered (MouseEvent e) {
-        // TODO
-    }
-    
-    @Override
-    public void mouseExited (MouseEvent e) {
-        // TODO
     }
     
 }

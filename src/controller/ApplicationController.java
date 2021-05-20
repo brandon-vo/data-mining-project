@@ -12,8 +12,8 @@ import java.awt.event.MouseListener;
 
 import static model.DataType.*;
 
-public class ApplicationController implements ActionListener, MouseListener {
-
+public class ApplicationController {
+	
 	// GUI
 	public MainFrame mainFrame;
 	private final Tool[] tools = new Tool[DataType.values().length];
@@ -54,19 +54,8 @@ public class ApplicationController implements ActionListener, MouseListener {
 			// Add functionality to the switch frames buttons
 			final int j = i;
 			mainFrame.getMenuPanel().getButton(i).addActionListener(e->{
-				
 				switchFrame(tools[j]);
-				if (tools[j]==tools[PIE_CHART.getValue()]) {
-					PieChartGUI pieChartGUI = (PieChartGUI) tools[j];
-					pieChartGUI.initializeDataToDisplay(datasets);
-				} else if (!tools[j].getValidGroups(0).isEmpty()) {
-					tools[j].initializeDataToDisplay(datasets[0],
-							tools[j].getValidGroups(0).get(0));
-				} else {
-					tools[j].initializeDataToDisplay(datasets[1],
-							tools[j].getValidGroups(1).get(0));
-				}
-				
+				tools[j].initializeDataToDisplay(datasets);
 			});
 			
 			// Add functionality to the back buttons
@@ -84,36 +73,6 @@ public class ApplicationController implements ActionListener, MouseListener {
 		mainFrame.getContentPane().removeAll();
 		mainFrame.getContentPane().repaint();
 		mainFrame.add(newPanel);
-	}
-	
-	@Override
-	public void actionPerformed (ActionEvent e) {
-	
-	}
-	
-	@Override
-	public void mouseClicked (MouseEvent e) {
-	
-	}
-	
-	@Override
-	public void mousePressed (MouseEvent e) {
-	
-	}
-	
-	@Override
-	public void mouseReleased (MouseEvent e) {
-	
-	}
-	
-	@Override
-	public void mouseEntered (MouseEvent e) {
-	
-	}
-	
-	@Override
-	public void mouseExited (MouseEvent e) {
-	
 	}
 	
 }
