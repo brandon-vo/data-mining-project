@@ -191,7 +191,9 @@ public class LineChartGUI extends Tool {
         lineChart = ChartFactory.createLineChart(chartTitle, categoryAxisLabel, valueAxisLabel, displayedData,
                 PlotOrientation.VERTICAL, true, false, false);
         lineChart.setBackgroundPaint(BACKGROUND_COLOUR);
+    
         chartPanel = new ChartPanel(lineChart);
+        chartPanel.setRangeZoomable(false);
         add(chartPanel);
     
     }
