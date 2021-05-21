@@ -71,9 +71,8 @@ public class CommuteVsShelterCostGUI extends Tool implements ActionListener {
         setVisible(true);
         
     }
-    
-    private CategoryDataset createDataSet(String currentCity) {
-        
+
+    private CategoryDataset createDataSet() {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         
         int firstRangeMax;
@@ -110,27 +109,29 @@ public class CommuteVsShelterCostGUI extends Tool implements ActionListener {
         
         setDataGroup(dataset[0].getDataset().get(groupNameJourneyToWork));
         setDataGroup(dataset[1].getDataset().get(groupNameProfileOfHousing));
-    
-        createChart(groupNameProfileOfHousing, displayedData);
+        
+        createChart(groupNameProfileOfHousing);
         chartPanel.setBounds(150, 100, 1000, 450);
         
     }
     
-    public void createChart (String groupNameProfileOfHousing, DefaultCategoryDataset displayedData) {
+    public void createChart (String groupNameProfileOfHousing) {
         
         String chartTitle = " Commute Type V.S" + groupNameProfileOfHousing;
         String xAxisLabel = groupNameProfileOfHousing;
         String valueAxisLabel = "Number of People";
         
-//        displayedData = createDataset();
-//        barChart = ChartFactory.createBarChart(chartTitle, xAxisLabel, valueAxisLabel, displayedData, PlotOrientation.VERTICAL,
-//                true, false, false);
+        barChart = ChartFactory.createBarChart(chartTitle, xAxisLabel, valueAxisLabel, displayedData, PlotOrientation.VERTICAL,
+                true, false, false);
         chartPanel = new ChartPanel(barChart);
-        
+
         add(chartPanel);
-        
+    
     }
-  
+    
+    public void createDisplayedData(){
+    
+    }
     
     @Override
     public void actionPerformed (ActionEvent e) {
@@ -151,5 +152,5 @@ public class CommuteVsShelterCostGUI extends Tool implements ActionListener {
     public void setCurrentCity(String currentCity) {
         this.currentCity = currentCity;
     }
-   
+    
 }
