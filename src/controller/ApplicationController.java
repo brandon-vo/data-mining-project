@@ -17,6 +17,11 @@ public class ApplicationController {
 	// GUI
 	public MainFrame mainFrame;
 	private final Tool[] tools = new Tool[DataType.values().length+1];
+	private PieChartController pieChartController;
+	private DensityMapController densityMapController;
+	private LineChartController lineChartController;
+	private ScatterPlotController scatterPlotcontroller;
+//	private BarChartController barChartController;
 	
 	private final MyDataset[] datasets;
 	
@@ -31,7 +36,8 @@ public class ApplicationController {
 		tools[SCATTER_CHART.getValue()] = new HousingTrendGUI();
 		tools[BAR_CHART.getValue()] = new CommuteVsShelterCostGUI();
 
-		new DensityMapController(tools[DENSITY_MAP.getValue()]);
+		densityMapController = new DensityMapController((DensityMapGUI) tools[DENSITY_MAP.getValue()]);
+		pieChartController = new PieChartController((PieChartGUI) tools[PIE_CHART.getValue()]);
 
 		// Assign the data to the fields
 		FileImportController files = new FileImportController();

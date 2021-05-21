@@ -149,28 +149,32 @@ public class DensityMapGUI extends Tool {
     public int changeMapColour(int mapIndex) {
 
         try {
+            
             for (int cityMap = 0; cityMap < maps.length; cityMap++) {
-                maps[cityMap] = ImageIO.read(new File("img/densityMap/map/lv1/" + mapNames[cityMap] + "Lv1.png"));
-                Image newColouredMap = Toolkit.getDefaultToolkit().createImage(
-                        new FilteredImageSource(maps[mapIndex].getSource(), new DensityMapController.ColourFilter()));
-
-                // Remove old city map label
-                // (for some reason this doesn't work properly. all labels get removed but the last label
+    
+                // Remove the old city label if it exists
+                // TODO not functioning
                 if (mapLabels[cityMap] != null) {
                     remove(mapLabels[cityMap]);
                     revalidate();
-                    repaint();
                 }
-
+    
+                maps[cityMap] = ImageIO.read(new File("img/densityMap/map/lv1/" + mapNames[cityMap] + "Lv1.png"));
+    
+                Image newColouredMap = Toolkit.getDefaultToolkit().createImage(
+                        new FilteredImageSource(maps[cityMap].getSource(), new DensityMapController.ColourFilter()));
+                
                 mapLabels[cityMap] = new JLabel(new ImageIcon(newColouredMap));
                 mapLabels[cityMap].setBounds(0, 0, MainFrame.WIDTH, MainFrame.HEIGHT);
                 add(mapLabels[cityMap]);
-
+    
             }
 
         } catch (IOException e) {
             e.printStackTrace();
         }
+        
+        repaint();
 
         return mapIndex;
     }
