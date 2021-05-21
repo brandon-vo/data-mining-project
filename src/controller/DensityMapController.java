@@ -15,7 +15,7 @@ import java.util.List;
 
 public class DensityMapController implements ActionListener, MouseListener {
 
-    public static DensityMapGUI densityGUI;
+    private DensityMapGUI densityGUI;
 
     public DensityMapController(DensityMapGUI densityGUI) {
 
@@ -128,29 +128,6 @@ public class DensityMapController implements ActionListener, MouseListener {
 
         // Set question list based on selected index
         densityGUI.getQuestionList().setModel(new DefaultComboBoxModel<>(questions.toArray(new String[0])));
-
-    }
-
-    // Change map colour
-    public static class ColourFilter extends RGBImageFilter {
-        int lv;
-
-        public int filterRGB(int x, int y, int rgb) {
-            if (densityGUI.getDataList().getSelectedIndex() == 1) {
-                lv = 0xFF90CAF9; // test if colour changes. will be changed to the data information later
-            } else if (densityGUI.getDataList().getSelectedIndex() == 2) {
-                lv = 0xFF90CAF9; // test colour change
-            } else if (densityGUI.getDataList().getSelectedIndex() == 3) {
-                lv = 0xFF64B5F6; // test colour change
-            } else if (densityGUI.getDataList().getSelectedIndex() == 4) {
-                lv = 0xFF1E88E5; // test colour change
-            } else if (densityGUI.getDataList().getSelectedIndex() == 5) {
-                lv = 0xFF1565C0; // test colour change
-            } else {
-                lv = 0xFFE5E7E9; // Default grey colour
-            }
-            return (rgb & lv);
-        }
 
     }
 
