@@ -32,7 +32,8 @@ public class CommuteVsShelterCostGUI extends Tool implements ActionListener {
     private JFreeChart barChart;
     private ChartPanel chartPanel;
     private ArrayList<Category> dataGroup2;
-    
+    private String currentCity;
+
     public CommuteVsShelterCostGUI () {
         
         markhamButton.setFont(new Font("Tahoma",Font.PLAIN, 15));
@@ -113,5 +114,12 @@ public class CommuteVsShelterCostGUI extends Tool implements ActionListener {
     public void actionPerformed (ActionEvent e) {
     
     }
-    
+
+    public String getCurrentCity() {
+        return currentCity;
+    }
+
+    public void setCurrentCity(String currentCity) {
+        this.currentCity = currentCity;
+    }
 }
