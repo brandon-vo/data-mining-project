@@ -10,6 +10,7 @@ import org.jfree.data.category.*;
 import util.Category;
 
 import javax.swing.*;
+import javax.swing.border.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,7 +18,7 @@ import java.util.ArrayList;
 
 public class CommuteVsShelterCostGUI extends Tool implements ActionListener {
     
-    private JLabel titleLabel = new JLabel(new ImageIcon("img/shelterCostVsCommonCommuteTypeLabel.png"));
+    private JLabel titleLabel = new JLabel(new ImageIcon("img/titles/shelterCostVsCommonCommuteTypeTitle.png"));
     private JLabel currentDataDisplay = new JLabel("currentDisplayedDate");
     private JLabel buttonTitleLabel = new JLabel("Select City for Data Display");
     
@@ -42,18 +43,20 @@ public class CommuteVsShelterCostGUI extends Tool implements ActionListener {
         
         titleLabel.setBounds(0, 0, 1366, 768);
         add(titleLabel);
-        
+
         add(getBackButton());
         
-        buttonTitleLabel.setFont(new Font("Tahoma", Font.PLAIN, 25));
-        buttonTitleLabel.setBounds(455, 500, 150, 35);
+        buttonTitleLabel.setFont(new Font("Tahoma", Font.BOLD, 25));
+        Border border = BorderFactory.createLineBorder(Color.BLUE, 3);
+        buttonTitleLabel.setBorder(border);
+        buttonTitleLabel.setBounds(490, 555, 350, 35);
         add(buttonTitleLabel);
         
-        markhamButton.setBounds(200, 550, 100, 20);
-        vaughnButton.setBounds(320, 550, 100, 20);
-        richmondButton.setBounds(440, 550, 100, 20);
-        auroraButton.setBounds(560, 550, 100, 20);
-        newMarketButton.setBounds(380, 600, 100, 20);
+        markhamButton.setBounds(400, 600, 100, 40);
+        vaughnButton.setBounds(530, 600, 100, 40);
+        richmondButton.setBounds(660, 600, 150, 40);
+        auroraButton.setBounds(840, 600, 100, 40);
+        newMarketButton.setBounds(580, 650, 150, 40);
         
         add(markhamButton);
         add(vaughnButton);
@@ -84,6 +87,7 @@ public class CommuteVsShelterCostGUI extends Tool implements ActionListener {
         setDataGroup(dataset[1].getDataset().get(groupNameProfileOfHousing));
         
         createChart(groupNameProfileOfHousing);
+        chartPanel.setBounds(150, 100, 1000, 450);
     
     }
     
@@ -96,9 +100,8 @@ public class CommuteVsShelterCostGUI extends Tool implements ActionListener {
         barChart = ChartFactory.createBarChart(chartTitle, xAxisLabel, valueAxisLabel, displayedData, PlotOrientation.VERTICAL,
                 true, false, false);
         chartPanel = new ChartPanel(barChart);
-        
-//        chartPanel.setBounds(,)
-        
+
+        add(chartPanel);
     
     }
     
