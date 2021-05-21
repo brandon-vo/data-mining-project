@@ -44,12 +44,11 @@ public class HousingTrendGUI extends Tool {
         housingTrendTitle.setBounds(0, 0, 100, 50);
         add(housingTrendTitle);
         
-<<<<<<< HEAD
         selectLocation.setBounds(200, 100, 100, 50);
         add(selectLocation);
         String locationName[] = { "Vaughan", "Richmond Hill", "Markham", "East Gwillimbury", "Newmarket", "Georgina", "King" };
-        location = new JComboBox(locationName);
         
+        location = new JComboBox(locationName);
         location.setBounds(200, 200, 100, 100);
         add(location);
     
@@ -59,20 +58,6 @@ public class HousingTrendGUI extends Tool {
         variable = new JComboBox(variableName);
         
         variable.setBounds(200, 500, 100, 100);
-=======
-        selectLocation.setBounds(200,100,100,30);
-        add(selectLocation);
-        String locationName[]={"Vaughan","Richmond Hill","Markham","East Gwillimbury","Newmarket","Georgina","King"};
-        location= new JComboBox(locationName);
-        location.setBounds(200,150,100,30);
-        add(location);
-
-        selectVariable.setBounds(200,400,100,30);
-        add(selectVariable);
-        String variableName[]={"room","bed","maintainer"};
-        variable= new JComboBox(variableName);
-        variable.setBounds(200,450,100,30);
->>>>>>> 990cfc2b62a3f9dcc7c7c1afbb578d8d6052d864
         add(variable);
         
         displayedData = new XYSeriesCollection();
@@ -102,13 +87,8 @@ public class HousingTrendGUI extends Tool {
     }
     
     public void createDisplayedData (String cityName) {
-<<<<<<< HEAD
-    
-        displayedData.removeAllSeries();// TODO clear any data from before
-=======
-
+        
         displayedData.removeAllSeries(); // TODO clear any data from before
->>>>>>> 990cfc2b62a3f9dcc7c7c1afbb578d8d6052d864
         XYSeries city = new XYSeries(cityName);
     
         for (Category category : getDataGroup()) {
@@ -123,17 +103,6 @@ public class HousingTrendGUI extends Tool {
         
         }
         displayedData.addSeries(city);
-<<<<<<< HEAD
-    
-    }
-    //    public JComboBox getLocation1 () {
-    //        return location;
-    //    }
-    //    public JComboBox getVariable() {
-    //        return variable;
-    //    }
-}
-=======
         
     }
 
@@ -144,5 +113,5 @@ public class HousingTrendGUI extends Tool {
     public JComboBox getVariable() {
         return variable;
     }
+    
 }
->>>>>>> 990cfc2b62a3f9dcc7c7c1afbb578d8d6052d864

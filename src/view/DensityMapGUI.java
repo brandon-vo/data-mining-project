@@ -4,6 +4,7 @@ import controller.ApplicationController;
 import controller.DensityMapController;
 import model.MyDataset;
 import org.jfree.chart.util.ArrayUtils;
+import util.ColourFilter;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -148,6 +149,8 @@ public class DensityMapGUI extends Tool {
     // Change map colour
     public int changeMapColour(int mapIndex) {
 
+        ColourFilter filter = new ColourFilter(this);
+        
         try {
             
             for (int cityMap = 0; cityMap < maps.length; cityMap++) {
@@ -162,7 +165,7 @@ public class DensityMapGUI extends Tool {
                 maps[cityMap] = ImageIO.read(new File("img/densityMap/map/lv1/" + mapNames[cityMap] + "Lv1.png"));
     
                 Image newColouredMap = Toolkit.getDefaultToolkit().createImage(
-                        new FilteredImageSource(maps[cityMap].getSource(), new DensityMapController.ColourFilter()));
+                        new FilteredImageSource(maps[cityMap].getSource(), filter));
                 
                 mapLabels[cityMap] = new JLabel(new ImageIcon(newColouredMap));
                 mapLabels[cityMap].setBounds(0, 0, MainFrame.WIDTH, MainFrame.HEIGHT);
