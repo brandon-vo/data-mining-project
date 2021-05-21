@@ -1,6 +1,5 @@
 package controller;
 
-import model.MyDataset;
 import view.DensityMapGUI;
 import view.Tool;
 
@@ -15,83 +14,101 @@ import java.util.List;
 
 public class DensityMapController implements ActionListener, MouseListener {
 
-    private DensityMapGUI gui;
+    public static DensityMapGUI densityGUI;
 
-    DensityMapController(Tool gui) {
+    DensityMapController(Tool densityGUI) {
 
-        this.gui = (DensityMapGUI) gui;
+        this.densityGUI = (DensityMapGUI) densityGUI;
         setUpListeners();
 
+        for (int cityIndex = 0; cityIndex < 9; cityIndex++) {
+            ((DensityMapGUI) densityGUI).changeMapColour(cityIndex);
+        }
     }
 
     // Setup listeners
     public void setUpListeners() {
-        gui.getSubmitButton().addActionListener(this);
-        gui.getDataList().addActionListener(this);
-        gui.getAuroraLabel().addMouseListener(this);
-        gui.getEastGwillimburyLabel().addMouseListener(this);
-        gui.getGeorginaLabel().addMouseListener(this);
-        gui.getKingLabel().addMouseListener(this);
-        gui.getMarkhamLabel().addMouseListener(this);
-        gui.getNewmarketLabel().addMouseListener(this);
-        gui.getRichmondHillLabel().addMouseListener(this);
-        gui.getStouffvilleLabel().addMouseListener(this);
-        gui.getVaughanLabel().addMouseListener(this);
+        densityGUI.getSubmitButton().addActionListener(this);
+        densityGUI.getDataList().addActionListener(this);
+        densityGUI.getAuroraLabel().addMouseListener(this);
+        densityGUI.getEastGwillimburyLabel().addMouseListener(this);
+        densityGUI.getGeorginaLabel().addMouseListener(this);
+        densityGUI.getKingLabel().addMouseListener(this);
+        densityGUI.getMarkhamLabel().addMouseListener(this);
+        densityGUI.getNewmarketLabel().addMouseListener(this);
+        densityGUI.getRichmondHillLabel().addMouseListener(this);
+        densityGUI.getStouffvilleLabel().addMouseListener(this);
+        densityGUI.getVaughanLabel().addMouseListener(this);
     }
 
+    // Enable components
     public void enableComponents(boolean enable) {
-        gui.getCityList().setEnabled(enable);
-        gui.getSubmitButton().setEnabled(enable);
-        gui.getUserResults().setEnabled(enable);
-        gui.getQuestionList().setEnabled(enable);
+        densityGUI.getCityList().setEnabled(enable);
+        densityGUI.getSubmitButton().setEnabled(enable);
+        densityGUI.getUserResults().setEnabled(enable);
+        densityGUI.getQuestionList().setEnabled(enable);
     }
 
+    // Get user selected dataset
     public void getSelectedData() {
-        if (gui.getDataList().getSelectedIndex() == 0) {
+
+        if (densityGUI.getDataList().getSelectedIndex() == 0) {
             System.out.println("set the map to full grey");
             enableComponents(false);
             updateSelectedData(0);
             updateQuestionBox(0);
-            gui.getUserResults().setText("Please select a dataset!");
-        } else if (gui.getDataList().getSelectedIndex() == 1) {
+            densityGUI.getUserResults().setText("Please select a dataset!");
+        } else if (densityGUI.getDataList().getSelectedIndex() == 1) {
             enableComponents(true);
             updateSelectedData(1);
             updateQuestionBox(1);
-            gui.getUserResults().setText("Average Dwelling Value");
-        } else if (gui.getDataList().getSelectedIndex() == 2) {
+        } else if (densityGUI.getDataList().getSelectedIndex() == 2) {
             enableComponents(true);
             updateSelectedData(2);
             updateQuestionBox(2);
-            gui.getUserResults().setText("Average Owner Monthly Cost");
-        } else if (gui.getDataList().getSelectedIndex() == 3) {
+        } else if (densityGUI.getDataList().getSelectedIndex() == 3) {
             enableComponents(true);
             updateSelectedData(3);
             updateQuestionBox(3);
-            gui.getUserResults().setText("Average Renter Monthly Cost");
-        } else if (gui.getDataList().getSelectedIndex() == 4) {
+        } else if (densityGUI.getDataList().getSelectedIndex() == 4) {
             enableComponents(true);
             updateSelectedData(4);
             updateQuestionBox(4);
-            gui.getUserResults().setText("Household Owners");
-        } else if (gui.getDataList().getSelectedIndex() == 5) {
+        } else if (densityGUI.getDataList().getSelectedIndex() == 5) {
             enableComponents(true);
             updateSelectedData(5);
             updateQuestionBox(5);
-            gui.getUserResults().setText("Household Renters");
         }
     }
 
     public void updateSelectedData(int index) {
-        // index 0 = clear
-        // index 1 = average dwelling
-        // index 2 = average monthly cost owners
-        // index 3 = average monthly cost renters
-        // index 4 = household owners
-        // index 5 = household renters
+        densityGUI.getUserResults().setText("Please input your information!");
+        for (int city = 0; city < densityGUI.getMaps().length; city++) {
+            if (index == 0) {
+                // index 0 = clear
+                densityGUI.changeMapColour(city);
+            } else if (index == 1) {
+                // index 1 = average dwelling
+                densityGUI.changeMapColour(city);
+            } else if (index == 2) {
+                // index 2 = average monthly cost owners
+                densityGUI.changeMapColour(city);
+            } else if (index == 3) {
+                // index 3 = average monthly cost renters
+                densityGUI.changeMapColour(city);
+            } else if (index == 4) {
+                // index 4 = household owners
+                densityGUI.changeMapColour(city);
+            } else if (index == 5) {
+                // index 5 = household renters
+                densityGUI.changeMapColour(city);
+            }
+        }
     }
 
     // Set question combo box
     public void updateQuestionBox(int index) {
+        // Store list of options for the question
         List<String> questions = new ArrayList<>();
 
         if (index == 1) {
@@ -124,30 +141,40 @@ public class DensityMapController implements ActionListener, MouseListener {
                 questions.add(list[x]);
         }
 
-        gui.getQuestionList().setModel(new DefaultComboBoxModel<>(questions.toArray(new String[0])));
+        // Set question list based on selected index
+        densityGUI.getQuestionList().setModel(new DefaultComboBoxModel<>(questions.toArray(new String[0])));
+
     }
 
     // Change map colour
-    public static class RedBlueSwapFilter extends RGBImageFilter {
-        public int filterRGB(int x, int y, int rgb) {
-            return (rgb & 0xFFE5E7E9);
-            // 0xFFE5E7E9 grey
-            // 0xFFE2F1FC
-            // 0xFFBBDEFB
-            // 0xFF90CAF9
-            // 0xFF64B5F6
-            // 0xFF1E88E5
-            // 0xFF1565C0
+    public static class ColourFilter extends RGBImageFilter {
+        int lv;
 
+        public int filterRGB(int x, int y, int rgb) {
+            if (densityGUI.getDataList().getSelectedIndex() == 1) {
+                lv = 0xFF90CAF9; // test if colour changes. will be changed to the data information later
+            } else if (densityGUI.getDataList().getSelectedIndex() == 2) {
+                lv = 0xFF90CAF9; // test colour change
+            } else if (densityGUI.getDataList().getSelectedIndex() == 3) {
+                lv = 0xFF64B5F6; // test colour change
+            } else if (densityGUI.getDataList().getSelectedIndex() == 4) {
+                lv = 0xFF1E88E5; // test colour change
+            } else if (densityGUI.getDataList().getSelectedIndex() == 5) {
+                lv = 0xFF1565C0; // test colour change
+            } else {
+                lv = 0xFFE5E7E9; // Default grey colour
+            }
+            return (rgb & lv);
         }
+
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        if (e.getSource() == gui.getSubmitButton()) {
+        if (e.getSource() == densityGUI.getSubmitButton()) {
             JOptionPane.showMessageDialog(null, "not done", "not done", JOptionPane.INFORMATION_MESSAGE);
-        } else if (e.getSource() == gui.getDataList()) {
+        } else if (e.getSource() == densityGUI.getDataList()) {
             getSelectedData();
         }
 
@@ -155,23 +182,23 @@ public class DensityMapController implements ActionListener, MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        if (e.getSource() == gui.getAuroraLabel()) {
+        if (e.getSource() == densityGUI.getAuroraLabel()) {
             JOptionPane.showMessageDialog(null, "Aurora", "Aurora", JOptionPane.INFORMATION_MESSAGE);
-        } else if (e.getSource() == gui.getEastGwillimburyLabel()) {
+        } else if (e.getSource() == densityGUI.getEastGwillimburyLabel()) {
             JOptionPane.showMessageDialog(null, "east", "east", JOptionPane.INFORMATION_MESSAGE);
-        } else if (e.getSource() == gui.getGeorginaLabel()) {
+        } else if (e.getSource() == densityGUI.getGeorginaLabel()) {
             JOptionPane.showMessageDialog(null, "g", "g", JOptionPane.INFORMATION_MESSAGE);
-        } else if (e.getSource() == gui.getKingLabel()) {
+        } else if (e.getSource() == densityGUI.getKingLabel()) {
             JOptionPane.showMessageDialog(null, "k", "k", JOptionPane.INFORMATION_MESSAGE);
-        } else if (e.getSource() == gui.getMarkhamLabel()) {
+        } else if (e.getSource() == densityGUI.getMarkhamLabel()) {
             JOptionPane.showMessageDialog(null, "m", "m", JOptionPane.INFORMATION_MESSAGE);
-        } else if (e.getSource() == gui.getNewmarketLabel()) {
+        } else if (e.getSource() == densityGUI.getNewmarketLabel()) {
             JOptionPane.showMessageDialog(null, "n", "n", JOptionPane.INFORMATION_MESSAGE);
-        } else if (e.getSource() == gui.getRichmondHillLabel()) {
+        } else if (e.getSource() == densityGUI.getRichmondHillLabel()) {
             JOptionPane.showMessageDialog(null, "r", "r", JOptionPane.INFORMATION_MESSAGE);
-        } else if (e.getSource() == gui.getStouffvilleLabel()) {
+        } else if (e.getSource() == densityGUI.getStouffvilleLabel()) {
             JOptionPane.showMessageDialog(null, "st", "st", JOptionPane.INFORMATION_MESSAGE);
-        } else if (e.getSource() == gui.getVaughanLabel()) {
+        } else if (e.getSource() == densityGUI.getVaughanLabel()) {
             JOptionPane.showMessageDialog(null, "Vaughan", "Vaughan", JOptionPane.INFORMATION_MESSAGE);
         }
     }
@@ -196,5 +223,12 @@ public class DensityMapController implements ActionListener, MouseListener {
 
     }
 
+    public DensityMapGUI getGui() {
+        return densityGUI;
+    }
+
+    public void setGui(DensityMapGUI densityGUI) {
+        this.densityGUI = densityGUI;
+    }
 }
 
