@@ -76,7 +76,11 @@ public class CommuteVsShelterCostGUI extends Tool implements ActionListener {
         
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         
-        
+        int firstRangeMax;
+        int secondRangeMax;
+        int thirdRangeMax;
+        int fourthRangeMax;
+        int fifthRangeMax;
         
         String firstRange = "0-600";
         String secondRange = "601-1000";
@@ -84,8 +88,12 @@ public class CommuteVsShelterCostGUI extends Tool implements ActionListener {
         String fourthRange = "1401-1800";
         String fifthRange = "1800+";
         
-//         dataset.addValue(firstRangeMax, currentCity)
-        
+         dataset.addValue(firstRangeMax, currentCity, firstRange);
+         dataset.addValue(secondRangeMax, currentCity, secondRange);
+         dataset.addValue(thirdRangeMax, currentCity, thirdRange);
+         dataset.addValue(fourthRangeMax, currentCity, fourthRange);
+         dataset.addValue(fifthRangeMax, currentCity, fifthRange);
+    
     
     
     
@@ -126,7 +134,22 @@ public class CommuteVsShelterCostGUI extends Tool implements ActionListener {
     
     @Override
     public void actionPerformed (ActionEvent e) {
+        
+        if(e.getSource() == markhamButton)
+            setCurrentCity("Markham");
+        else if(e.getSource() == vaughnButton)
+            setCurrentCity("Vaughn");
+        else if(e.getSource() == richmondButton)
+            setCurrentCity("Richmond Hill");
     
     }
     
+    public String getCurrentCity() {
+        return currentCity;
+    }
+    
+    public void setCurrentCity(String currentCity) {
+        this.currentCity = currentCity;
+    }
+   
 }
