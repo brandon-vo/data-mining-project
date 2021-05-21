@@ -10,6 +10,7 @@ import org.jfree.data.category.*;
 import util.Category;
 
 import javax.swing.*;
+import javax.swing.border.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,7 +18,7 @@ import java.util.ArrayList;
 
 public class CommuteVsShelterCostGUI extends Tool implements ActionListener {
     
-    private JLabel titleLabel = new JLabel(new ImageIcon("img/shelterCostVsCommonCommuteTypeLabel.png"));
+    private JLabel titleLabel = new JLabel(new ImageIcon("img/titles/shelterCostVsCommonCommuteTypeTitle.png"));
     private JLabel currentDataDisplay = new JLabel("currentDisplayedDate");
     private JLabel buttonTitleLabel = new JLabel("Select City for Data Display");
     
@@ -27,10 +28,12 @@ public class CommuteVsShelterCostGUI extends Tool implements ActionListener {
     private JButton auroraButton = new JButton("Aurora");
     private JButton newMarketButton = new JButton("Newmarket");
     
-    private DefaultCategoryDataset displayedData = new DefaultCategoryDataset();
+    private DefaultCategoryDataset displayedData;
     private JFreeChart barChart;
     private ChartPanel chartPanel;
     private ArrayList<Category> dataGroup2;
+    
+    private String currentCity;
     
     public CommuteVsShelterCostGUI () {
         
@@ -45,33 +48,50 @@ public class CommuteVsShelterCostGUI extends Tool implements ActionListener {
         
         add(getBackButton());
         
-        buttonTitleLabel.setFont(new Font("Tahoma", Font.PLAIN, 25));
-        buttonTitleLabel.setBounds(455, 500, 150, 35);
+        buttonTitleLabel.setFont(new Font("Tahoma", Font.BOLD, 25));
+        Border border = BorderFactory.createLineBorder(Color.BLUE, 3);
+        buttonTitleLabel.setBorder(border);
+        buttonTitleLabel.setBounds(490, 555, 350, 35);
         add(buttonTitleLabel);
         
-        markhamButton.setBounds(200, 550, 100, 20);
-        vaughnButton.setBounds(320, 550, 100, 20);
-        richmondButton.setBounds(440, 550, 100, 20);
-        auroraButton.setBounds(560, 550, 100, 20);
-        newMarketButton.setBounds(380, 600, 100, 20);
+        markhamButton.setBounds(400, 600, 100, 40);
+        vaughnButton.setBounds(530, 600, 100, 40);
+        richmondButton.setBounds(660, 600, 150, 40);
+        auroraButton.setBounds(840, 600, 100, 40);
+        newMarketButton.setBounds(580, 650, 150, 40);
         
         add(markhamButton);
         add(vaughnButton);
         add(richmondButton);
         add(auroraButton);
         add(newMarketButton);
-
-        displayedData = new DefaultCategoryDataset();
-
+        
+        
+        createChart();
         setVisible(true);
         
     }
-
-    private CategoryDataset createDataSet() {
+    
+    private CategoryDataset createDataSet(String currentCity) {
+        
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+        
+        
+        
+        String firstRange = "0-600";
+        String secondRange = "601-1000";
+        String thirdRange = "1001-1400";
+        String fourthRange = "1401-1800";
+        String fifthRange = "1800+";
+        
+//         dataset.addValue(firstRangeMax, currentCity)
+        
+    
+    
+    
         return dataset;
     }
-
+    
     @Override
     public void initializeDataToDisplay (MyDataset[] dataset) {
         
@@ -79,32 +99,30 @@ public class CommuteVsShelterCostGUI extends Tool implements ActionListener {
         //  you need another displayedData field
         String groupNameJourneyToWork = getValidGroups(0).get(0);
         String groupNameProfileOfHousing = getValidGroups(1).get(0);
-    
+        
         setDataGroup(dataset[0].getDataset().get(groupNameJourneyToWork));
         setDataGroup(dataset[1].getDataset().get(groupNameProfileOfHousing));
-        
-        createChart(groupNameProfileOfHousing);
     
+        createChart(groupNameProfileOfHousing, displayedData);
+        chartPanel.setBounds(150, 100, 1000, 450);
+        
     }
     
-    public void createChart (String groupNameProfileOfHousing) {
+    public void createChart (String groupNameProfileOfHousing, DefaultCategoryDataset displayedData) {
         
         String chartTitle = " Commute Type V.S" + groupNameProfileOfHousing;
         String xAxisLabel = groupNameProfileOfHousing;
         String valueAxisLabel = "Number of People";
         
-        barChart = ChartFactory.createBarChart(chartTitle, xAxisLabel, valueAxisLabel, displayedData, PlotOrientation.VERTICAL,
-                true, false, false);
+//        displayedData = createDataset();
+//        barChart = ChartFactory.createBarChart(chartTitle, xAxisLabel, valueAxisLabel, displayedData, PlotOrientation.VERTICAL,
+//                true, false, false);
         chartPanel = new ChartPanel(barChart);
         
-//        chartPanel.setBounds(,)
+        add(chartPanel);
         
-    
     }
-    
-    public void createDisplayedData(){
-    
-    }
+  
     
     @Override
     public void actionPerformed (ActionEvent e) {

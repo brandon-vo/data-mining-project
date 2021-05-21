@@ -14,7 +14,7 @@ import java.awt.event.ItemListener;
 import java.util.HashMap;
 import java.util.Map;
 
-public class HousingTrendGUI extends Tool implements ItemListener {
+public class HousingTrendGUI extends Tool {
     
     private static final HashMap<String, Integer> stringToInteger = new HashMap<>() {{
         put("ONE", 1);
@@ -41,23 +41,23 @@ public class HousingTrendGUI extends Tool implements ItemListener {
     
     public HousingTrendGUI () {
         
-        housingTrendTitle.setBounds(0,0,100,50);
+        housingTrendTitle.setBounds(0, 0, 100, 50);
         add(housingTrendTitle);
         
-        selectLocation.setBounds(200,100,100,50);
+        selectLocation.setBounds(200, 100, 100, 50);
         add(selectLocation);
-        String locationName[]={"Vaughan","Richmond Hill","Markham","East Gwillimbury","Newmarket","Georgina","King"};
-        location= new JComboBox(locationName);
-        location.addItemListener(this::itemStateChanged);
-        location.setBounds(200,200,100,100);
+        String locationName[] = { "Vaughan", "Richmond Hill", "Markham", "East Gwillimbury", "Newmarket", "Georgina", "King" };
+        location = new JComboBox(locationName);
+        
+        location.setBounds(200, 200, 100, 100);
         add(location);
-
-        selectVariable.setBounds(200,400,100,50);
+    
+        selectVariable.setBounds(200, 400, 100, 50);
         add(selectVariable);
-        String variableName[]={"room","bed","maintainer"};
-        variable= new JComboBox(variableName);
-        variable.addItemListener(this::itemStateChanged);
-        variable.setBounds(200,500,100,100);
+        String variableName[] = { "room", "bed", "maintainer" };
+        variable = new JComboBox(variableName);
+        
+        variable.setBounds(200, 500, 100, 100);
         add(variable);
         
         displayedData = new XYSeriesCollection();
@@ -87,28 +87,28 @@ public class HousingTrendGUI extends Tool implements ItemListener {
     }
     
     public void createDisplayedData (String cityName) {
-        
-        // TODO clear any data from before
+    
+        displayedData.removeAllSeries();// TODO clear any data from before
         XYSeries city = new XYSeries(cityName);
-        
-        for (Category category: getDataGroup()) {
+    
+        for (Category category : getDataGroup()) {
         
             // TODO resolve 1-4 since there are 2 numbers there
-            for (Map.Entry<String, Integer> identifiers: stringToInteger.entrySet()) {
+            for (Map.Entry<String, Integer> identifiers : stringToInteger.entrySet()) {
                 if (category.getCategoryName().contains(identifiers.getKey())) {
                     city.add(identifiers.getValue(), category.getCities().get(cityName));
                     break;
                 }
             }
-            
+        
         }
         displayedData.addSeries(city);
-        
-    }
-
-    @Override
-    public void itemStateChanged (ItemEvent e) {
-
-    }
     
+    }
+    //    public JComboBox getLocation1 () {
+    //        return location;
+    //    }
+    //    public JComboBox getVariable() {
+    //        return variable;
+    //    }
 }

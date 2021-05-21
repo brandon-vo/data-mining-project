@@ -10,19 +10,20 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.RGBImageFilter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class DensityMapController implements ActionListener, MouseListener {
 
     public static DensityMapGUI densityGUI;
 
-    DensityMapController(Tool densityGUI) {
+    public DensityMapController(DensityMapGUI densityGUI) {
 
-        this.densityGUI = (DensityMapGUI) densityGUI;
+        this.densityGUI = densityGUI;
         setUpListeners();
 
         for (int cityIndex = 0; cityIndex < 9; cityIndex++) {
-            ((DensityMapGUI) densityGUI).changeMapColour(cityIndex);
+            (densityGUI).changeMapColour(cityIndex);
         }
     }
 
@@ -58,27 +59,16 @@ public class DensityMapController implements ActionListener, MouseListener {
             updateSelectedData(0);
             updateQuestionBox(0);
             densityGUI.getUserResults().setText("Please select a dataset!");
-        } else if (densityGUI.getDataList().getSelectedIndex() == 1) {
-            enableComponents(true);
-            updateSelectedData(1);
-            updateQuestionBox(1);
-        } else if (densityGUI.getDataList().getSelectedIndex() == 2) {
-            enableComponents(true);
-            updateSelectedData(2);
-            updateQuestionBox(2);
-        } else if (densityGUI.getDataList().getSelectedIndex() == 3) {
-            enableComponents(true);
-            updateSelectedData(3);
-            updateQuestionBox(3);
-        } else if (densityGUI.getDataList().getSelectedIndex() == 4) {
-            enableComponents(true);
-            updateSelectedData(4);
-            updateQuestionBox(4);
-        } else if (densityGUI.getDataList().getSelectedIndex() == 5) {
-            enableComponents(true);
-            updateSelectedData(5);
-            updateQuestionBox(5);
         }
+        for (int i = 1; i<=5; ++i) {
+            if (densityGUI.getDataList().getSelectedIndex()==i) {
+                enableComponents(true);
+                updateSelectedData(i);
+                updateQuestionBox(i);
+                return;
+            }
+        }
+        
     }
 
     public void updateSelectedData(int index) {
@@ -115,30 +105,25 @@ public class DensityMapController implements ActionListener, MouseListener {
             String[] list = new String[]{"- Select value of your dwelling -",
                     "0-500,000", "500,000-1,000,000", "1,000,000-1,500,000", "1,500,000-2,000,000",
                     "2,000,000-2,500,000", "2,500,000-3,000,000", "3,000,000-3,500,000"};
-            for (int x = 0; x < list.length; x++)
-                questions.add(list[x]);
+            questions.addAll(Arrays.asList(list));
         } else if (index == 2) {
             String[] list = new String[]{"- Select average monthly shelter cost -",
                     "0-500", "500-1,000", "1,000-1,500", "1,500-2,000", "2,000-2,500",
                     "2,500-3,000", "3,000-3,500", "3,500-4,000"};
-            for (int x = 0; x < list.length; x++)
-                questions.add(list[x]);
+            questions.addAll(Arrays.asList(list));
         } else if (index == 3) {
             String[] list = new String[]{"- Select average monthly shelter cost -",
                     "0-500", "500-1,000", "1,000-1,500", "1,500-2,000", "2,000-2,500",
                     "2,500-3,000"};
-            for (int x = 0; x < list.length; x++)
-                questions.add(list[x]);
+            questions.addAll(Arrays.asList(list));
         } else if (index == 4) {
             String[] list = new String[]{"- Are you a household owner? -",
                     "Yes", "No"};
-            for (int x = 0; x < list.length; x++)
-                questions.add(list[x]);
+            questions.addAll(Arrays.asList(list));
         } else if (index == 5) {
             String[] list = new String[]{"- Are you a household renter? -",
                     "Yes", "No"};
-            for (int x = 0; x < list.length; x++)
-                questions.add(list[x]);
+            questions.addAll(Arrays.asList(list));
         }
 
         // Set question list based on selected index
@@ -171,8 +156,15 @@ public class DensityMapController implements ActionListener, MouseListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
+    
         if (e.getSource() == densityGUI.getSubmitButton()) {
+        
+            // User did not fill out all questions
+            if (densityGUI.getCityList().getSelectedIndex() == 0 || densityGUI.getQuestionList().getSelectedIndex() == 0) {
+                JOptionPane.showMessageDialog(null, "Please answer all questions!", "Error",
+                        JOptionPane.ERROR_MESSAGE);
+                return;
+            }
             JOptionPane.showMessageDialog(null, "not done", "not done", JOptionPane.INFORMATION_MESSAGE);
         } else if (e.getSource() == densityGUI.getDataList()) {
             getSelectedData();
