@@ -1,5 +1,6 @@
 package view;
 
+import controller.ScatterPlotController;
 import model.MyDataset;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -71,7 +72,7 @@ public class HousingTrendGUI extends Tool {
         
         String groupName = getValidGroups(1).get(0);
         setDataGroup(dataset[1].getDataset().get(groupName));
-        createDisplayedData(MyDataset.getCities()[0]);
+        createDisplayedData(MyDataset.getCities()[ScatterPlotController.getCityIndex()]);
     
         scatterPlotChart = ChartFactory.createScatterPlot(
                 "Number of House vs "+groupName,
