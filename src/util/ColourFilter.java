@@ -20,7 +20,7 @@ public class ColourFilter extends RGBImageFilter {
         switch (gui.getDataList().getSelectedIndex()) {
             
             case 0: lv = 0xFFE5E7E9; break;
-            case 1: lv = 0xFF90CAF9; break;
+            case 1: lv = 0xFFBBDEFB; break;
             case 2: lv = 0xFF90CAF9; break;
             case 3: lv = 0xFF64B5F6; break;
             case 4: lv = 0xFF1E88E5; break;
