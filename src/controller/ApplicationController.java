@@ -38,6 +38,7 @@ public class ApplicationController {
 
 		densityMapController = new DensityMapController((DensityMapGUI) tools[DENSITY_MAP.getValue()]);
 		pieChartController = new PieChartController((PieChartGUI) tools[PIE_CHART.getValue()]);
+		scatterPlotcontroller = new ScatterPlotController((HousingTrendGUI) tools[SCATTER_CHART.getValue()]);
 
 		// Assign the data to the fields
 		FileImportController files = new FileImportController();

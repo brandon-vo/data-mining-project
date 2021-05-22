@@ -1,6 +1,8 @@
 package controller;
 
 import view.HousingTrendGUI;
+import view.Tool;
+
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,9 +10,11 @@ import java.awt.event.ActionListener;
 public class ScatterPlotController implements ActionListener {
     
     private HousingTrendGUI gui;
+
     
     public ScatterPlotController(HousingTrendGUI gui){
         this.gui = gui;
+
         setUpListeners();
     }
 
@@ -24,6 +28,7 @@ public class ScatterPlotController implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         String location = (String)gui.getLocation1().getSelectedItem();
+        
         switch(location){
             case "Vaughan":
 
