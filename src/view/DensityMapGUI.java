@@ -110,6 +110,7 @@ public class DensityMapGUI extends Tool {
         cityLabels[7].setBounds(380, 410, 100, 100); // Stouffville
         cityLabels[8].setBounds(200, 580, 100, 100); // Vaughan
 
+        // User panel
         userPanel.setBounds(0, 0, MainFrame.WIDTH, MainFrame.HEIGHT);
         add(userPanel);
 
@@ -182,8 +183,15 @@ public class DensityMapGUI extends Tool {
         return userResults;
     }
 
-    public String[] getMapNames() { return mapNames; }
+    public JLabel[] getCityLabels() {
+        return cityLabels;
+    }
 
-    public JLabel[] getCityLabels() { return cityLabels; }
+    public String[] getMapNames() {
+        return mapNames;
+    }
 
+    public String[] getDataOptions() {
+        return dataOptions;
+    }
 }

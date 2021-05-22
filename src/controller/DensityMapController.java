@@ -17,10 +17,9 @@ public class DensityMapController implements ActionListener, MouseListener {
     private DensityMapGUI densityGUI;
 
     public DensityMapController(DensityMapGUI densityGUI) {
-
-        this.densityGUI = densityGUI;
-        setUpListeners();
-        densityGUI.changeMapColour();
+        this.densityGUI = densityGUI; // Density GUI
+        setUpListeners(); // Setup Listeners
+        densityGUI.changeMapColour(); // Initial map colour set to grey
     }
 
     // Setup listeners
@@ -41,31 +40,27 @@ public class DensityMapController implements ActionListener, MouseListener {
 
     // Get user selected dataset
     public void getSelectedData() {
-
         if (densityGUI.getDataList().getSelectedIndex() == 0) {
             enableComponents(false);
-            updateSelectedData(0);
+            updateSelectedData();
             updateQuestionBox(0);
             densityGUI.getUserResults().setText("Please select a dataset!");
         }
         for (int index = 1; index <= 5; index++) {
             if (densityGUI.getDataList().getSelectedIndex() == index) {
                 enableComponents(true);
-                updateSelectedData(index);
+                updateSelectedData();
                 updateQuestionBox(index);
                 return;
             }
         }
     }
 
-    public void updateSelectedData(int index) {
+    // Update map colour and user results text
+    public void updateSelectedData() {
         densityGUI.getUserResults().setText("Please input your information!");
         densityGUI.changeMapColour();
-        // TODO get the index provided then get the dataset based on the index
-        // TODO display the data value as a string on the joptionpane
-        if (index == 1) {
 
-        }
     }
 
     // Set question combo box
@@ -110,7 +105,6 @@ public class DensityMapController implements ActionListener, MouseListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
         // User clicked submit button
         if (e.getSource() == densityGUI.getSubmitButton()) {
 
@@ -123,6 +117,7 @@ public class DensityMapController implements ActionListener, MouseListener {
             JOptionPane.showMessageDialog(null, "Your results have been submtited!", "Success",
                     JOptionPane.INFORMATION_MESSAGE);
             // TODO compare user results to data
+            densityGUI.getUserResults().setText("TODO results");
         } else if (e.getSource() == densityGUI.getDataList()) {
             getSelectedData();
         }
@@ -134,8 +129,17 @@ public class DensityMapController implements ActionListener, MouseListener {
         // User clicked a city label
         for (int index = 0; index < densityGUI.getCityLabels().length; index++) {
             if (e.getSource() == densityGUI.getCityLabels()[index]) {
-                JOptionPane.showMessageDialog(null, "Value",
-                        densityGUI.getMapNames()[index].toUpperCase(), JOptionPane.INFORMATION_MESSAGE);
+                // TODO replace 'value' with the data value
+                for (int x = 1; x <= 5; x++) {
+                    if (densityGUI.getDataList().getSelectedIndex() == x) {
+                        JOptionPane.showMessageDialog(null, densityGUI.getDataOptions()[x] +
+                                        " : value",
+                                densityGUI.getMapNames()[index].toUpperCase(), JOptionPane.INFORMATION_MESSAGE);
+                        return;
+                    }
+                }
+                JOptionPane.showMessageDialog(null, "You have not selected a dataset!",
+                        "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
