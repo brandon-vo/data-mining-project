@@ -32,6 +32,8 @@ public abstract class Tool extends JPanel {
     
         backButton = new JButton(new ImageIcon(BACK_BUTTON_IMAGE_FILE));
         backButton.setBounds(1315, 17, 20, 20);
+        backButton.setContentAreaFilled(false);
+        backButton.setBorderPainted(false);
         add(backButton);
         
     }
