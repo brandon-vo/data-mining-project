@@ -15,6 +15,7 @@ import java.util.ArrayList;
 
 public class DensityMapGUI extends Tool {
 
+    // Fields
     private JLabel densityMapTitleLabel = new JLabel(new ImageIcon("img/titles/densityMapTitle.png"));
     private JLabel userPanel = new JLabel(new ImageIcon("img/densityMap/userPanel.png"));
     private String[] dataOptions = new String[]{
@@ -59,6 +60,7 @@ public class DensityMapGUI extends Tool {
     private JLabel[] mapLabels = new JLabel[9];
     private JLabel[] cityLabels = new JLabel[9];
 
+    // Constructor
     public DensityMapGUI() {
 
         // Title label

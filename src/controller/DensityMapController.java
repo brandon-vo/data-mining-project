@@ -14,8 +14,9 @@ import java.util.List;
 
 public class DensityMapController implements ActionListener, MouseListener {
 
-    private DensityMapGUI densityGUI;
+    private DensityMapGUI densityGUI; // Access DensityMapGUI
 
+    // Constructor
     public DensityMapController(DensityMapGUI densityGUI) {
         this.densityGUI = densityGUI; // Density GUI
         setUpListeners(); // Setup Listeners
