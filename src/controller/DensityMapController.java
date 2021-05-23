@@ -12,17 +12,19 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static model.DataType.DENSITY_MAP;
+
 public class DensityMapController implements ActionListener, MouseListener {
-
+    
     private DensityMapGUI densityGUI; // Access DensityMapGUI
-
+    
     // Constructor
     public DensityMapController(DensityMapGUI densityGUI) {
         this.densityGUI = densityGUI; // Density GUI
         setUpListeners(); // Setup Listeners
         densityGUI.changeMapColour(); // Initial map colour set to grey
     }
-
+    
     // Setup listeners
     public void setUpListeners() {
         densityGUI.getSubmitButton().addActionListener(this);
@@ -30,7 +32,7 @@ public class DensityMapController implements ActionListener, MouseListener {
         for (int index = 0; index < densityGUI.getCityLabels().length; index++)
             densityGUI.getCityLabels()[index].addMouseListener(this);
     }
-
+    
     // Enable components
     public void enableComponents(boolean enable) {
         densityGUI.getCityList().setEnabled(enable);
@@ -38,30 +40,26 @@ public class DensityMapController implements ActionListener, MouseListener {
         densityGUI.getUserResults().setEnabled(enable);
         densityGUI.getQuestionList().setEnabled(enable);
     }
-
+    
     // Get user selected dataset
     public void getSelectedData() {
-        if (densityGUI.getDataList().getSelectedIndex() == 0) {
+        if (densityGUI.getDataList().getSelectedIndex()==0) {
             enableComponents(false);
             updateSelectedData();
             updateQuestionBox(0);
             densityGUI.getUserResults().setText("Please select a dataset!");
         }
-        for (int index = 1; index < densityGUI.getDataOptions().length; index++) {
-            if (densityGUI.getDataList().getSelectedIndex() == index) {
-                enableComponents(true);
-                updateSelectedData();
-                updateQuestionBox(index);
-                return;
-            }
-        }
+        enableComponents(true);
+        densityGUI.setDataGroup((String) densityGUI.getDataList().getSelectedItem());
+        updateSelectedData();
+        updateQuestionBox(densityGUI.getDataList().getSelectedIndex());
     }
-
+    
     // Update map colour and user results text
     public void updateSelectedData() {
         densityGUI.getUserResults().setText("Please input your information!");
         densityGUI.changeMapColour();
-
+        
     }
     
     // Set question combo box
@@ -103,12 +101,12 @@ public class DensityMapController implements ActionListener, MouseListener {
         densityGUI.getQuestionList().setModel(new DefaultComboBoxModel<>(questions.toArray(new String[0])));
         
     }
-
+    
     @Override
     public void actionPerformed(ActionEvent e) {
         // User clicked submit button
         if (e.getSource() == densityGUI.getSubmitButton()) {
-
+            
             // User did not fill out all questions
             if (densityGUI.getCityList().getSelectedIndex() == 0 || densityGUI.getQuestionList().getSelectedIndex() == 0) {
                 JOptionPane.showMessageDialog(null, "Please answer all questions!",
@@ -122,47 +120,52 @@ public class DensityMapController implements ActionListener, MouseListener {
         } else if (e.getSource() == densityGUI.getDataList()) {
             getSelectedData();
         }
-
+        
     }
-
+    
     @Override
     public void mouseClicked(MouseEvent e) {
         // User clicked a city label
         for (int index = 0; index < densityGUI.getCityLabels().length; index++) {
+            
             if (e.getSource() == densityGUI.getCityLabels()[index]) {
+                
                 // TODO replace 'value' with the data value
-                for (int x = 1; x < densityGUI.getDataOptions().length; x++) {
-                    if (densityGUI.getDataList().getSelectedIndex() == x) {
-                        JOptionPane.showMessageDialog(null, densityGUI.getDataOptions()[x] +
-                                        " : value",
-                                densityGUI.getMapNames()[index].toUpperCase(), JOptionPane.INFORMATION_MESSAGE);
-                        return;
-                    }
+                int selectedCategory = densityGUI.getDataList().getSelectedIndex();
+                if (densityGUI.getDataList().getSelectedIndex()!=0) {
+                    JOptionPane.showMessageDialog(null,
+                            densityGUI.getDataOptions()[selectedCategory]+" : "
+                                    +densityGUI.getDataGroup().get(0)
+                                    .getCities().get(densityGUI.getCityName(index)),
+                            densityGUI.getMapNames()[index].toUpperCase(),
+                            JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, "You have not selected a dataset!",
+                            "Error", JOptionPane.ERROR_MESSAGE);
                 }
-                JOptionPane.showMessageDialog(null, "You have not selected a dataset!",
-                        "Error", JOptionPane.ERROR_MESSAGE);
             }
+            
         }
     }
-
+    
     @Override
     public void mousePressed(MouseEvent e) {
-
+    
     }
-
+    
     @Override
     public void mouseReleased(MouseEvent e) {
-
+    
     }
-
+    
     @Override
     public void mouseEntered(MouseEvent e) {
-
+    
     }
-
+    
     @Override
     public void mouseExited(MouseEvent e) {
-
+    
     }
-
+    
 }

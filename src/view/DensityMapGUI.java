@@ -20,10 +20,10 @@ public class DensityMapGUI extends Tool {
     private JLabel userPanel = new JLabel(new ImageIcon("img/densityMap/userPanel.png"));
     private String[] dataOptions = new String[]{
             "- Select data -",
-            "Average Dwelling Value",
-            "Average Owner Monthly Shelter Cost",
-            "Average Renter Monthly Shelter Cost",
-            "Household Owners",
+            "AVG_DWELL_VALUE",
+            "AVG_OWN_MONTHLY_SHELTER_COST",
+            "AVG_MONTHLY_SHELTER_RENT",
+            "Household Owners", // TODO what are these
             "Household Renters"};
     private JComboBox dataList = new JComboBox<>(dataOptions);
 
@@ -102,7 +102,7 @@ public class DensityMapGUI extends Tool {
         }
 
         // Set city label position
-        cityLabels[0].setBounds(285, 440, 100, 50); // Aurora
+        cityLabels[0].setBounds(285, 440, 100, 50);  // Aurora
         cityLabels[1].setBounds(315, 280, 100, 100); // East Gwillimbury
         cityLabels[2].setBounds(360, 140, 100, 100); // Georgina
         cityLabels[3].setBounds(165, 460, 100, 100); // King
@@ -160,8 +160,8 @@ public class DensityMapGUI extends Tool {
     @Override
     public void initializeDataToDisplay(MyDataset[] dataset) {
 
-//        String profileOfHousing = getValidGroups(1).get(0);
-//        setDataGroup(dataset[1].getDataset().get(profileOfHousing));
+        String profileOfHousing = getValidGroupNames(1).get(0);
+        setDataGroup(profileOfHousing);
 
     }
 
@@ -188,7 +188,9 @@ public class DensityMapGUI extends Tool {
     public JLabel[] getCityLabels() {
         return cityLabels;
     }
-
+    
+    public String getCityName (int index) { return cityOptions[index+1]; }
+    
     public String[] getMapNames() {
         return mapNames;
     }

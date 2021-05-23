@@ -17,17 +17,17 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class CommuteVsShelterCostGUI extends Tool implements ActionListener {
+public class CommuteVsShelterCostGUI extends Tool{
     
     private JLabel titleLabel = new JLabel(new ImageIcon("img/titles/shelterCostVsCommonCommuteTypeTitle.png"));
     private JLabel currentDataDisplay = new JLabel("currentDisplayedDate");
     private JLabel buttonTitleLabel = new JLabel("Select City for Data Display");
     
-    private JButton markhamButton = new JButton("Markham");
-    private JButton vaughnButton = new JButton("Vaughn");
-    private JButton richmondButton = new JButton("Richmond Hill");
-    private JButton auroraButton = new JButton("Aurora");
-    private JButton newMarketButton = new JButton("Newmarket");
+    public JButton markhamButton = new JButton("Markham");
+    public JButton vaughnButton = new JButton("Vaughn");
+    public JButton richmondButton = new JButton("Richmond Hill");
+    public JButton auroraButton = new JButton("Aurora");
+    public JButton newMarketButton = new JButton("Newmarket");
     
     private DefaultCategoryDataset displayedData;
     private JFreeChart barChart;
@@ -99,7 +99,7 @@ public class CommuteVsShelterCostGUI extends Tool implements ActionListener {
         
         for(int i = 0; i < getDataGroup().size(); i++ ){
             
-            getRawData()
+//            getRawData()
             
         }
     
@@ -120,13 +120,6 @@ public class CommuteVsShelterCostGUI extends Tool implements ActionListener {
     
     }
     
-
-    
-    @Override
-    public void actionPerformed (ActionEvent e) {
-    
-    }
-
     public String getCurrentCity() {
         return currentCity;
     }

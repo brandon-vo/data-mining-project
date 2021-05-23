@@ -1,5 +1,7 @@
 package util;
 
+import model.MyDataset;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,6 +23,10 @@ public class Category {
     
     public HashMap<String, Double> getCities () {
         return cities;
+    }
+    
+    public double getOGCityData (String cityName) {
+        return cities.get(cityName)*MyDataset.cityCount.get(cityName);
     }
     
     public void addToCity (String city, double people) {

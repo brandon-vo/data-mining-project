@@ -14,15 +14,9 @@ public class FileImportController {
     private static final String JOURNEY_TO_WORK_FILE = "./datasets/Profile_of_Journey_to_Work_by_Dissemination_Area,_2016_Census.csv";
     private static final String PROFILE_OF_HOUSING_FILE = "./datasets/Profile_of_Housing_by_Dissemination_Area,_2016_Census.csv";
     
-    private ArrayList<ArrayList<String>>[] rawData;
-    
     private MyDataset[] datasets;
     
     public FileImportController () {
-    
-        rawData = new ArrayList[2];
-        rawData[0] = new ArrayList<>();
-        rawData[1] = new ArrayList<>();
         
         datasets = new MyDataset[2];
         datasets[0] = new JourneyToWork();
@@ -46,7 +40,6 @@ public class FileImportController {
     private void importFrom (String filePath, int index) {
         
         MyDataset myDataset = datasets[index];
-        ArrayList<ArrayList<String>> dataset = rawData[index];
         Scanner input;
         try {
             input = new Scanner(new File(filePath));
@@ -56,6 +49,7 @@ public class FileImportController {
         }
         
         input.useDelimiter(",");
+        ArrayList<ArrayList<String>> dataset = new ArrayList<>();
         dataset.add(new ArrayList<>());
         
         boolean hasDefectiveData = false;

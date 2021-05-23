@@ -10,6 +10,7 @@ import static model.DataType.*;
 public class ProfileOfHousing extends MyDataset {
     
     public static final String MED_ = "MED_";
+    public static final String AVG_ = "AVG_";
     
     public ProfileOfHousing () {
         super();
@@ -28,20 +29,19 @@ public class ProfileOfHousing extends MyDataset {
             
             String categoryName = categoryRow.get(i);
             
-            // If there is TOT_ then create a new group and skip it
-            if (categoryName.contains(TOT_)) {
-                
-                groupName = categoryName.replace(TOT_, "");
+            // If there is TOT_ or MED_, then create a new group and skip it
+            if (categoryName.contains(TOT_) || categoryName.contains(MED_)) {
+    
+                groupName = categoryName.contains(TOT_)
+                        ? categoryName.replace(TOT_, "")
+                        : categoryRow.get(i+1);
                 getDataset().put(groupName, new ArrayList<>());
                 continue;
                 
-            // If there is SHAPE__  or MED_, create a new group but do not skip it
-            } else if (categoryName.contains(SHAPE__) && !groupName.equals("Shape") || categoryName.contains(MED_)) {
-                
-                groupName = categoryName.contains(SHAPE__)
-                        ? "Shape":categoryName.replace(MED_, "");
+            // If there is SHAPE__ , create a new group but do not skip it
+            } else if (categoryName.contains(SHAPE__) && !groupName.equals("Shape")) {
+                groupName = "Shape";
                 getDataset().put(groupName, new ArrayList<>());
-                
             }
             
             // Initialize the group with all the cities
@@ -61,11 +61,11 @@ public class ProfileOfHousing extends MyDataset {
     @Override
     public void assignValidGroupCharts (Tool[] tools) {
         
-        tools[DENSITY_MAP.getValue()].getValidGroups(1).put("DWELLING_VALUE", getDataset().get("DWELLING_VALUE"));
-        tools[DENSITY_MAP.getValue()].getValidGroups(1).put("MONTHLY_SHELTER_RENT", getDataset().get("MONTHLY_SHELTER_RENT"));
-        tools[DENSITY_MAP.getValue()].getValidGroups(1).put("OWN_MONTHLY_SHELTER_COST", getDataset().get("OWN_MONTHLY_SHELTER_COST"));
+        tools[DENSITY_MAP.getValue()].getValidGroups(1).put("AVG_DWELL_VALUE", getDataset().get("AVG_DWELL_VALUE"));
+        tools[DENSITY_MAP.getValue()].getValidGroups(1).put("AVG_MONTHLY_SHELTER_RENT", getDataset().get("AVG_MONTHLY_SHELTER_RENT"));
+        tools[DENSITY_MAP.getValue()].getValidGroups(1).put("AVG_OWN_MONTHLY_SHELTER_COST", getDataset().get("AVG_OWN_MONTHLY_SHELTER_COST"));
     
-        tools[BAR_CHART.getValue()].getValidGroups(1).put("MONTHLY_SHELTER_RENT", getDataset().get("MONTHLY_SHELTER_RENT"));
+        tools[BAR_CHART.getValue()].getValidGroups(1).put("AVG_MONTHLY_SHELTER_RENT", getDataset().get("AVG_MONTHLY_SHELTER_RENT"));
         
         tools[SCATTER_CHART.getValue()].getValidGroups(1).put("OCC_PVT_DWELL_NO_BED", getDataset().get("OCC_PVT_DWELL_NO_BED"));
         tools[SCATTER_CHART.getValue()].getValidGroups(1).put("OCC_PVT_DWELL_NO_ROOMS", getDataset().get("OCC_PVT_DWELL_NO_ROOMS"));

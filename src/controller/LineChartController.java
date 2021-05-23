@@ -25,8 +25,7 @@ public class LineChartController implements ActionListener, MouseListener, Datas
         gui.getChartBounds(1).addActionListener(this);
         gui.getSelectVisibleCities().addActionListener(this);
         gui.getDisplayedData().addChangeListener(this);
-        // TODO add the action listener everytime it's created
-        gui.getChartPanel().addMouseListener(this);
+        // TODO add the action listener to chart panel everytime it's created
         
     }
     
@@ -34,7 +33,7 @@ public class LineChartController implements ActionListener, MouseListener, Datas
     public void actionPerformed (ActionEvent e) {
     
         if (e.getSource()==gui.getSelectDataGroupBox()) {
-        
+            updateData();
         } else if (e.getSource()==gui.getChartBounds(0)) {
         
         } else if (e.getSource()==gui.getChartBounds(1)) {
@@ -46,10 +45,9 @@ public class LineChartController implements ActionListener, MouseListener, Datas
     }
     
     public void updateData () {
-        
         String groupName = (String) gui.getSelectDataGroupBox().getSelectedItem();
         gui.setDataToDisplay(groupName);
-        
+        gui.repaint();
     }
     
     @Override

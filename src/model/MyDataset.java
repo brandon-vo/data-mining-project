@@ -11,6 +11,7 @@ public abstract class MyDataset {
     
     public static final int CITY_INDEX = 3;
     public static final String TOT_ = "TOT_";
+    public static final String MED_ = "MED_";
     public static final String SHAPE__ = "Shape__";
     
     private final ArrayList<String> groupIndicators;
@@ -33,7 +34,7 @@ public abstract class MyDataset {
      */
     private final HashMap<String, ArrayList<Category>> dataset;
     
-    private final static HashMap<String, Integer> cityCount = new HashMap<>();
+    public static final HashMap<String, Integer> cityCount = new HashMap<>();
     
     public MyDataset () {
         groupIndicators = new ArrayList<>(Arrays.asList(TOT_, SHAPE__));
@@ -59,19 +60,22 @@ public abstract class MyDataset {
         for (int row = 1; row<dataset.size(); ++row) {
             for (int col = CITY_INDEX+1; col<dataset.get(row).size(); ++col) {
                 
-                if (dataset.get(0).get(col).contains(TOT_)) continue;
+                if (dataset.get(0).get(col).contains(TOT_) || dataset.get(0).get(col).contains(MED_)) {
+                    continue;
+                }
                 
                 // Find the group the current category is in with binary search
                 int groupIndex = groupIndexes.get(binarySearch(groupIndexes, col));
                 String groupName = categoryRow.get(groupIndex);
-                if (!groupName.contains(TOT_)) {
-                    --groupIndex;
-                }
                 
-                for (String indicator: groupIndicators) {
-                    if (!indicator.equals(SHAPE__)) {
-                        groupName = groupName.replace(indicator, "");
-                    }
+                // Decrement to include shape area's first category
+                if (groupName.contains(SHAPE__)) {
+                    --groupIndex;
+                    groupName = SHAPE__.replace("__", "");
+                } else if (groupName.contains(TOT_)) {
+                    groupName = groupName.replace(TOT_, "");
+                } else if (groupName.contains(MED_)) {
+                    groupName = categoryRow.get(groupIndex+1);
                 }
                 
                 if (groupName.contains(SHAPE__)) {
@@ -84,7 +88,6 @@ public abstract class MyDataset {
                 ArrayList<String> curRow = dataset.get(row);
                 categories.get(col-groupIndex-1).addToCity(curRow.get(CITY_INDEX),
                         Double.parseDouble(curRow.get(col)));
-                
             }
         }
         
@@ -96,7 +99,6 @@ public abstract class MyDataset {
                 }
             }
         }
-    
         
     }
     
