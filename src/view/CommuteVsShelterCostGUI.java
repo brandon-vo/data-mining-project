@@ -1,6 +1,6 @@
 package view;
 
-import model.MyDataset;
+import model.*;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -28,10 +28,11 @@ public class CommuteVsShelterCostGUI extends Tool implements ActionListener {
     private JButton auroraButton = new JButton("Aurora");
     private JButton newMarketButton = new JButton("Newmarket");
     
-    private DefaultCategoryDataset displayedData = new DefaultCategoryDataset();
+    private DefaultCategoryDataset displayedData;
     private JFreeChart barChart;
     private ChartPanel chartPanel;
     private ArrayList<Category> dataGroup2;
+
     private String currentCity;
 
     public CommuteVsShelterCostGUI () {
@@ -65,16 +66,12 @@ public class CommuteVsShelterCostGUI extends Tool implements ActionListener {
         add(auroraButton);
         add(newMarketButton);
 
-        displayedData = new DefaultCategoryDataset();
+        initializeDataToDisplay();
 
         setVisible(true);
         
     }
 
-    private CategoryDataset createDataSet() {
-        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        return dataset;
-    }
 
     @Override
     public void initializeDataToDisplay (MyDataset[] dataset) {
@@ -85,14 +82,23 @@ public class CommuteVsShelterCostGUI extends Tool implements ActionListener {
         String groupNameProfileOfHousing = getValidGroups(1).get(0);
     
         setDataGroup(dataset[0].getDataset().get(groupNameJourneyToWork));
-        setDataGroup(dataset[1].getDataset().get(groupNameProfileOfHousing));
-        
-        createChart(groupNameProfileOfHousing);
+
+        displayedData = createDataSet(currentCity);
+        createChart(groupNameProfileOfHousing, displayedData);
         chartPanel.setBounds(150, 100, 1000, 450);
     
     }
+
+    private DefaultCategoryDataset createDataSet(String currentCity) {
+
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+
+        
+
+        return dataset;
+    }
     
-    public void createChart (String groupNameProfileOfHousing) {
+    public void createChart (String groupNameProfileOfHousing, DefaultCategoryDataset displayedData) {
         
         String chartTitle = " Commute Type V.S" + groupNameProfileOfHousing;
         String xAxisLabel = groupNameProfileOfHousing;
@@ -106,9 +112,7 @@ public class CommuteVsShelterCostGUI extends Tool implements ActionListener {
     
     }
     
-    public void createDisplayedData(){
-    
-    }
+
     
     @Override
     public void actionPerformed (ActionEvent e) {
