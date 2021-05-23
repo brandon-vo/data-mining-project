@@ -9,10 +9,13 @@ import view.CommuteVsShelterCostGUI;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.*;
 
 public class BarChartController extends ToolController implements ActionListener {
     
     CommuteVsShelterCostGUI barChartGui;
+
+
     
     public BarChartController(CommuteVsShelterCostGUI barChartGui){
         this.barChartGui = barChartGui;
@@ -31,15 +34,13 @@ public class BarChartController extends ToolController implements ActionListener
     
     @Override
     public void initializeDataToDisplay (MyDataset[] dataset) {
-        
+
         String groupNameJourneyToWork = barChartGui.getValidGroupNames(0).get(0);
         String groupNameProfileOfHousing = barChartGui.getValidGroupNames(1).get(0);
-    
         barChartGui.setDataGroup(groupNameJourneyToWork);
         barChartGui.setDataGroup2(dataset[1].getDataset().get(groupNameProfileOfHousing));
-    
-        barChartGui.setDisplayedData(createDataSet(barChartGui.getCurrentCity()));
-        createChart(groupNameProfileOfHousing, barChartGui.getDisplayedData());
+
+
         barChartGui.getChartPanel().setBounds(150, 100, 1000, 450);
         
     }
@@ -47,17 +48,33 @@ public class BarChartController extends ToolController implements ActionListener
     private DefaultCategoryDataset createDataSet(String currentCity) {
         
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        
-        int range1MaxValue;
-        int range2MaxValue;
-        int range3MaxValue;
-        int range4MaxValue;
-        int range5MaxValue;
-        
-        for(int i = 0; i < barChartGui.getDataGroup().size(); i++ ){
+        ArrayList<ArrayList<String>> rawData1 = FileImportController.rawData[1];
+        ArrayList<ArrayList<String>> rawData2 = FileImportController.rawData[2];
+        int range1Max, range2Max, range3Max, range4Max, range5Max;
+        //array list of ranges containing array list holding totals of each commute type
+        ArrayList<ArrayList<Integer>> commuteTypeCount = new ArrayList<>();
+
+        for(int i = 1; i < barChartGui.getDataGroup().size(); i++ ){
             
-            //            getRawData()
-            
+            if(rawData1.get(i).get(4).equals(currentCity) && (Integer.parseInt(rawData1.get(i).get(70)) > 0 &&
+                    Integer.parseInt(rawData1.get(i).get(70)) <= 600)){
+
+
+
+            }else if(rawData1.get(i).get(4).equals(currentCity) && (Integer.parseInt(rawData1.get(i).get(70)) > 601 &&
+                    Integer.parseInt(rawData1.get(i).get(70)) <= 1000)){
+
+            }else if(rawData1.get(i).get(4).equals(currentCity) && (Integer.parseInt(rawData1.get(i).get(70)) >= 1001 &&
+                    Integer.parseInt(rawData1.get(i).get(70)) <= 1400)){
+
+            }else if (rawData1.get(i).get(4).equals(currentCity) && (Integer.parseInt(rawData1.get(i).get(70)) > 1401 &&
+                    Integer.parseInt(rawData1.get(i).get(70)) <= 1800)){
+
+            }else if(rawData1.get(i).get(4).equals(currentCity) && (Integer.parseInt(rawData1.get(i).get(70)) > 1800)){
+
+            }else if(rawData1.get(i).get(4).equals(currentCity) && (Integer.parseInt(rawData1.get(i).get(70)) == 0)){
+                continue;
+            }
         }
         
         return dataset;
@@ -78,9 +95,39 @@ public class BarChartController extends ToolController implements ActionListener
         barChartGui.add(barChartGui.getChartPanel());
         
     }
+
+    private int largestValue(int commuteTypeCount[]) {
+
+        int largestValue = commuteTypeCount[0];
+        for (int index = 1; index < commuteTypeCount.length; index++) {
+
+            if (commuteTypeCount[index] > largestValue) {
+                largestValue = commuteTypeCount[index];
+            }
+        }
+        return largestValue;
+    }
     
     @Override
     public void actionPerformed (ActionEvent e) {
+
+        if(e.getSource() == barChartGui.markhamButton){
+            barChartGui.setCurrentCity("Markham");
+            barChartGui.setDisplayedData(createDataSet(barChartGui.getCurrentCity()));
+            createChart(barChartGui.getValidGroupNames(1).get(0), barChartGui.getDisplayedData());
+        }else if(e.getSource() == barChartGui.richmondButton){
+            barChartGui.setCurrentCity("Richmond Hill");
+
+        }else if(e.getSource() == barChartGui.auroraButton){
+            barChartGui.setCurrentCity("Aurora");
+
+        }else if(e.getSource() == barChartGui.newMarketButton){
+            barChartGui.setCurrentCity("New Market");
+
+        }else if(e.getSource() == barChartGui.vaughnButton){
+            barChartGui.setCurrentCity("Vaughn");
+
+        }
     
     }
     
