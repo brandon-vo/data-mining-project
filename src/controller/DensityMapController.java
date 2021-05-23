@@ -15,16 +15,19 @@ import java.util.List;
 import static model.DataType.DENSITY_MAP;
 
 public class DensityMapController extends ToolController implements ActionListener, MouseListener {
-    
+
     private final DensityMapGUI densityGUI; // Access DensityMapGUI
-    
+
+    private String prefix = "";
+    private String suffix = "";
+
     // Constructor
     public DensityMapController(DensityMapGUI densityGUI) {
         this.densityGUI = densityGUI; // Density GUI
         setUpListeners(); // Setup Listeners
         densityGUI.changeMapColour(); // Initial map colour set to grey
     }
-    
+
     // Setup listeners
     public void setUpListeners() {
         densityGUI.getSubmitButton().addActionListener(this);
@@ -32,7 +35,7 @@ public class DensityMapController extends ToolController implements ActionListen
         for (int index = 0; index < densityGUI.getCityLabels().length; index++)
             densityGUI.getCityLabels()[index].addMouseListener(this);
     }
-    
+
     // Enable components
     public void enableComponents(boolean enable) {
         densityGUI.getCityList().setEnabled(enable);
@@ -40,33 +43,34 @@ public class DensityMapController extends ToolController implements ActionListen
         densityGUI.getUserResults().setEnabled(enable);
         densityGUI.getQuestionList().setEnabled(enable);
     }
-    
+
     // Get user selected dataset
     public void getSelectedData() {
-        if (densityGUI.getDataList().getSelectedIndex()==0) {
+        if (densityGUI.getDataList().getSelectedIndex() == 0) {
             enableComponents(false);
             updateSelectedData();
             updateQuestionBox(0);
             densityGUI.getUserResults().setText("Please select a dataset!");
+            return;
         }
         enableComponents(true);
         densityGUI.setDataGroup((String) densityGUI.getDataList().getSelectedItem());
         updateSelectedData();
         updateQuestionBox(densityGUI.getDataList().getSelectedIndex());
     }
-    
+
     // Update map colour and user results text
     public void updateSelectedData() {
         densityGUI.getUserResults().setText("Please input your information!");
         densityGUI.changeMapColour();
-        
+
     }
-    
+
     // Set question combo box
     public void updateQuestionBox(int index) {
         // Store list of options for the question
         List<String> questions = new ArrayList<>();
-        
+
         if (index == 1) {
             String[] optionList = new String[]{
                     "- Select value of your dwelling -",
@@ -96,25 +100,25 @@ public class DensityMapController extends ToolController implements ActionListen
                     "Yes", "No"};
             questions.addAll(Arrays.asList(optionList));
         }
-        
+
         // Set question list based on selected index
         densityGUI.getQuestionList().setModel(new DefaultComboBoxModel<>(questions.toArray(new String[0])));
-        
+
     }
-    
+
     @Override
     public void initializeDataToDisplay(MyDataset[] dataset) {
-        
+
         String profileOfHousing = densityGUI.getValidGroupNames(1).get(0);
         densityGUI.setDataGroup(profileOfHousing);
-        
+
     }
-    
+
     @Override
     public void actionPerformed(ActionEvent e) {
         // User clicked submit button
         if (e.getSource() == densityGUI.getSubmitButton()) {
-            
+
             // User did not fill out all questions
             if (densityGUI.getCityList().getSelectedIndex() == 0 || densityGUI.getQuestionList().getSelectedIndex() == 0) {
                 JOptionPane.showMessageDialog(null, "Please answer all questions!",
@@ -128,52 +132,62 @@ public class DensityMapController extends ToolController implements ActionListen
         } else if (e.getSource() == densityGUI.getDataList()) {
             getSelectedData();
         }
-        
+
     }
-    
+
     @Override
     public void mouseClicked(MouseEvent e) {
+
         // User clicked a city label
         for (int index = 0; index < densityGUI.getCityLabels().length; index++) {
-            
+
             if (e.getSource() == densityGUI.getCityLabels()[index]) {
-                
-                // TODO replace 'value' with the data value
+
                 int selectedCategory = densityGUI.getDataList().getSelectedIndex();
-                if (densityGUI.getDataList().getSelectedIndex()!=0) {
+
+                if (densityGUI.getDataList().getSelectedIndex() != 0) {
+
+                    // Text format
+                    if (selectedCategory == 1 || selectedCategory == 2 || selectedCategory== 3) {
+                        prefix = "$";
+                    } // TODO total owners and renters in a region, suffix = " people";
+
+                    // Display data to user
                     JOptionPane.showMessageDialog(null,
-                            densityGUI.getDataOptions()[selectedCategory]+" : "
-                                    +densityGUI.getDataGroup().get(0)
-                                    .getCities().get(densityGUI.getCityName(index)),
-                            densityGUI.getMapNames()[index].toUpperCase(),
+                            densityGUI.getDataOptions()[selectedCategory] + " : \n" +
+                                    prefix + Math.round(densityGUI.getDataGroup().get(0)
+                                    .getCities().get(densityGUI.getCityName(index))) + " " + suffix,
+                            densityGUI.getMapNames()[index].toUpperCase() + " DATA",
                             JOptionPane.INFORMATION_MESSAGE);
-                } else {
-                    JOptionPane.showMessageDialog(null, "You have not selected a dataset!",
+                    return;
+                } else { // User did not select a dataset
+                    JOptionPane.showMessageDialog(null,
+                            "You have not selected a dataset!",
                             "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
-            
+
         }
     }
-    
+
     @Override
     public void mousePressed(MouseEvent e) {
-    
+
     }
-    
+
     @Override
     public void mouseReleased(MouseEvent e) {
-    
+
     }
-    
+
     @Override
     public void mouseEntered(MouseEvent e) {
-    
+
     }
-    
+
     @Override
     public void mouseExited(MouseEvent e) {
-    
+
     }
-    
+
 }

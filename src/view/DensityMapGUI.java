@@ -20,11 +20,11 @@ public class DensityMapGUI extends Tool {
     private JLabel userPanel = new JLabel(new ImageIcon("img/densityMap/userPanel.png"));
     private String[] dataOptions = new String[]{
             "- Select data -",
-            "AVG_DWELL_VALUE",
-            "AVG_OWN_MONTHLY_SHELTER_COST",
-            "AVG_MONTHLY_SHELTER_RENT",
-            "Household Owners", // TODO what are these
-            "Household Renters"};
+            "Average Dwelling Value",
+            "Average Renter Monthly Shelter Cost",
+            "Average Owner Monthly Shelter Cost",
+            "Household Owner Count", // TODO what are these
+            "Household Renter Count"};
     private JComboBox dataList = new JComboBox<>(dataOptions);
 
     private String[] cityOptions = new String[]{
@@ -36,7 +36,7 @@ public class DensityMapGUI extends Tool {
             "Markham",
             "Newmarket",
             "Richmond Hill",
-            "Stouffville",
+            "Whitchurch-Stouffville",
             "Vaughan",};
     private JComboBox cityList = new JComboBox<>(cityOptions);
     private JComboBox questionList = new JComboBox();
@@ -180,9 +180,9 @@ public class DensityMapGUI extends Tool {
     public JLabel[] getCityLabels() {
         return cityLabels;
     }
-    
+
     public String getCityName (int index) { return cityOptions[index+1]; }
-    
+
     public String[] getMapNames() {
         return mapNames;
     }
