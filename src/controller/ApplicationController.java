@@ -20,7 +20,6 @@ public class ApplicationController {
 	
 	// Controllers
 	private final ToolController[] controllers = new ToolController[DataType.values().length];
-//	private BarChartController barChartController;
 	
 	private final MyDataset[] datasets;
 	
@@ -70,13 +69,11 @@ public class ApplicationController {
 			});
 			
 			// Add functionality to the back buttons
-			tools[i].getBackButton().addActionListener(e->{
-				switchFrame(mainFrame.getMenuPanel());
-			});
+			tools[i].getBackButton().addActionListener(e->
+					switchFrame(mainFrame.getMenuPanel())
+			);
 			
 		}
-		
-		// TODO everything else
 	
 	}
 	

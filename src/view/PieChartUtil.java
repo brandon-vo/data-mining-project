@@ -22,6 +22,7 @@ public class PieChartUtil extends JPanel {
     
     private ArrayList<Category> dataGroup;
     private DefaultPieDataset<String> displayedData;
+    private ChartPanel chartPanel;
     
     public PieChartUtil () {
         
@@ -37,33 +38,33 @@ public class PieChartUtil extends JPanel {
         
         // Copy the given group into the dataGroup field
         dataGroup = new ArrayList<>(dataset.getDataset().get(groupName));
-    
-        displayedData = createDataset(MyDataset.getCities()[0]);
-        JFreeChart chart = ChartFactory.createPieChart(groupName, displayedData,
-                true, false, false);
-        chart.setBackgroundPaint(Tool.BACKGROUND_COLOUR);
-        
-        ChartPanel chartPanel = new ChartPanel(chart);
-        chartPanel.setBounds(500, 25, 500, MainFrame.HEIGHT/2-100);
-        add(chartPanel);
+        createChart(groupName, MyDataset.getCities()[0]);
         
     }
     
     private DefaultPieDataset<String> createDataset (String city) {
         
-        // Get the total people
-        double totalPeople = 0;
-        for (Category category: dataGroup) {
-            totalPeople += category.getCities().get(city);
-        }
-    
         displayedData = new DefaultPieDataset<>();
         for (Category category: dataGroup) {
             displayedData.setValue(category.getCategoryName(),
-                    category.getCities().get(city)/totalPeople);
+                    category.getCities().get(city)/category.getTotal());
         }
         
         return displayedData;
+        
+    }
+    
+    private void createChart (String groupName, String city) {
+    
+        displayedData = createDataset(city);
+        JFreeChart chart = ChartFactory.createPieChart(groupName, displayedData,
+                true, false, false);
+        chart.setBackgroundPaint(Tool.BACKGROUND_COLOUR);
+        
+        remove(chartPanel);
+        chartPanel = new ChartPanel(chart);
+        chartPanel.setBounds(500, 25, 500, MainFrame.HEIGHT/2-100);
+        add(chartPanel);
         
     }
     

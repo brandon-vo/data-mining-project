@@ -38,7 +38,6 @@ public class LineChartController extends ToolController implements ActionListene
         gui.getChartBounds(1).addActionListener(this);
         gui.getSelectVisibleCities().addActionListener(this);
         gui.getDisplayedData().addChangeListener(this);
-        // TODO add the action listener to chart panel everytime it's created
         
     }
     
@@ -76,7 +75,7 @@ public class LineChartController extends ToolController implements ActionListene
         
     }
     
-    public void setDataToDisplay (String groupName) {
+    private void setDataToDisplay (String groupName) {
     
         gui.setDataGroup(groupName);
         
@@ -108,7 +107,7 @@ public class LineChartController extends ToolController implements ActionListene
         
     }
     
-    public void createDisplayedData (ArrayList<String> displayableCities) {
+    private void createDisplayedData (ArrayList<String> displayableCities) {
         
         gui.getDisplayedData().clear();
         
@@ -124,7 +123,7 @@ public class LineChartController extends ToolController implements ActionListene
         
     }
     
-    public void createChart (String groupName) {
+    private void createChart (String groupName) {
         
         String chartTitle = "Number of People vs "+groupName;
         String valueAxisLabel = "Number of People";
@@ -135,6 +134,9 @@ public class LineChartController extends ToolController implements ActionListene
                 true, false, false
         ));
         gui.getLineChart().setBackgroundPaint(BACKGROUND_COLOUR);
+    
+        // Remove any previous chart on the gui
+        gui.remove(gui.getChartPanel());
         
         gui.setChartPanel(new ChartPanel(gui.getLineChart()));
         gui.getChartPanel().setBounds(PADDING, PADDING*4, USER_INPUT_X-PADDING*2, MainFrame.HEIGHT-PADDING*7);
@@ -144,7 +146,7 @@ public class LineChartController extends ToolController implements ActionListene
         
     }
     
-    public void updateData () {
+    private void updateData () {
         String groupName = (String) gui.getSelectDataGroupBox().getSelectedItem();
         setDataToDisplay(groupName);
         gui.repaint();
@@ -161,7 +163,7 @@ public class LineChartController extends ToolController implements ActionListene
     
     @Override
     public void mouseClicked (MouseEvent e) {
-    
+        System.out.println("clicked");
     }
     
     @Override
