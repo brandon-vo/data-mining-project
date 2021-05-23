@@ -42,7 +42,7 @@ public class PieChartUtil extends JPanel {
         
     }
     
-    private DefaultPieDataset<String> createDataset (String city) {
+    public DefaultPieDataset<String> createDataset (String city) {
         
         displayedData = new DefaultPieDataset<>();
         for (Category category: dataGroup) {
@@ -54,7 +54,7 @@ public class PieChartUtil extends JPanel {
         
     }
     
-    private void createChart (String groupName, String city) {
+    public void createChart (String groupName, String city) {
     
         displayedData = createDataset(city);
         JFreeChart chart = ChartFactory.createPieChart(groupName, displayedData,

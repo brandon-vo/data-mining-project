@@ -3,8 +3,10 @@
     <CLASSES>
       <root url="jar://$USER_HOME$/Downloads/jfreechart-1.5.3.jar!/" />
       <root url="jar://H:/jfreechart-1.5.3.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../../Desktop/School/Computer Science/IntelliJ Files/jar_files" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
+    <jarDirectory url="file://$PROJECT_DIR$/../../../Desktop/School/Computer Science/IntelliJ Files/jar_files" recursive="false" />
   </library>
 </component>
