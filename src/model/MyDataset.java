@@ -49,18 +49,22 @@ public abstract class MyDataset {
         return groupIndicators;
     }
     
-    public void setDataset (ArrayList<ArrayList<String>> dataset) {
+    /**
+     * Input all the data into the dataset
+     * @param rawDataset = the raw dataset
+     */
+    public void setDataset (ArrayList<ArrayList<String>> rawDataset) {
         
-        indexDataset(dataset, getCities(dataset));
+        indexDataset(rawDataset, getCities(rawDataset));
         
-        ArrayList<Integer> groupIndexes = getGroupIndexes(dataset);
-        ArrayList<String> categoryRow = dataset.get(0);
+        ArrayList<Integer> groupIndexes = getGroupIndexes(rawDataset);
+        ArrayList<String> categoryRow = rawDataset.get(0);
         
         // Put the data into dataset
-        for (int row = 1; row<dataset.size(); ++row) {
-            for (int col = CITY_INDEX+1; col<dataset.get(row).size(); ++col) {
+        for (int row = 1; row<rawDataset.size(); ++row) {
+            for (int col = CITY_INDEX+1; col<rawDataset.get(row).size(); ++col) {
                 
-                if (dataset.get(0).get(col).contains(TOT_) || dataset.get(0).get(col).contains(MED_)) {
+                if (rawDataset.get(0).get(col).contains(TOT_) || rawDataset.get(0).get(col).contains(MED_)) {
                     continue;
                 }
                 
@@ -85,7 +89,7 @@ public abstract class MyDataset {
                 ArrayList<Category> categories = this.dataset.get(groupName);
                 
                 // Get the current category and add the data to it
-                ArrayList<String> curRow = dataset.get(row);
+                ArrayList<String> curRow = rawDataset.get(row);
                 categories.get(col-groupIndex-1).addToCity(curRow.get(CITY_INDEX),
                         Double.parseDouble(curRow.get(col)));
             }
@@ -102,19 +106,26 @@ public abstract class MyDataset {
         
     }
     
+    /**
+     * @return all the city naems in the dataset as an array
+     */
     public static String[] getCities () {
         String[] cities = new String[cityCount.size()];
         cityCount.keySet().toArray(cities);
         return cities;
     }
     
-    public HashSet<String> getCities (ArrayList<ArrayList<String>> dataset) {
+    /**
+     * @param rawDataset = the raw dataset
+     * @return all the city names in the dataset
+     */
+    private HashSet<String> getCities (ArrayList<ArrayList<String>> rawDataset) {
         
         HashSet<String> cities = new HashSet<>();
         
         // Identify the cities that were surveyed and count them
-        for (int i = 1; i<dataset.size(); ++i) {
-            String city = dataset.get(i).get(CITY_INDEX);
+        for (int i = 1; i<rawDataset.size(); ++i) {
+            String city = rawDataset.get(i).get(CITY_INDEX);
             cities.add(city);
             cityCount.put(city, cityCount.getOrDefault(city, 0)+1);
         }
@@ -124,13 +135,13 @@ public abstract class MyDataset {
     }
     
     /**
-     * @param dataset the raw dataset
-     * @return the gorup indexes in dataset
+     * @param rawDataset = the raw dataset
+     * @return the group indexes in dataset
      */
-    private ArrayList<Integer> getGroupIndexes (ArrayList<ArrayList<String>> dataset) {
+    private ArrayList<Integer> getGroupIndexes (ArrayList<ArrayList<String>> rawDataset) {
         
         ArrayList<Integer> groupIndexes = new ArrayList<>();
-        ArrayList<String> categoryRow = dataset.get(0);
+        ArrayList<String> categoryRow = rawDataset.get(0);
         
         // Index all of groups and categories
         for (int i = CITY_INDEX+1; i<categoryRow.size()-1; ++i) {
@@ -153,10 +164,10 @@ public abstract class MyDataset {
     
     /**
      * Index the categories and city Arraylist and HashMap in dataset
-     * @param dataset
-     * @param cities
+     * @param rawDataset = the raw dataset
+     * @param cities  = all the city names in the dataset
      */
-    public abstract void indexDataset (ArrayList<ArrayList<String>> dataset, HashSet<String> cities);
+    public abstract void indexDataset (ArrayList<ArrayList<String>> rawDataset, HashSet<String> cities);
     
     public abstract void assignValidGroupCharts (Tool[] tools);
     

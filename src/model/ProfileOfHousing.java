@@ -17,11 +17,16 @@ public class ProfileOfHousing extends MyDataset {
         getGroupIndicators().add(MED_);
     }
     
+    /**
+     * Index the groups and categories in the dataset
+     * @param rawDataset = the dataset
+     * @param cities     = the city names
+     */
     @Override
-    public void indexDataset (ArrayList<ArrayList<String>> dataset, HashSet<String> cities) {
+    public void indexDataset (ArrayList<ArrayList<String>> rawDataset, HashSet<String> cities) {
         
         // Get and organize the columns
-        ArrayList<String> categoryRow = dataset.get(0);
+        ArrayList<String> categoryRow = rawDataset.get(0);
         String groupName = null;
         
         // Index all of groups and categories
