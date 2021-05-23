@@ -9,7 +9,7 @@ import java.awt.event.ActionListener;
 
 public class ScatterPlotController implements ActionListener {
 
-    private static int cityIndex;
+
     private HousingTrendGUI gui;
     
 
@@ -25,14 +25,13 @@ public class ScatterPlotController implements ActionListener {
         gui.getVariable().addActionListener(this);
 
     }
-    public static int getCityIndex() {
-        return cityIndex;
-    }
+
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        String location = (String)gui.getLocation1().getSelectedItem();
-        gui.createDisplayedData(location);
+//        String location = (String)gui.getLocation1().getSelectedItem();
+//        gui.createDisplayedData(location);
+//        gui.repaint();
         
 //        switch(location){
 //            case "Vaughan":

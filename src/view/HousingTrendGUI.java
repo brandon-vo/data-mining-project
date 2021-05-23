@@ -27,6 +27,7 @@ public class HousingTrendGUI extends Tool {
         put("NINE", 9);
         put("ZERO", 0);
         put("NO", 0);
+        put("1_4",4);
     }};
     
     private JLabel housingTrendTitle = new JLabel("img/title/housingTrendTitle.png");
@@ -69,8 +70,9 @@ public class HousingTrendGUI extends Tool {
     public void initializeDataToDisplay (MyDataset[] dataset) {
         
         String groupName = getValidGroupNames(1).get(0);
+
         setDataGroup(groupName);
-        createDisplayedData(MyDataset.getCities()[ScatterPlotController.getCityIndex()]);
+        createDisplayedData(MyDataset.getCities()[0]);
     
         scatterPlotChart = ChartFactory.createScatterPlot(
                 "Number of House vs "+groupName,
@@ -86,8 +88,9 @@ public class HousingTrendGUI extends Tool {
     }
     
     public void createDisplayedData (String cityName) {
-        
+
         displayedData.removeAllSeries();
+
         XYSeries city = new XYSeries(cityName);
     
         for (Category category : getDataGroup()) {
