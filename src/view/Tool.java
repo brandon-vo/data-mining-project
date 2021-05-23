@@ -18,6 +18,7 @@ public abstract class Tool extends JPanel {
     private static final String BACK_BUTTON_IMAGE_FILE = "img/backButton.png";
     
     private final HashMap<String, ArrayList<Category>>[] validGroups;
+    private String groupName;
     private ArrayList<Category> dataGroup;
     
     private final JButton backButton;
@@ -52,14 +53,21 @@ public abstract class Tool extends JPanel {
         return validGroups[dataset];
     }
     
+    public String getGroupName () {
+        return groupName;
+    }
+    
     public ArrayList<Category> getDataGroup () {
         return dataGroup;
     }
     
     public void setDataGroup (String groupName) {
+        
+        this.groupName = groupName;
         this.dataGroup = validGroups[0].get(groupName)!=null
                 ? validGroups[0].get(groupName)
                 : validGroups[1].get(groupName);
+        
     }
     
 }

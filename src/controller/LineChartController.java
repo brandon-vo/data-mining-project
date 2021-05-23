@@ -3,41 +3,40 @@ package controller;
 import model.MyDataset;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.data.general.DatasetChangeEvent;
-import org.jfree.data.general.DatasetChangeListener;
 import util.Category;
 import view.LineChartGUI;
 import view.MainFrame;
-import view.Tool;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 
 import static view.LineChartGUI.*;
 
-public class LineChartController extends ToolController implements ActionListener, MouseListener, DatasetChangeListener {
+public class LineChartController extends ToolController
+        implements ActionListener, MouseListener {
+    
+    public static final int MAX_CITIES = 5;
     
     private final LineChartGUI gui;
+    private final HashSet<String> displayedCities;
     
     public LineChartController (LineChartGUI gui) {
         this.gui = gui;
+        displayedCities = new HashSet<>();
         setUpListeners();
     }
     
     public void setUpListeners () {
         
         gui.getSelectDataGroupBox().addActionListener(this);
-        gui.getChartBounds(0).addActionListener(this);
-        gui.getChartBounds(1).addActionListener(this);
-        gui.getSelectVisibleCities().addActionListener(this);
-        gui.getDisplayedData().addChangeListener(this);
+        gui.getChartBoundBox(0).addActionListener(this);
+        gui.getChartBoundBox(1).addActionListener(this);
+        gui.getSelectVisibleCitiesButton().addActionListener(this);
         
     }
     
@@ -46,16 +45,21 @@ public class LineChartController extends ToolController implements ActionListene
     
         if (e.getSource()==gui.getSelectDataGroupBox()) {
             updateData();
-        } else if (e.getSource()==gui.getChartBounds(0)) {
-        
-        } else if (e.getSource()==gui.getChartBounds(1)) {
-        
-        } else if (e.getSource()==gui.getSelectVisibleCities()) {
-        
+        } else if (e.getSource()==gui.getChartBoundBox(0)) {
+            updateRange(0);
+        } else if (e.getSource()==gui.getChartBoundBox(1)) {
+            updateRange(1);
+        } else if (e.getSource()==gui.getSelectVisibleCitiesButton()) {
+            updateDisplayedCities();
         }
+        gui.repaint();
         
     }
     
+    /**
+     * Initialize the dataGroup
+     * @param dataset = where the data will be taken from
+     */
     @Override
     public void initializeDataToDisplay (MyDataset[] dataset) {
         
@@ -64,10 +68,9 @@ public class LineChartController extends ToolController implements ActionListene
         
         // Initialize the dataGroup JComboBox
         ArrayList<String> items = new ArrayList<>();
-        items.add(groupName);
         items.addAll(gui.getValidGroupNames(0));
         items.addAll(gui.getValidGroupNames(1));
-        items.remove(items.lastIndexOf(groupName));
+        Collections.swap(items, 0, items.lastIndexOf(groupName));
         
         String[] middleMan = new String[items.size()];
         items.toArray(middleMan);
@@ -75,50 +78,58 @@ public class LineChartController extends ToolController implements ActionListene
         
     }
     
+    /**
+     * Change the group of the data being displayed
+     * @param groupName = the new group to display
+     */
     private void setDataToDisplay (String groupName) {
     
         gui.setDataGroup(groupName);
         
         // Initialize the bounds JComboBoxes
-        ArrayList<String> items = new ArrayList<>();
+        String[] items = new String[gui.getDataGroup().size()];
         for (int i = 0; i<gui.getDataGroup().size(); ++i) {
-            items.add(gui.getDataGroup().get(i).getCategoryName());
+            items[i] = gui.getDataGroup().get(i).getCategoryName();
         }
-        String[] middleMan = new String[items.size()];
-        items.toArray(middleMan);
-        gui.getChartBounds(0).setModel(new DefaultComboBoxModel<>(middleMan));
+        
+        gui.getChartBoundBox(0).setModel(new DefaultComboBoxModel<>(items));
         
         // Reverse the array to display in descending order for the end bound
-        for (int i = 0; i<middleMan.length/2; ++i) {
-            String temp = middleMan[i];
-            middleMan[i] = middleMan[middleMan.length-1-i];
-            middleMan[middleMan.length-1-i] = temp;
+        for (int i = 0; i<items.length/2; ++i) {
+            String temp = items[i];
+            items[i] = items[items.length-1-i];
+            items[items.length-1-i] = temp;
         }
-        items.toArray(middleMan);
-        gui.getChartBounds(1).setModel(new DefaultComboBoxModel<>(middleMan));
+        gui.getChartBoundBox(1).setModel(new DefaultComboBoxModel<>(items));
         
         // Add some lines for cities to the line chart
-        items.clear();
-        middleMan = MyDataset.getCities();
-        items.addAll(Arrays.asList(middleMan).subList(0, MAX_CITIES));
-        createDisplayedData(items);
+        items = MyDataset.getCities();
+        displayedCities.clear();
+        displayedCities.addAll(Arrays.asList(items).subList(0, MAX_CITIES));
         
+        createDisplayedData(0, gui.getDataGroup().size()-1);
         createChart(groupName);
         
     }
     
-    private void createDisplayedData (ArrayList<String> displayableCities) {
+    private void createDisplayedData (int startBound, int endBound) {
         
         gui.getDisplayedData().clear();
         
         // Create the city lines
-        for (Category category: gui.getDataGroup()) {
-            for (String city: displayableCities) {
+        for (int i = startBound; i<=endBound; ++i) {
+            
+            Category category = gui.getDataGroup().get(i);
+            for (String city: displayedCities) {
+    
                 gui.getDisplayedData().addValue(
-                        category.getCities().get(city), city,
+                        category.getCities().get(city),
+                        city,
                         category.getCategoryName()
                 );
+                
             }
+            
         }
         
     }
@@ -136,8 +147,11 @@ public class LineChartController extends ToolController implements ActionListene
         gui.getLineChart().setBackgroundPaint(BACKGROUND_COLOUR);
     
         // Remove any previous chart on the gui
-        gui.remove(gui.getChartPanel());
+        if (gui.getChartPanel()!=null) {
+            gui.remove(gui.getChartPanel());
+        }
         
+        // Create and add the chart to the gui
         gui.setChartPanel(new ChartPanel(gui.getLineChart()));
         gui.getChartPanel().setBounds(PADDING, PADDING*4, USER_INPUT_X-PADDING*2, MainFrame.HEIGHT-PADDING*7);
         gui.getChartPanel().setRangeZoomable(false);
@@ -149,16 +163,103 @@ public class LineChartController extends ToolController implements ActionListene
     private void updateData () {
         String groupName = (String) gui.getSelectDataGroupBox().getSelectedItem();
         setDataToDisplay(groupName);
-        gui.repaint();
     }
     
-    @Override
-    public void datasetChanged (DatasetChangeEvent datasetChangeEvent) {
+    /**
+     * Update the graph on the given bound
+     */
+    private void updateRange (int bound) {
         
-        if (datasetChangeEvent.getSource()==gui.getDisplayedData()) {
+        int startBound = gui.getChartBoundBox(0).getSelectedIndex();
+        int endBound = gui.getChartBoundBox(1).getItemCount()
+                -gui.getChartBoundBox(1).getSelectedIndex()-1;
         
+        // Alert the user that the range is invalid
+        if (startBound>=endBound) {
+            JOptionPane.showMessageDialog(
+                    gui,
+                    "The starting bound is >= than the ending bound\n("
+                            +gui.getChartBoundBox(0).getSelectedItem()+" >= "
+                            +gui.getChartBoundBox(1).getSelectedItem()
+                            +")\nTry again.",
+                    "Alert",
+                    JOptionPane.ERROR_MESSAGE
+            );
+            
+            JComboBox<String> currentBound = gui.getChartBoundBox(bound);
+            String chartBound = (String) (bound==0
+                    ? gui.getDisplayedData().getColumnKey(0)
+                    : gui.getDisplayedData().getColumnKey(gui.getDisplayedData().getColumnCount()-1)
+            );
+            
+            for (int i = 0; i<currentBound.getItemCount(); ++i) {
+                if (chartBound.equals(currentBound.getItemAt(i))) {
+                    currentBound.setSelectedIndex(i);
+                    return;
+                }
+            }
         }
         
+        // Create a new chart with the new range
+        createDisplayedData(startBound, endBound);
+        
+    }
+    
+    /**
+     * Display to the user a JOptionPane with checkboxes to
+     * select/unselect the displayed cities.
+     */
+    public void updateDisplayedCities () {
+    
+        String[] cities = MyDataset.getCities();
+        JCheckBox[] checkBoxes = new JCheckBox[cities.length];
+        
+        // Create checkBoxes
+        for (int i = 0; i<checkBoxes.length; ++i) {
+            
+            checkBoxes[i] = new JCheckBox(cities[i]);
+            
+            // Set the current box to selected if it is
+            // already displayed
+            if (displayedCities.contains(cities[i])) {
+                checkBoxes[i].setSelected(true);
+            }
+            
+        }
+        Object[] message = {
+                "Select the cities you want to display.",
+                checkBoxes
+        };
+        
+        // Prompt the user until they give valid input
+        do {
+            
+            JOptionPane.showMessageDialog(gui, message, "Prompt", JOptionPane.INFORMATION_MESSAGE);
+            
+            // Find all the selected cities
+            displayedCities.clear();
+            for (JCheckBox checkBox : checkBoxes) {
+                if (checkBox.isSelected()) {
+                    displayedCities.add(checkBox.getText());
+                }
+            }
+            
+            // Input is invalid if the number
+            // of selected cities exceeds MAX_CITIES
+            if (displayedCities.size()>MAX_CITIES) {
+                JOptionPane.showMessageDialog(gui,
+                        "Too many cities were selected.\n" +
+                        "Select at most "+MAX_CITIES,
+                        "Alert",
+                        JOptionPane.ERROR_MESSAGE
+                );
+            }
+            
+        } while (displayedCities.size()>MAX_CITIES);
+        
+        // Update the chart
+        updateRange(0);
+    
     }
     
     @Override

@@ -10,7 +10,6 @@ import java.awt.*;
 public class LineChartGUI extends Tool {
     
     private static final String LINE_CHART_TITLE_FILE = "./img/titles/lineChartTitle.png";
-    public static final int MAX_CITIES = 5;
     
     // GUI constants
     public static final Font FONT = new Font("Tahoma", Font.PLAIN, 17);
@@ -25,9 +24,9 @@ public class LineChartGUI extends Tool {
     
     // User input
     private final JComboBox<String> selectDataGroupBox;
-    private final JComboBox<String>[] chartBounds;     // bounds[0] = start bound, bounds[1] = end bound
+    private final JComboBox<String>[] chartBoundsBoxes;     // bounds[0] = start bound, bounds[1] = end bound
     
-    private JButton selectVisibleCities;
+    private JButton selectVisibleCitiesButton;
     
     // JFreeChart
     private DefaultCategoryDataset displayedData;
@@ -70,26 +69,26 @@ public class LineChartGUI extends Tool {
         boundLabels[0].setText("Start");
         boundLabels[1].setText("End");
     
-        chartBounds = new JComboBox[2];
+        chartBoundsBoxes = new JComboBox[2];
         currentHeight += USER_INPUT_HEIGHT;
-        for (int i = 0; i<chartBounds.length; ++i) {
+        for (int i = 0; i<chartBoundsBoxes.length; ++i) {
     
-            chartBounds[i] = new JComboBox<>();
-            chartBounds[i].setBounds(USER_INPUT_X+USER_INPUT_WIDTH*3/5*i, currentHeight,
+            chartBoundsBoxes[i] = new JComboBox<>();
+            chartBoundsBoxes[i].setBounds(USER_INPUT_X+USER_INPUT_WIDTH*3/5*i, currentHeight,
                     USER_INPUT_WIDTH*2/5, USER_INPUT_HEIGHT);
-            chartBounds[i].setFont(FONT);
-            chartBounds[i].setBackground(COMBO_BOX_COLOUR);
-            add(chartBounds[i]);
+            chartBoundsBoxes[i].setFont(new Font("Tahoma", Font.PLAIN, 12));
+            chartBoundsBoxes[i].setBackground(COMBO_BOX_COLOUR);
+            add(chartBoundsBoxes[i]);
             
         }
         
-        selectVisibleCities = new JButton("Select Visible cities");
+        selectVisibleCitiesButton = new JButton("Select Visible cities");
         currentHeight += USER_INPUT_HEIGHT+PADDING;
-        selectVisibleCities.setBounds(USER_INPUT_X, currentHeight, USER_INPUT_WIDTH, USER_INPUT_HEIGHT);
-        selectVisibleCities.setBorder(null);
-        selectVisibleCities.setFont(FONT);
-        selectVisibleCities.setBackground(BUTTON_COLOUR);
-        add(selectVisibleCities);
+        selectVisibleCitiesButton.setBounds(USER_INPUT_X, currentHeight, USER_INPUT_WIDTH, USER_INPUT_HEIGHT);
+        selectVisibleCitiesButton.setBorder(null);
+        selectVisibleCitiesButton.setFont(FONT);
+        selectVisibleCitiesButton.setBackground(BUTTON_COLOUR);
+        add(selectVisibleCitiesButton);
         
         displayedData = new DefaultCategoryDataset();
         
@@ -99,12 +98,12 @@ public class LineChartGUI extends Tool {
         return selectDataGroupBox;
     }
     
-    public JComboBox<String> getChartBounds (int index) {
-        return chartBounds[index];
+    public JComboBox<String> getChartBoundBox (int index) {
+        return chartBoundsBoxes[index];
     }
     
-    public JButton getSelectVisibleCities () {
-        return selectVisibleCities;
+    public JButton getSelectVisibleCitiesButton () {
+        return selectVisibleCitiesButton;
     }
     
     public DefaultCategoryDataset getDisplayedData () {
