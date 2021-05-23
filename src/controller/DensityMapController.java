@@ -18,9 +18,6 @@ public class DensityMapController extends ToolController implements ActionListen
 
     private final DensityMapGUI densityGUI; // Access DensityMapGUI
 
-    private String prefix = "";
-    private String suffix = "";
-
     // Constructor
     public DensityMapController(DensityMapGUI densityGUI) {
         this.densityGUI = densityGUI; // Density GUI
@@ -138,27 +135,39 @@ public class DensityMapController extends ToolController implements ActionListen
     @Override
     public void mouseClicked(MouseEvent e) {
 
-        // User clicked a city label
+        // Check all city labels
         for (int index = 0; index < densityGUI.getCityLabels().length; index++) {
 
+            // User clicked a city label
             if (e.getSource() == densityGUI.getCityLabels()[index]) {
 
-                int selectedCategory = densityGUI.getDataList().getSelectedIndex();
+                int selectedCategory = densityGUI.getDataList().getSelectedIndex(); // Access selected data
 
-                if (densityGUI.getDataList().getSelectedIndex() != 0) {
+                // Users selected category
+                if (selectedCategory != 0) {
 
-                    // Text format
-                    if (selectedCategory == 1 || selectedCategory == 2 || selectedCategory== 3) {
-                        prefix = "$";
-                    } // TODO total owners and renters in a region, suffix = " people";
+                    int chosen = 0; // For accessing owners and renters
+                    String suffix = ""; // Text format for owners and renters
 
-                    // Display data to user
-                    JOptionPane.showMessageDialog(null,
-                            densityGUI.getDataOptions()[selectedCategory] + " : \n" +
-                                    prefix + Math.round(densityGUI.getDataGroup().get(0)
-                                    .getCities().get(densityGUI.getCityName(index))) + " " + suffix,
-                            densityGUI.getMapNames()[index].toUpperCase() + " DATA",
-                            JOptionPane.INFORMATION_MESSAGE);
+                    // Get selected category and display data
+                    if (selectedCategory == 1 || selectedCategory == 2 || selectedCategory == 3) {
+                        JOptionPane.showMessageDialog(null,
+                                densityGUI.getDataOptions()[selectedCategory] + " : \n" +
+                                        "$" + Math.round(densityGUI.getDataGroup().get(0)
+                                        .getCities().get(densityGUI.getCityName(index))),
+                                densityGUI.getMapNames()[index].toUpperCase() + " DATA",
+                                JOptionPane.INFORMATION_MESSAGE);
+                    } else if (selectedCategory == 4 || selectedCategory == 5 ){
+                        if (selectedCategory == 4) { chosen = 0; suffix = " owners"; } // Household Owners
+                        else if (selectedCategory == 5) { chosen = 1; suffix = " renters"; } // Household Renters
+                        JOptionPane.showMessageDialog(null,
+                                densityGUI.getDataOptions()[selectedCategory] + " : \n" +
+                                        Math.round(densityGUI.getDataGroup().get(chosen).
+                                                getOGCityData((densityGUI.getCityName(index)))) + suffix ,
+                                densityGUI.getMapNames()[index].toUpperCase() + " DATA",
+                                JOptionPane.INFORMATION_MESSAGE);
+                    }
+
                     return;
                 } else { // User did not select a dataset
                     JOptionPane.showMessageDialog(null,

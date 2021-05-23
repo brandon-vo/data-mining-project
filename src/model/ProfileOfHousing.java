@@ -64,8 +64,8 @@ public class ProfileOfHousing extends MyDataset {
         tools[DENSITY_MAP.getValue()].getValidGroups(1).put("Average Dwelling Value", getDataset().get("AVG_DWELL_VALUE"));
         tools[DENSITY_MAP.getValue()].getValidGroups(1).put("Average Renter Monthly Shelter Cost", getDataset().get("AVG_MONTHLY_SHELTER_COST_RENT"));
         tools[DENSITY_MAP.getValue()].getValidGroups(1).put("Average Owner Monthly Shelter Cost", getDataset().get("OWN_AVG_MONTHLY_SHELTER_COST"));
-        tools[DENSITY_MAP.getValue()].getValidGroups(1).put("Household Owner Count", getDataset().get("OWNER")); // TODO this doesn't work
-        tools[DENSITY_MAP.getValue()].getValidGroups(1).put("Household Renter Count", getDataset().get("RENTER")); // TODO this doesn't work
+        tools[DENSITY_MAP.getValue()].getValidGroups(1).put("Household Owner Count", getDataset().get("PVT_HH_TENURE"));
+        tools[DENSITY_MAP.getValue()].getValidGroups(1).put("Household Renter Count", getDataset().get("PVT_HH_TENURE"));
     
         tools[BAR_CHART.getValue()].getValidGroups(1).put("AVG_MONTHLY_SHELTER_RENT", getDataset().get("AVG_MONTHLY_SHELTER_RENT"));
         
