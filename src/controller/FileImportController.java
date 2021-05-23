@@ -14,12 +14,12 @@ public class FileImportController {
     private static final String JOURNEY_TO_WORK_FILE = "./datasets/Profile_of_Journey_to_Work_by_Dissemination_Area,_2016_Census.csv";
     private static final String PROFILE_OF_HOUSING_FILE = "./datasets/Profile_of_Housing_by_Dissemination_Area,_2016_Census.csv";
     
-    private ArrayList<ArrayList<String>>[] rawData;
+    public static final ArrayList<ArrayList<String>>[] rawData = new ArrayList[2];
+    
     private MyDataset[] datasets;
     
     public FileImportController () {
         
-        rawData = new ArrayList[2];
         rawData[0] = new ArrayList<>();
         rawData[1] = new ArrayList<>();
         
@@ -27,10 +27,6 @@ public class FileImportController {
         datasets[0] = new JourneyToWork();
         datasets[1] = new ProfileOfHousing();
         
-    }
-    
-    public ArrayList<ArrayList<String>> getRawData (int index) {
-        return rawData[index];
     }
     
     public JourneyToWork getJourneyToWork () {
