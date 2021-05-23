@@ -10,7 +10,7 @@ public class PieChartGUI extends Tool {
         
         pieCharts = new PieChartUtil[2];
         for (int i = 0; i<pieCharts.length; ++i) {
-            pieCharts[i] = new PieChartUtil(i);
+            pieCharts[i] = new PieChartUtil();
             pieCharts[i].setBounds(0, i*MainFrame.HEIGHT/2, MainFrame.WIDTH, MainFrame.HEIGHT/2);
             add(pieCharts[i]);
         }

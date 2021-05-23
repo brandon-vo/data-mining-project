@@ -23,7 +23,7 @@ public class PieChartUtil extends JPanel {
     private ArrayList<Category> dataGroup;
     private DefaultPieDataset<String> displayedData;
     
-    public PieChartUtil (int chartNum) {
+    public PieChartUtil () {
         
         setLayout(null);
         
