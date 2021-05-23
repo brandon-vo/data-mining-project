@@ -14,9 +14,9 @@ import java.util.List;
 
 import static model.DataType.DENSITY_MAP;
 
-public class DensityMapController implements ActionListener, MouseListener {
+public class DensityMapController extends ToolController implements ActionListener, MouseListener {
     
-    private DensityMapGUI densityGUI; // Access DensityMapGUI
+    private final DensityMapGUI densityGUI; // Access DensityMapGUI
     
     // Constructor
     public DensityMapController(DensityMapGUI densityGUI) {
@@ -99,6 +99,14 @@ public class DensityMapController implements ActionListener, MouseListener {
         
         // Set question list based on selected index
         densityGUI.getQuestionList().setModel(new DefaultComboBoxModel<>(questions.toArray(new String[0])));
+        
+    }
+    
+    @Override
+    public void initializeDataToDisplay(MyDataset[] dataset) {
+        
+        String profileOfHousing = densityGUI.getValidGroupNames(1).get(0);
+        densityGUI.setDataGroup(profileOfHousing);
         
     }
     

@@ -16,13 +16,10 @@ public class ApplicationController {
 	
 	// GUI
 	private MainFrame mainFrame;
-	private final Tool[] tools = new Tool[DataType.values().length+1];
+	private final Tool[] tools = new Tool[DataType.values().length];
 	
 	// Controllers
-	private final PieChartController pieChartController;
-	private final DensityMapController densityMapController;
-	private final LineChartController lineChartController;
-	private final ScatterPlotController scatterPlotcontroller;
+	private final ToolController[] controllers = new ToolController[DataType.values().length];
 //	private BarChartController barChartController;
 	
 	private final MyDataset[] datasets;
@@ -37,11 +34,12 @@ public class ApplicationController {
 		tools[LINE_CHART.getValue()] = new LineChartGUI();
 		tools[SCATTER_CHART.getValue()] = new HousingTrendGUI();
 		tools[BAR_CHART.getValue()] = new CommuteVsShelterCostGUI();
-
-		densityMapController = new DensityMapController((DensityMapGUI) tools[DENSITY_MAP.getValue()]);
-		pieChartController = new PieChartController((PieChartGUI) tools[PIE_CHART.getValue()]);
-		scatterPlotcontroller = new ScatterPlotController((HousingTrendGUI) tools[SCATTER_CHART.getValue()]);
-		lineChartController = new LineChartController((LineChartGUI) tools[LINE_CHART.getValue()]);
+		
+		controllers[PIE_CHART.getValue()] = new PieChartController((PieChartGUI) tools[PIE_CHART.getValue()]);
+		controllers[DENSITY_MAP.getValue()] = new  DensityMapController((DensityMapGUI) tools[DENSITY_MAP.getValue()]);
+		controllers[LINE_CHART.getValue()] = new LineChartController((LineChartGUI) tools[LINE_CHART.getValue()]);
+		controllers[SCATTER_CHART.getValue()] = new ScatterPlotController((HousingTrendGUI) tools[SCATTER_CHART.getValue()]);
+		controllers[BAR_CHART.getValue()] = new BarChartController((CommuteVsShelterCostGUI) tools[BAR_CHART.getValue()]);
 		
 		// Assign the data to the fields
 		FileImportController files = new FileImportController();
@@ -68,7 +66,7 @@ public class ApplicationController {
 			final int j = i;
 			mainFrame.getMenuPanel().getButton(i).addActionListener(e->{
 				switchFrame(tools[j]);
-				tools[j].initializeDataToDisplay(datasets);
+				controllers[j].initializeDataToDisplay(datasets);
 			});
 			
 			// Add functionality to the back buttons

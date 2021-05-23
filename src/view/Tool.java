@@ -62,10 +62,4 @@ public abstract class Tool extends JPanel {
                 : validGroups[1].get(groupName);
     }
     
-    /**
-     * Function to set the data that will be displayed on the screen
-     * @param dataset = where the data will be taken from
-     */
-    public abstract void initializeDataToDisplay (MyDataset[] dataset);
-    
 }

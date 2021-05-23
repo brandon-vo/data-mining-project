@@ -68,57 +68,6 @@ public class CommuteVsShelterCostGUI extends Tool{
         add(newMarketButton);
         
     }
-
-
-    @Override
-    public void initializeDataToDisplay (MyDataset[] dataset) {
-        
-        String groupNameJourneyToWork = getValidGroupNames(0).get(0);
-        String groupNameProfileOfHousing = getValidGroupNames(1).get(0);
-        
-        setDataGroup(groupNameJourneyToWork);
-        dataGroup2 = dataset[1].getDataset().get(groupNameProfileOfHousing);
-        
-        
-
-        displayedData = createDataSet(currentCity);
-        createChart(groupNameProfileOfHousing, displayedData);
-        chartPanel.setBounds(150, 100, 1000, 450);
-    
-    }
-
-    private DefaultCategoryDataset createDataSet(String currentCity) {
-
-        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-
-        int range1MaxValue;
-        int range2MaxValue;
-        int range3MaxValue;
-        int range4MaxValue;
-        int range5MaxValue;
-        
-        for(int i = 0; i < getDataGroup().size(); i++ ){
-            
-//            getRawData()
-            
-        }
-    
-        return dataset;
-    }
-    
-    public void createChart (String groupNameProfileOfHousing, DefaultCategoryDataset displayedData) {
-        
-        String chartTitle = " Commute Type V.S" + groupNameProfileOfHousing;
-        String xAxisLabel = groupNameProfileOfHousing;
-        String valueAxisLabel = "Number of People";
-        
-        barChart = ChartFactory.createBarChart(chartTitle, xAxisLabel, valueAxisLabel, displayedData, PlotOrientation.VERTICAL,
-                true, false, false);
-        chartPanel = new ChartPanel(barChart);
-
-        add(chartPanel);
-    
-    }
     
     public String getCurrentCity() {
         return currentCity;
@@ -128,4 +77,39 @@ public class CommuteVsShelterCostGUI extends Tool{
         
         this.currentCity = currentCity;
     }
+    
+    public DefaultCategoryDataset getDisplayedData () {
+        return displayedData;
+    }
+    
+    public void setDisplayedData (DefaultCategoryDataset displayedData) {
+        this.displayedData = displayedData;
+    }
+    
+    public JFreeChart getBarChart () {
+        return barChart;
+    }
+    
+    public void setBarChart (JFreeChart barChart) {
+        this.barChart = barChart;
+    }
+    
+    public ChartPanel getChartPanel () {
+        return chartPanel;
+    }
+    
+    public void setChartPanel (ChartPanel chartPanel) {
+        this.chartPanel = chartPanel;
+    }
+    
+    public ArrayList<Category> getDataGroup2 () {
+        return dataGroup2;
+    }
+    
+    public void setDataGroup2 (ArrayList<Category> dataGroup2) {
+        this.dataGroup2 = dataGroup2;
+    }
+    
+    
+    
 }

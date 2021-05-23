@@ -157,14 +157,6 @@ public class DensityMapGUI extends Tool {
 
     }
 
-    @Override
-    public void initializeDataToDisplay(MyDataset[] dataset) {
-
-        String profileOfHousing = getValidGroupNames(1).get(0);
-        setDataGroup(profileOfHousing);
-
-    }
-
     public JComboBox getDataList() {
         return dataList;
     }
