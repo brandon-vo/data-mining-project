@@ -27,7 +27,7 @@ public class Category {
     
     /**
      * @param cityName = the city to get the og data
-     * @return the original data of the city
+     * @return the sum of all the city's data without averaging
      */
     public double getOGCityData (String cityName) {
         return cities.get(cityName)*MyDataset.cityCount.get(cityName);
