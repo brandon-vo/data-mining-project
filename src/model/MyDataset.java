@@ -21,7 +21,7 @@ public abstract class MyDataset {
         - The categories are grouped based on what they are about (for example
           if there are categories like ONE_BED, TWO_BED, THREE_BED, they would
           be grouped as NUMBER_OF_BEDS)
-        - To access these groups you call their names as  a string like this:
+        - To access these groups you call their names as a string like this:
                     getDataset().get("NUMBER_OF_BEDS")
           From there you get access to the specific categories through indexing
           by integers, which then gives a list of the data attached to all the
@@ -81,7 +81,7 @@ public abstract class MyDataset {
                 if (groupName.contains(SHAPE__)) {
                     groupName = SHAPE__.replace("__", "");
                 }
-    
+                
                 ArrayList<Category> categories = this.dataset.get(groupName);
                 
                 // Get the current category and add the data to it
@@ -92,9 +92,9 @@ public abstract class MyDataset {
         }
         
         // Set everything to the average
-        for (ArrayList<Category> group: this.dataset.values()) {
-            for (Category category: group) {
-                for (Map.Entry<String, Double> city: category.getCities().entrySet()) {
+        for (ArrayList<Category> group : this.dataset.values()) {
+            for (Category category : group) {
+                for (Map.Entry<String, Double> city : category.getCities().entrySet()) {
                     city.setValue(city.getValue()/cityCount.get(city.getKey()));
                 }
             }
@@ -123,7 +123,11 @@ public abstract class MyDataset {
         
     }
     
-    public ArrayList<Integer> getGroupIndexes (ArrayList<ArrayList<String>> dataset) {
+    /**
+     * @param dataset the raw dataset
+     * @return the gorup indexes in dataset
+     */
+    private ArrayList<Integer> getGroupIndexes (ArrayList<ArrayList<String>> dataset) {
         
         ArrayList<Integer> groupIndexes = new ArrayList<>();
         ArrayList<String> categoryRow = dataset.get(0);
@@ -134,7 +138,7 @@ public abstract class MyDataset {
             String category = categoryRow.get(i);
             
             // If there is a group indicator, add it to the groups
-            for (String indicator: groupIndicators) {
+            for (String indicator : groupIndicators) {
                 if (category.contains(indicator)) {
                     groupIndexes.add(i);
                     break;
@@ -147,12 +151,17 @@ public abstract class MyDataset {
         
     }
     
+    /**
+     * Index the categories and city Arraylist and HashMap in dataset
+     * @param dataset
+     * @param cities
+     */
     public abstract void indexDataset (ArrayList<ArrayList<String>> dataset, HashSet<String> cities);
     
     public abstract void assignValidGroupCharts (Tool[] tools);
-
+    
     /**
-     * @param arr = Array to search
+     * @param arr    = Array to search
      * @param target = target to search for
      * @return the index of the starting interval the target is in in arr
      */

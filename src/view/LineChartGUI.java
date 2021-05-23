@@ -1,17 +1,11 @@
 package view;
 
-import model.MyDataset;
-import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
-import util.Category;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 public class LineChartGUI extends Tool {
     
@@ -81,7 +75,7 @@ public class LineChartGUI extends Tool {
         for (int i = 0; i<chartBounds.length; ++i) {
     
             chartBounds[i] = new JComboBox<>();
-            chartBounds[i].setBounds(USER_INPUT_X+i*USER_INPUT_WIDTH*3/5, currentHeight,
+            chartBounds[i].setBounds(USER_INPUT_X+USER_INPUT_WIDTH*3/5*i, currentHeight,
                     USER_INPUT_WIDTH*2/5, USER_INPUT_HEIGHT);
             chartBounds[i].setFont(FONT);
             chartBounds[i].setBackground(COMBO_BOX_COLOUR);

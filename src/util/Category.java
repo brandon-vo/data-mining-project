@@ -3,7 +3,6 @@ package util;
 import model.MyDataset;
 
 import java.util.HashMap;
-import java.util.Map;
 
 public class Category {
     
@@ -17,6 +16,7 @@ public class Category {
         total = 0;
     }
     
+    
     public String getCategoryName () {
         return categoryName;
     }
@@ -25,6 +25,10 @@ public class Category {
         return cities;
     }
     
+    /**
+     * @param cityName = the city to get the og data
+     * @return the original data of the city
+     */
     public double getOGCityData (String cityName) {
         return cities.get(cityName)*MyDataset.cityCount.get(cityName);
     }
@@ -34,6 +38,9 @@ public class Category {
         total += people;
     }
     
+    /**
+     * @return the sum of all the city data in this category
+     */
     public double getTotal () {
         return total;
     }

@@ -163,7 +163,7 @@ public class LineChartController extends ToolController implements ActionListene
     
     @Override
     public void mouseClicked (MouseEvent e) {
-        System.out.println("clicked");
+    
     }
     
     @Override
