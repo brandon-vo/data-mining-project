@@ -15,12 +15,14 @@ import static model.DataType.*;
 public class ApplicationController {
 	
 	// GUI
-	public MainFrame mainFrame;
+	private MainFrame mainFrame;
 	private final Tool[] tools = new Tool[DataType.values().length+1];
-	private PieChartController pieChartController;
-	private DensityMapController densityMapController;
-	private LineChartController lineChartController;
-	private ScatterPlotController scatterPlotcontroller;
+	
+	// Controllers
+	private final PieChartController pieChartController;
+	private final DensityMapController densityMapController;
+	private final LineChartController lineChartController;
+	private final ScatterPlotController scatterPlotcontroller;
 //	private BarChartController barChartController;
 	
 	private final MyDataset[] datasets;
@@ -39,7 +41,8 @@ public class ApplicationController {
 		densityMapController = new DensityMapController((DensityMapGUI) tools[DENSITY_MAP.getValue()]);
 		pieChartController = new PieChartController((PieChartGUI) tools[PIE_CHART.getValue()]);
 		scatterPlotcontroller = new ScatterPlotController((HousingTrendGUI) tools[SCATTER_CHART.getValue()]);
-
+		lineChartController = new LineChartController((LineChartGUI) tools[LINE_CHART.getValue()]);
+		
 		// Assign the data to the fields
 		FileImportController files = new FileImportController();
 		files.importFiles();
@@ -58,6 +61,7 @@ public class ApplicationController {
 	
 	public void setUpListeners () {
 		
+		// Set up the tool listeners
 		for (int i = 0; i<DataType.values().length; ++i) {
 			
 			// Add functionality to the switch frames buttons

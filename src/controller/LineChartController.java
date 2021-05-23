@@ -14,25 +14,51 @@ public class LineChartController implements ActionListener, MouseListener, Datas
     private LineChartGUI gui;
     
     public LineChartController (LineChartGUI gui) {
-    
         this.gui = gui;
         setUpListeners();
-    
     }
     
     public void setUpListeners () {
         
-        gui.getSelectDatasetBox().addActionListener(this);
+        gui.getSelectDataGroupBox().addActionListener(this);
         gui.getChartBounds(0).addActionListener(this);
         gui.getChartBounds(1).addActionListener(this);
         gui.getSelectVisibleCities().addActionListener(this);
         gui.getDisplayedData().addChangeListener(this);
+        // TODO add the action listener everytime it's created
+        gui.getChartPanel().addMouseListener(this);
         
     }
     
     @Override
     public void actionPerformed (ActionEvent e) {
     
+        if (e.getSource()==gui.getSelectDataGroupBox()) {
+        
+        } else if (e.getSource()==gui.getChartBounds(0)) {
+        
+        } else if (e.getSource()==gui.getChartBounds(1)) {
+        
+        } else if (e.getSource()==gui.getSelectVisibleCities()) {
+        
+        }
+        
+    }
+    
+    public void updateData () {
+        
+        String groupName = (String) gui.getSelectDataGroupBox().getSelectedItem();
+        gui.setDataToDisplay(groupName);
+        
+    }
+    
+    @Override
+    public void datasetChanged (DatasetChangeEvent datasetChangeEvent) {
+        
+        if (datasetChangeEvent.getSource()==gui.getDisplayedData()) {
+        
+        }
+        
     }
     
     @Override
@@ -50,19 +76,13 @@ public class LineChartController implements ActionListener, MouseListener, Datas
     
     }
     
+    // Unneeded methods
     @Override
     public void mouseEntered (MouseEvent e) {
-    
     }
     
     @Override
     public void mouseExited (MouseEvent e) {
-    
-    }
-    
-    @Override
-    public void datasetChanged (DatasetChangeEvent datasetChangeEvent) {
-    
     }
     
 }

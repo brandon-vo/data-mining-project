@@ -47,7 +47,7 @@ public class DensityMapController implements ActionListener, MouseListener {
             updateQuestionBox(0);
             densityGUI.getUserResults().setText("Please select a dataset!");
         }
-        for (int index = 1; index <= 5; index++) {
+        for (int index = 1; index < densityGUI.getDataOptions().length; index++) {
             if (densityGUI.getDataList().getSelectedIndex() == index) {
                 enableComponents(true);
                 updateSelectedData();
@@ -63,45 +63,45 @@ public class DensityMapController implements ActionListener, MouseListener {
         densityGUI.changeMapColour();
 
     }
-
+    
     // Set question combo box
     public void updateQuestionBox(int index) {
         // Store list of options for the question
         List<String> questions = new ArrayList<>();
-
+        
         if (index == 1) {
-            String[] list = new String[]{
+            String[] optionList = new String[]{
                     "- Select value of your dwelling -",
                     "0-500,000", "500,000-1,000,000", "1,000,000-1,500,000", "1,500,000-2,000,000",
                     "2,000,000-2,500,000", "2,500,000-3,000,000", "3,000,000-3,500,000"};
-            questions.addAll(Arrays.asList(list));
+            questions.addAll(Arrays.asList(optionList));
         } else if (index == 2) {
-            String[] list = new String[]{
+            String[] optionList = new String[]{
                     "- Select average monthly shelter cost -",
                     "0-500", "500-1,000", "1,000-1,500", "1,500-2,000",
                     "2,000-2,500", "2,500-3,000", "3,000-3,500", "3,500-4,000"};
-            questions.addAll(Arrays.asList(list));
+            questions.addAll(Arrays.asList(optionList));
         } else if (index == 3) {
-            String[] list = new String[]{
+            String[] optionList = new String[]{
                     "- Select average monthly shelter cost -",
                     "0-500", "500-1,000", "1,000-1,500",
                     "1,500-2,000", "2,000-2,500", "2,500-3,000"};
-            questions.addAll(Arrays.asList(list));
+            questions.addAll(Arrays.asList(optionList));
         } else if (index == 4) {
-            String[] list = new String[]{
+            String[] optionList = new String[]{
                     "- Are you a household owner? -",
                     "Yes", "No"};
-            questions.addAll(Arrays.asList(list));
+            questions.addAll(Arrays.asList(optionList));
         } else if (index == 5) {
-            String[] list = new String[]{
+            String[] optionList = new String[]{
                     "- Are you a household renter? -",
                     "Yes", "No"};
-            questions.addAll(Arrays.asList(list));
+            questions.addAll(Arrays.asList(optionList));
         }
-
+        
         // Set question list based on selected index
         densityGUI.getQuestionList().setModel(new DefaultComboBoxModel<>(questions.toArray(new String[0])));
-
+        
     }
 
     @Override
@@ -131,7 +131,7 @@ public class DensityMapController implements ActionListener, MouseListener {
         for (int index = 0; index < densityGUI.getCityLabels().length; index++) {
             if (e.getSource() == densityGUI.getCityLabels()[index]) {
                 // TODO replace 'value' with the data value
-                for (int x = 1; x <= 5; x++) {
+                for (int x = 1; x < densityGUI.getDataOptions().length; x++) {
                     if (densityGUI.getDataList().getSelectedIndex() == x) {
                         JOptionPane.showMessageDialog(null, densityGUI.getDataOptions()[x] +
                                         " : value",

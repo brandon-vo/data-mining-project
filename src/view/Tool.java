@@ -6,6 +6,8 @@ import util.Category;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 
 public abstract class Tool extends JPanel {
     
@@ -15,8 +17,8 @@ public abstract class Tool extends JPanel {
     
     private static final String BACK_BUTTON_IMAGE_FILE = "img/backButton.png";
     
-    private final ArrayList<String>[] validGroups;
-    private final ArrayList<Category> dataGroup;
+    private final HashMap<String, ArrayList<Category>>[] validGroups;
+    private ArrayList<Category> dataGroup;
     
     private final JButton backButton;
     
@@ -25,9 +27,9 @@ public abstract class Tool extends JPanel {
         setLayout(null);
         setBounds(0, 0, MainFrame.WIDTH, MainFrame.HEIGHT);
         setBackground(BACKGROUND_COLOUR);
-        validGroups = new ArrayList[2];
-        validGroups[0] = new ArrayList<>();
-        validGroups[1] = new ArrayList<>();
+        validGroups = new HashMap[2];
+        validGroups[0] = new HashMap<>();
+        validGroups[1] = new HashMap<>();
         dataGroup = new ArrayList<>();
     
         backButton = new JButton(new ImageIcon(BACK_BUTTON_IMAGE_FILE));
@@ -42,7 +44,11 @@ public abstract class Tool extends JPanel {
         return backButton;
     }
     
-    public ArrayList<String> getValidGroups (int dataset) {
+    public ArrayList<String> getValidGroupNames (int dataset) {
+        return new ArrayList<>(validGroups[dataset].keySet());
+    }
+    
+    public HashMap<String, ArrayList<Category>> getValidGroups (int dataset) {
         return validGroups[dataset];
     }
     
@@ -50,9 +56,10 @@ public abstract class Tool extends JPanel {
         return dataGroup;
     }
     
-    public void setDataGroup (ArrayList<Category> dataGroup) {
-        this.dataGroup.clear();
-        this.dataGroup.addAll(dataGroup);
+    public void setDataGroup (String groupName) {
+        this.dataGroup = validGroups[0].get(groupName)!=null
+                ? validGroups[0].get(groupName)
+                : validGroups[1].get(groupName);
     }
     
     /**

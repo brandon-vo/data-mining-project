@@ -2,8 +2,6 @@ package view;
 
 import model.MyDataset;
 
-import javax.swing.*;
-
 public class PieChartGUI extends Tool {
 
     private PieChartUtil[] pieCharts;
@@ -21,8 +19,8 @@ public class PieChartGUI extends Tool {
     
     @Override
     public void initializeDataToDisplay (MyDataset[] dataset) {
-        pieCharts[0].initializeDataToDisplay(dataset[0], getValidGroups(0).get(0));
-        pieCharts[1].initializeDataToDisplay(dataset[1], getValidGroups(1).get(0));
+        pieCharts[0].initializeDataToDisplay(dataset[0], getValidGroupNames(0).get(0));
+        pieCharts[1].initializeDataToDisplay(dataset[1], getValidGroupNames(1).get(0));
     }
     
 }

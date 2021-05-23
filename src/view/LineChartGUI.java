@@ -29,7 +29,7 @@ public class LineChartGUI extends Tool {
     private JLabel[] boundLabels;
     
     // User input
-    private JComboBox<String> selectDatasetBox;
+    private JComboBox<String> selectDataGroupBox;
     private JComboBox<String>[] chartBounds;     // bounds[0] = start bound, bounds[1] = end bound
     
     private JButton selectVisibleCities;
@@ -52,13 +52,13 @@ public class LineChartGUI extends Tool {
         datasetLabel.setFont(FONT);
         add(datasetLabel);
         
-        selectDatasetBox = new JComboBox<>();
+        selectDataGroupBox = new JComboBox<>();
         currentHeight += USER_INPUT_HEIGHT;
-        selectDatasetBox.setBounds(USER_INPUT_X, currentHeight, USER_INPUT_WIDTH, USER_INPUT_HEIGHT);
-        selectDatasetBox.setBorder(null);
-        selectDatasetBox.setFont(FONT);
-        selectDatasetBox.setBackground(COMBO_BOX_COLOUR);
-        add(selectDatasetBox);
+        selectDataGroupBox.setBounds(USER_INPUT_X, currentHeight, USER_INPUT_WIDTH, USER_INPUT_HEIGHT);
+        selectDataGroupBox.setBorder(null);
+        selectDataGroupBox.setFont(FONT);
+        selectDataGroupBox.setBackground(COMBO_BOX_COLOUR);
+        add(selectDataGroupBox);
         
         boundLabels = new JLabel[2];
         currentHeight += USER_INPUT_HEIGHT;
@@ -100,8 +100,8 @@ public class LineChartGUI extends Tool {
         
     }
     
-    public JComboBox<String> getSelectDatasetBox () {
-        return selectDatasetBox;
+    public JComboBox<String> getSelectDataGroupBox () {
+        return selectDataGroupBox;
     }
     
     public JComboBox<String> getChartBounds (int index) {
@@ -127,29 +127,35 @@ public class LineChartGUI extends Tool {
     @Override
     public void initializeDataToDisplay (MyDataset[] dataset) {
         
-        String groupName = getValidGroups(0).get(0);
-        setDataGroup(dataset[0].getDataset().get(groupName));
+        String groupName = getValidGroupNames(0).get(0);
+        setDataToDisplay(groupName);
         
-        // Initialize the dataset JComboBox
+        // Initialize the dataGroup JComboBox
         ArrayList<String> items = new ArrayList<>();
         items.add(groupName);
-        items.addAll(getValidGroups(0));
-        items.addAll(getValidGroups(1));
+        items.addAll(getValidGroupNames(0));
+        items.addAll(getValidGroupNames(1));
         items.remove(items.lastIndexOf(groupName));
         
         String[] middleMan = new String[items.size()];
         items.toArray(middleMan);
-        selectDatasetBox.setModel(new DefaultComboBoxModel<>(middleMan));
+        selectDataGroupBox.setModel(new DefaultComboBoxModel<>(middleMan));
         
+    }
+    
+    public void setDataToDisplay (String groupName) {
+    
+        setDataGroup(groupName);
+    
         // Initialize the bounds JComboBoxes
-        items.clear();
+        ArrayList<String> items = new ArrayList<>();
         for (int i = 0; i<getDataGroup().size(); ++i) {
             items.add(getDataGroup().get(i).getCategoryName());
         }
-        middleMan = new String[items.size()];
+        String[] middleMan = new String[items.size()];
         items.toArray(middleMan);
         chartBounds[0].setModel(new DefaultComboBoxModel<>(middleMan));
-        
+    
         // Reverse the array to display in descending order for the end bound
         for (int i = 0; i<middleMan.length/2; ++i) {
             String temp = middleMan[i];
@@ -158,15 +164,15 @@ public class LineChartGUI extends Tool {
         }
         items.toArray(middleMan);
         chartBounds[1].setModel(new DefaultComboBoxModel<>(middleMan));
-        
+    
+        // Add some lines for cities to the line chart
         items.clear();
         middleMan = MyDataset.getCities();
         items.addAll(Arrays.asList(middleMan).subList(0, MAX_CITIES));
         createDisplayedData(items);
-        
+    
         createChart(groupName);
-        chartPanel.setBounds(PADDING, PADDING*4, USER_INPUT_X-PADDING*2, MainFrame.HEIGHT-PADDING*7);
-        
+    
     }
     
     public void createDisplayedData (ArrayList<String> displayableCities) {
@@ -185,14 +191,14 @@ public class LineChartGUI extends Tool {
     public void createChart (String groupName) {
     
         String chartTitle = "Number of People vs "+groupName;
-        String categoryAxisLabel = groupName;
         String valueAxisLabel = "Number of People";
     
-        lineChart = ChartFactory.createLineChart(chartTitle, categoryAxisLabel, valueAxisLabel, displayedData,
+        lineChart = ChartFactory.createLineChart(chartTitle, groupName, valueAxisLabel, displayedData,
                 PlotOrientation.VERTICAL, true, false, false);
         lineChart.setBackgroundPaint(BACKGROUND_COLOUR);
     
         chartPanel = new ChartPanel(lineChart);
+        chartPanel.setBounds(PADDING, PADDING*4, USER_INPUT_X-PADDING*2, MainFrame.HEIGHT-PADDING*7);
         chartPanel.setRangeZoomable(false);
         add(chartPanel);
     

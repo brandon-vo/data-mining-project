@@ -32,32 +32,36 @@ public class ScatterPlotController implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         String location = (String)gui.getLocation1().getSelectedItem();
-        switch(location){
-            case "Vaughan":
-                cityIndex=1;
-                break;
-            case"Richmond Hill":
-                cityIndex=2;
-                break;
-            case"Markham":
-                cityIndex=3;
-                break;
-            case"East Gwillimbury":
-                cityIndex=4;
-                break;
-            case"Newmarket":
-                cityIndex=5;
-                break;
-            case"Georgina":
-                cityIndex=6;
-                break;
-            case"King":
-                cityIndex=7;
-                break;
-        }
+        gui.createDisplayedData(location);
+        
+//        switch(location){
+//            case "Vaughan":
+//                cityIndex=1;
+//                break;
+//            case"Richmond Hill":
+//                cityIndex=2;
+//                break;
+//            case"Markham":
+//                cityIndex=3;
+//                break;
+//            case"East Gwillimbury":
+//                cityIndex=4;
+//                break;
+//            case"Newmarket":
+//                cityIndex=5;
+//                break;
+//            case"Georgina":
+//                cityIndex=6;
+//                break;
+//            case"King":
+//                cityIndex=7;
+//                break;
+//        }
+       
         String variable = (String)gui.getVariable().getSelectedItem();
         switch(variable){
             case"room":
+                
                 break;
             case"bed":
                 break;

@@ -10,8 +10,6 @@ import org.jfree.data.xy.XYSeriesCollection;
 import util.Category;
 
 import javax.swing.*;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -70,8 +68,8 @@ public class HousingTrendGUI extends Tool {
     @Override
     public void initializeDataToDisplay (MyDataset[] dataset) {
         
-        String groupName = getValidGroups(1).get(0);
-        setDataGroup(dataset[1].getDataset().get(groupName));
+        String groupName = getValidGroupNames(1).get(0);
+        setDataGroup(groupName);
         createDisplayedData(MyDataset.getCities()[ScatterPlotController.getCityIndex()]);
     
         scatterPlotChart = ChartFactory.createScatterPlot(
@@ -89,7 +87,7 @@ public class HousingTrendGUI extends Tool {
     
     public void createDisplayedData (String cityName) {
         
-        displayedData.removeAllSeries(); // TODO clear any data from before
+        displayedData.removeAllSeries();
         XYSeries city = new XYSeries(cityName);
     
         for (Category category : getDataGroup()) {

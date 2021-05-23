@@ -61,17 +61,17 @@ public class ProfileOfHousing extends MyDataset {
     @Override
     public void assignValidGroupCharts (Tool[] tools) {
         
-        tools[DENSITY_MAP.getValue()].getValidGroups(1).add("DWELLING_VALUE");
-        tools[DENSITY_MAP.getValue()].getValidGroups(1).add("MONTHLY_SHELTER_RENT");
-        tools[DENSITY_MAP.getValue()].getValidGroups(1).add("OWN_MONTHLY_SHELTER_COST");
+        tools[DENSITY_MAP.getValue()].getValidGroups(1).put("DWELLING_VALUE", getDataset().get("DWELLING_VALUE"));
+        tools[DENSITY_MAP.getValue()].getValidGroups(1).put("MONTHLY_SHELTER_RENT", getDataset().get("MONTHLY_SHELTER_RENT"));
+        tools[DENSITY_MAP.getValue()].getValidGroups(1).put("OWN_MONTHLY_SHELTER_COST", getDataset().get("OWN_MONTHLY_SHELTER_COST"));
     
-        tools[BAR_CHART.getValue()].getValidGroups(1).add("MONTHLY_SHELTER_RENT");
+        tools[BAR_CHART.getValue()].getValidGroups(1).put("MONTHLY_SHELTER_RENT", getDataset().get("MONTHLY_SHELTER_RENT"));
         
-        tools[SCATTER_CHART.getValue()].getValidGroups(1).add("OCC_PVT_DWELL_NO_BED");
-        tools[SCATTER_CHART.getValue()].getValidGroups(1).add("OCC_PVT_DWELL_NO_ROOMS");
-        tools[SCATTER_CHART.getValue()].getValidGroups(1).add("PVT_HH_AGE_MAINTAINER");
+        tools[SCATTER_CHART.getValue()].getValidGroups(1).put("OCC_PVT_DWELL_NO_BED", getDataset().get("OCC_PVT_DWELL_NO_BED"));
+        tools[SCATTER_CHART.getValue()].getValidGroups(1).put("OCC_PVT_DWELL_NO_ROOMS", getDataset().get("OCC_PVT_DWELL_NO_ROOMS"));
+        tools[SCATTER_CHART.getValue()].getValidGroups(1).put("PVT_HH_AGE_MAINTAINER", getDataset().get("PVT_HH_AGE_MAINTAINER"));
         
-        tools[PIE_CHART.getValue()].getValidGroups(1).add("OCC_PVT_DWELL_CONDO");
+        tools[PIE_CHART.getValue()].getValidGroups(1).put("OCC_PVT_DWELL_CONDO", getDataset().get("OCC_PVT_DWELL_CONDO"));
     
     }
     

@@ -16,29 +16,37 @@ public class FileImportController {
     
     private ArrayList<ArrayList<String>>[] rawData;
     
-    private JourneyToWork journeyToWork;
-    private ProfileOfHousing profileOfHousing;
+    private MyDataset[] datasets;
     
     public FileImportController () {
-        journeyToWork = new JourneyToWork();
-        profileOfHousing = new ProfileOfHousing();
+    
+        rawData = new ArrayList[2];
+        rawData[0] = new ArrayList<>();
+        rawData[1] = new ArrayList<>();
+        
+        datasets = new MyDataset[2];
+        datasets[0] = new JourneyToWork();
+        datasets[1] = new ProfileOfHousing();
+        
     }
     
     public JourneyToWork getJourneyToWork () {
-        return journeyToWork;
+        return (JourneyToWork) datasets[0];
     }
     
     public ProfileOfHousing getProfileOfHousing () {
-        return profileOfHousing;
+        return (ProfileOfHousing) datasets[1];
     }
     
     public void importFiles () {
-        importFrom(JOURNEY_TO_WORK_FILE, journeyToWork);
-        importFrom(PROFILE_OF_HOUSING_FILE, profileOfHousing);
+        importFrom(JOURNEY_TO_WORK_FILE, 0);
+        importFrom(PROFILE_OF_HOUSING_FILE, 1);
     }
     
-    private void importFrom (String filePath, MyDataset myDataset) {
+    private void importFrom (String filePath, int index) {
         
+        MyDataset myDataset = datasets[index];
+        ArrayList<ArrayList<String>> dataset = rawData[index];
         Scanner input;
         try {
             input = new Scanner(new File(filePath));
@@ -48,7 +56,6 @@ public class FileImportController {
         }
         
         input.useDelimiter(",");
-        ArrayList<ArrayList<String>> dataset = new ArrayList<>();
         dataset.add(new ArrayList<>());
         
         boolean hasDefectiveData = false;

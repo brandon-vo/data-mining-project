@@ -1,6 +1,7 @@
 package view;
 
 import model.*;
+import controller.FileImportController;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -65,10 +66,6 @@ public class CommuteVsShelterCostGUI extends Tool implements ActionListener {
         add(richmondButton);
         add(auroraButton);
         add(newMarketButton);
-
-        initializeDataToDisplay();
-
-        setVisible(true);
         
     }
 
@@ -76,12 +73,13 @@ public class CommuteVsShelterCostGUI extends Tool implements ActionListener {
     @Override
     public void initializeDataToDisplay (MyDataset[] dataset) {
         
-        // TODO since this requires two groups at once, the first
-        //  you need another displayedData field
-        String groupNameJourneyToWork = getValidGroups(0).get(0);
-        String groupNameProfileOfHousing = getValidGroups(1).get(0);
-    
-        setDataGroup(dataset[0].getDataset().get(groupNameJourneyToWork));
+        String groupNameJourneyToWork = getValidGroupNames(0).get(0);
+        String groupNameProfileOfHousing = getValidGroupNames(1).get(0);
+        
+        setDataGroup(groupNameJourneyToWork);
+        dataGroup2 = dataset[1].getDataset().get(groupNameProfileOfHousing);
+        
+        
 
         displayedData = createDataSet(currentCity);
         createChart(groupNameProfileOfHousing, displayedData);
@@ -93,8 +91,18 @@ public class CommuteVsShelterCostGUI extends Tool implements ActionListener {
 
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 
+        int range1MaxValue;
+        int range2MaxValue;
+        int range3MaxValue;
+        int range4MaxValue;
+        int range5MaxValue;
         
-
+        for(int i = 0; i < getDataGroup().size(); i++ ){
+            
+            getRawData()
+            
+        }
+    
         return dataset;
     }
     
@@ -124,6 +132,7 @@ public class CommuteVsShelterCostGUI extends Tool implements ActionListener {
     }
 
     public void setCurrentCity(String currentCity) {
+        
         this.currentCity = currentCity;
     }
 }
