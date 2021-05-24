@@ -65,7 +65,7 @@ public class ProfileOfHousing extends MyDataset {
      */
     @Override
     public void assignValidGroupCharts (Tool[] tools) {
-
+        
         tools[DENSITY_MAP.getValue()].getValidGroups(1).put("Average Dwelling Value", getDataset().get("AVG_DWELL_VALUE"));
         tools[DENSITY_MAP.getValue()].getValidGroups(1).put("Average Renter Monthly Shelter Cost", getDataset().get("AVG_MONTHLY_SHELTER_COST_RENT"));
         tools[DENSITY_MAP.getValue()].getValidGroups(1).put("Average Owner Monthly Shelter Cost", getDataset().get("OWN_AVG_MONTHLY_SHELTER_COST"));
@@ -77,9 +77,11 @@ public class ProfileOfHousing extends MyDataset {
         tools[SCATTER_CHART.getValue()].getValidGroups(1).put("OCC_PVT_DWELL_NO_BED", getDataset().get("OCC_PVT_DWELL_NO_BED"));
         tools[SCATTER_CHART.getValue()].getValidGroups(1).put("OCC_PVT_DWELL_NO_ROOMS", getDataset().get("OCC_PVT_DWELL_NO_ROOMS"));
         tools[SCATTER_CHART.getValue()].getValidGroups(1).put("PVT_HH_AGE_MAINTAINER", getDataset().get("PVT_HH_AGE_MAINTAINER"));
-        
-        tools[PIE_CHART.getValue()].getValidGroups(1).put("OCC_PVT_DWELL_CONDO", getDataset().get("OCC_PVT_DWELL_CONDO"));
     
+        tools[PIE_CHART.getValue()].getValidGroups(1).put("OCC_PVT_DWELL_CONDO", getDataset().get("OCC_PVT_DWELL_CONDO"));
+        
+        tools[LINE_CHART.getValue()].getValidGroups(1).put("PVT_HH_AGE_MAINTAINER", getDataset().get("PVT_HH_AGE_MAINTAINER"));
+        
     }
     
 }

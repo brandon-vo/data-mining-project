@@ -14,9 +14,7 @@ public class JourneyToWork extends MyDataset {
     }
     
     /**
-     * Index the groups and categories in the dataset
-     * @param rawDataset = the dataset
-     * @param cities     = the city names
+     * @see #indexDataset
      */
     @Override
     public void indexDataset (ArrayList<ArrayList<String>> rawDataset, HashSet<String> cities) {

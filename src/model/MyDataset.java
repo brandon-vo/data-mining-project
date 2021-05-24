@@ -16,21 +16,27 @@ public abstract class MyDataset {
     
     private final ArrayList<String> groupIndicators;
     
-    /*
-        - To access the data call getDataset()
-        - The categories are grouped based on what they are about (for example
-          if there are categories like ONE_BED, TWO_BED, THREE_BED, they would
-          be grouped as NUMBER_OF_BEDS)
-        - To access these groups you call their names as a string like this:
-                    getDataset().get("NUMBER_OF_BEDS")
-          From there you get access to the specific categories through indexing
-          by integers, which then gives a list of the data attached to all the
-          cities.
-        
-        EXAMPLE:
-            If you want to find out how many people have one bed (index 1) in
-            aurora city, you would write
-                    getDataset().get("NUMBER_OF_BEDS").get(1).get("Aurora")
+    /**
+     * Here lies the filtered and processed information of the current dataset.
+     * <ul>
+     * <li> To access the data call getDataset()
+     * <li> The categories are grouped based on what they are about (for example
+     *   if there are categories like ONE_BED, TWO_BED, THREE_BED, they would
+     *   be grouped as NUMBER_OF_BEDS)
+     * <li> To access these groups you call their names as a string like this:
+     *
+     * <ul><code> getDataset().get("NUMBER_OF_BEDS") </code></ul>
+     *   From there you get access to the specific categories through indexing
+     *   by integers, which then gives a list of the data attached to all the
+     *   cities.
+     * </ul>
+     *
+     * <p>
+     * <strong> EXAMPLE </strong>:
+     *     If you want to find out how many people have one bed (index 1) in
+     *     aurora city, you would write
+     *  <ul><code> getDataset().get("NUMBER_OF_BEDS").get(1).get("Aurora") </code></ul>
+     * @see #getDataset
      */
     private final HashMap<String, ArrayList<Category>> dataset;
     
@@ -41,17 +47,18 @@ public abstract class MyDataset {
         dataset = new HashMap<>();
     }
     
-    public HashMap<String, ArrayList<Category>> getDataset () {
-        return dataset;
-    }
-    
     public ArrayList<String> getGroupIndicators () {
         return groupIndicators;
+    }
+    
+    public HashMap<String, ArrayList<Category>> getDataset () {
+        return dataset;
     }
     
     /**
      * Input all the data into the dataset
      * @param rawDataset = the raw dataset
+     * @see controller.FileImportController
      */
     public void setDataset (ArrayList<ArrayList<String>> rawDataset) {
         
@@ -82,10 +89,6 @@ public abstract class MyDataset {
                     groupName = categoryRow.get(groupIndex+1);
                 }
                 
-                if (groupName.contains(SHAPE__)) {
-                    groupName = SHAPE__.replace("__", "");
-                }
-                
                 ArrayList<Category> categories = this.dataset.get(groupName);
                 
                 // Get the current category and add the data to it
@@ -95,7 +98,7 @@ public abstract class MyDataset {
             }
         }
         
-        // Set everything to the average
+        // Average out all the cities
         for (ArrayList<Category> group : this.dataset.values()) {
             for (Category category : group) {
                 for (Map.Entry<String, Double> city : category.getCities().entrySet()) {
@@ -165,10 +168,14 @@ public abstract class MyDataset {
     /**
      * Index the categories and city Arraylist and HashMap in dataset
      * @param rawDataset = the raw dataset
-     * @param cities  = all the city names in the dataset
+     * @param cities     = all the city names in the dataset
      */
     public abstract void indexDataset (ArrayList<ArrayList<String>> rawDataset, HashSet<String> cities);
     
+    /**
+     * Provide the tools with the valid groups they can use
+     * @param tools = the array with all the tools
+     */
     public abstract void assignValidGroupCharts (Tool[] tools);
     
     /**

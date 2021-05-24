@@ -46,9 +46,9 @@ public class LineChartController extends ToolController
         if (e.getSource()==gui.getSelectDataGroupBox()) {
             updateData();
         } else if (e.getSource()==gui.getChartBoundBox(0)) {
-            updateRange(0);
+            updateTimeInterval(0);
         } else if (e.getSource()==gui.getChartBoundBox(1)) {
-            updateRange(1);
+            updateTimeInterval(1);
         } else if (e.getSource()==gui.getSelectVisibleCitiesButton()) {
             updateDisplayedCities();
         }
@@ -166,9 +166,9 @@ public class LineChartController extends ToolController
     }
     
     /**
-     * Update the graph on the given bound
+     * Update time interval on the graph
      */
-    private void updateRange (int bound) {
+    private void updateTimeInterval (int bound) {
         
         int startBound = gui.getChartBoundBox(0).getSelectedIndex();
         int endBound = gui.getChartBoundBox(1).getItemCount()
@@ -186,6 +186,8 @@ public class LineChartController extends ToolController
                     JOptionPane.ERROR_MESSAGE
             );
             
+            // Get either the first or last item from the graph depending
+            // on whether the bound is the start or end respectively
             JComboBox<String> currentBound = gui.getChartBoundBox(bound);
             String chartBound = (String) (bound==0
                     ? gui.getDisplayedData().getColumnKey(0)
@@ -258,22 +260,36 @@ public class LineChartController extends ToolController
         } while (displayedCities.size()>MAX_CITIES);
         
         // Update the chart
-        updateRange(0);
+        updateTimeInterval(0);
     
     }
     
+    /**
+     * Display the chart's value at the clicked location
+     * @param e = event
+     */
     @Override
     public void mouseClicked (MouseEvent e) {
     
+    
+    
     }
     
+    /**
+     * Display the difference between 2 separate values by dragging the mouse
+     * @param e = event
+     */
     @Override
     public void mousePressed (MouseEvent e) {
+    
+    
     
     }
     
     @Override
     public void mouseReleased (MouseEvent e) {
+    
+    
     
     }
     
