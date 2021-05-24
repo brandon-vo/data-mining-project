@@ -14,7 +14,8 @@ import java.util.*;
 
 import static view.LineChartGUI.*;
 
-public class LineChartController extends ToolController
+public class LineChartController
+        extends ToolController
         implements ActionListener {
     
     public static final int MAX_CITIES = 5;

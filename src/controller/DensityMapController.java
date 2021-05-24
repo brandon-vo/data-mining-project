@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class DensityMapController extends ToolController implements ActionListener, MouseListener {
+public class DensityMapController extends ToolController implements ActionListener {
 
     private final DensityMapGUI densityGUI; // Access DensityMapGUI
 
@@ -294,16 +294,6 @@ public class DensityMapController extends ToolController implements ActionListen
                 }
             }
         }
-    }
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-
     }
 
     @Override
