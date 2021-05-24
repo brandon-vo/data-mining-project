@@ -12,8 +12,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static model.DataType.DENSITY_MAP;
-
 public class DensityMapController extends ToolController implements ActionListener, MouseListener {
 
     private final DensityMapGUI densityGUI; // Access DensityMapGUI
@@ -190,14 +188,12 @@ public class DensityMapController extends ToolController implements ActionListen
                 } else if (selectedCategory == 4 || selectedCategory == 5) {
 
                     if (selectedCategory == 4) {
-                        chosen = 0;
                         dataTitle = "Total Owners: ";
                         if (densityGUI.getQuestionList().getSelectedIndex() == 1)
                             userInput = "household owner";
                         else
                             userInput = "not a household owner";
                     } else if (selectedCategory == 5) {
-                        chosen = 1;
                         dataTitle = "Total Renters: ";
                         if (densityGUI.getQuestionList().getSelectedIndex() == 1)
                             userInput = "household renter";
@@ -217,7 +213,7 @@ public class DensityMapController extends ToolController implements ActionListen
                                     + densityGUI.getCityList().getSelectedItem();
                         } else {
                             result = "According to the dataset, " + Math.round(ownerTotal) + " people own a household,\nand "
-                                    + Math.round(renterTotal) + " rent a household.\nYou are not apart of the average\nperson in "
+                                    + Math.round(renterTotal) + " rent a household.\nYou are not apart of the average person in "
                                     + densityGUI.getCityList().getSelectedItem();
                         }
 
@@ -312,17 +308,26 @@ public class DensityMapController extends ToolController implements ActionListen
 
     @Override
     public void mouseEntered(MouseEvent e) {
-        // TODO mouse hover
         for (int index = 0; index < densityGUI.getCityLabels().length; index++) {
             if (e.getSource() == densityGUI.getCityLabels()[index]) {
-                System.out.println(densityGUI.getCityName(index));
+                densityGUI.remove(densityGUI.getMapLabels()[index]);
+                densityGUI.revalidate();
+                densityGUI.repaint();
+                densityGUI.add(densityGUI.getCitySelectedLabels()[index]);
             }
         }
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
-
+        for (int index = 0; index < densityGUI.getCityLabels().length; index++) {
+            if (e.getSource() == densityGUI.getCityLabels()[index]) {
+                densityGUI.remove(densityGUI.getCitySelectedLabels()[index]);
+                densityGUI.revalidate();
+                densityGUI.repaint();
+                densityGUI.add(densityGUI.getMapLabels()[index]);
+            }
+        }
     }
 
 }

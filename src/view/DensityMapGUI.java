@@ -59,6 +59,7 @@ public class DensityMapGUI extends Tool {
             "newmarket", "richmondHill", "stouffville", "vaughan"}; // Accessing name of a city for the map
     private JLabel[] mapLabels = new JLabel[9]; // Array of labels with the map of the city
     private JLabel[] cityLabels = new JLabel[9]; // Array of labels with the city text on it
+    private JLabel[] citySelectedLabels = new JLabel[9];
 
     // Constructor
     public DensityMapGUI() {
@@ -97,8 +98,10 @@ public class DensityMapGUI extends Tool {
 
         // City labels
         for (int label = 0; label < cityLabels.length; label++) {
-            cityLabels[label] = new JLabel(new ImageIcon("img/densityMap/map/labels/" + mapNames[label] + "label.png"));
+            cityLabels[label] = new JLabel(new ImageIcon("img/densityMap/map/labels/" + mapNames[label] + "Label.png"));
             add(cityLabels[label]);
+            citySelectedLabels[label] = new JLabel(new ImageIcon("img/densityMap/map/selected/" + mapNames[label] + "Selected.png"));
+            citySelectedLabels[label].setBounds(0, 0, 1366, 768);
         }
 
         // Set city label position
@@ -131,23 +134,23 @@ public class DensityMapGUI extends Tool {
 
         try {
 
-            for (int cityMap = 0; cityMap < maps.length; cityMap++) {
+            for (int cityIndex = 0; cityIndex < maps.length; cityIndex++) {
 
                 // Remove the old city label if it exists
-                if (mapLabels[cityMap] != null) {
-                    remove(mapLabels[cityMap]);
+                if (mapLabels[cityIndex] != null) {
+                    remove(mapLabels[cityIndex]);
                     revalidate();
                     repaint();
                 }
 
-                maps[cityMap] = ImageIO.read(new File("img/densityMap/map/lv1/" + mapNames[cityMap] + "Lv1.png"));
+                maps[cityIndex] = ImageIO.read(new File("img/densityMap/map/lv1/" + mapNames[cityIndex] + "Lv1.png"));
 
                 Image newColouredMap = Toolkit.getDefaultToolkit().createImage(
-                        new FilteredImageSource(maps[cityMap].getSource(), filter));
+                        new FilteredImageSource(maps[cityIndex].getSource(), filter));
 
-                mapLabels[cityMap] = new JLabel(new ImageIcon(newColouredMap));
-                mapLabels[cityMap].setBounds(0, 0, MainFrame.WIDTH, MainFrame.HEIGHT);
-                add(mapLabels[cityMap]);
+                mapLabels[cityIndex] = new JLabel(new ImageIcon(newColouredMap));
+                mapLabels[cityIndex].setBounds(0, 0, MainFrame.WIDTH, MainFrame.HEIGHT);
+                add(mapLabels[cityIndex]);
 
             }
 
@@ -190,4 +193,8 @@ public class DensityMapGUI extends Tool {
     public String[] getDataOptions() {
         return dataOptions;
     }
+
+    public JLabel[] getCitySelectedLabels() { return citySelectedLabels; }
+
+    public JLabel[] getMapLabels() { return mapLabels; }
 }
