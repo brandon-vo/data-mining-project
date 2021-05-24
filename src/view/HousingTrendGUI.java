@@ -15,7 +15,7 @@ import java.util.Map;
 
 public class HousingTrendGUI extends Tool {
     
-    private JLabel housingTrendTitle = new JLabel("img/title/housingTrendTitle.png");
+    private JLabel housingTrendTitle = new JLabel(new ImageIcon("img/titles/housingTrendTitle.png"));
     private JLabel selectLocation = new JLabel("Select Location");
     private JLabel selectVariable = new JLabel("Select Variable");
     private JComboBox<String> location;
@@ -26,7 +26,7 @@ public class HousingTrendGUI extends Tool {
     
     public HousingTrendGUI () {
         
-        housingTrendTitle.setBounds(0, 0, 100, 50);
+        housingTrendTitle.setBounds(0, 0, MainFrame.WIDTH, MainFrame.HEIGHT);
         add(housingTrendTitle);
         
         selectLocation.setBounds(200, 100, 100, 50);

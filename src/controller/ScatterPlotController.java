@@ -28,11 +28,14 @@ public class ScatterPlotController extends ToolController implements ActionListe
         put("EIGHT", 8);
         put("NINE", 9);
         put("ZERO", 0);
-        put("NO", 0);
+        put("NO_1_4",4);
+        put("NO_5",5);
+        put("NO_6",6);
+        put("NO_7",7);
+        put("NO_8_PLUS",8);
     }};
     
-    // TODO never initialized
-    private static int cityIndex;
+
     private HousingTrendGUI gui;
     
     public ScatterPlotController (HousingTrendGUI gui) {
@@ -46,30 +49,41 @@ public class ScatterPlotController extends ToolController implements ActionListe
         gui.getVariable().addActionListener(this);
         
     }
-    
-    public static int getCityIndex () {
-        return cityIndex;
-    }
+
     
     @Override
     public void initializeDataToDisplay (MyDataset[] dataset) {
         
-        String groupName = gui.getValidGroupNames(1).get(0);
-        gui.setDataGroup(groupName);
-        createDisplayedData(MyDataset.getCities()[cityIndex]);
+        String groupName = gui.getValidGroupNames(1).get(1);
+
+        setDataToDisplay(groupName);
         
+    }
+
+    private void setDataToDisplay(String groupName) {
+
+
+        gui.setDataGroup(groupName);
+
+        createDisplayedData("Vaughan");
+
+
         gui.setScatterPlotChart(ChartFactory.createScatterPlot(
                 "Number of House vs "+groupName,
                 groupName, "Number Of House",
                 gui.getDisplayedData()
         ));
+
+
         gui.getScatterPlotChart().setBackgroundPaint(BACKGROUND_COLOUR);
         gui.setChartPanel(new ChartPanel(gui.getScatterPlotChart()));
         gui.getChartPanel().setBounds(400, 150, MainFrame.WIDTH/2, MainFrame.HEIGHT/2);
         gui.add(gui.getChartPanel());
-        
+        System.out.println(groupName);
+
     }
-    
+
+
     public void createDisplayedData (String cityName) {
         
         gui.getDisplayedData().removeAllSeries();
@@ -77,10 +91,11 @@ public class ScatterPlotController extends ToolController implements ActionListe
         
         for (Category category : gui.getDataGroup()) {
             
-            // TODO resolve 1-4 since there are 2 numbers there
+
             for (Map.Entry<String, Integer> identifiers : STRING_TO_INTEGER.entrySet()) {
                 if (category.getCategoryName().contains(identifiers.getKey())) {
                     city.add(identifiers.getValue(), category.getCities().get(cityName));
+                    System.out.println(category.getCities().get(cityName));
                     break;
                 }
             }
@@ -92,44 +107,34 @@ public class ScatterPlotController extends ToolController implements ActionListe
     
     @Override
     public void actionPerformed (ActionEvent e) {
-        String location = (String) gui.getLocation1().getSelectedItem();
-        createDisplayedData(location);
-        
-        //        switch(location){
-        //            case "Vaughan":
-        //                cityIndex=1;
-        //                break;
-        //            case"Richmond Hill":
-        //                cityIndex=2;
-        //                break;
-        //            case"Markham":
-        //                cityIndex=3;
-        //                break;
-        //            case"East Gwillimbury":
-        //                cityIndex=4;
-        //                break;
-        //            case"Newmarket":
-        //                cityIndex=5;
-        //                break;
-        //            case"Georgina":
-        //                cityIndex=6;
-        //                break;
-        //            case"King":
-        //                cityIndex=7;
-        //                break;
-        //        }
-        
+
+        if(e.getSource()==gui.getLocation1()){
+            updateDisplayedCities();
+        }else if(e.getSource() ==gui.getVariable()){
+            updateVariable();
+        }
+        gui.repaint();
+
+    }
+
+    private void updateVariable() {
         switch ((String) gui.getVariable().getSelectedItem()) {
             case "room":
-                
+                setDataToDisplay(gui.getValidGroupNames(1).get(1));
                 break;
             case "bed":
+                setDataToDisplay(gui.getValidGroupNames(1).get(2));
                 break;
             case "maintainer":
+                setDataToDisplay(gui.getValidGroupNames(1).get(0));
                 break;
-            default:
-            
         }
     }
-    
+
+    private void updateDisplayedCities() {
+        String location = (String) gui.getLocation1().getSelectedItem();
+        createDisplayedData(location);
+    }
+
+
 }
