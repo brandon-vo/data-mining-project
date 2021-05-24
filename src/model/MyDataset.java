@@ -1,7 +1,5 @@
 package model;
 
-import org.jfree.data.category.DefaultCategoryDataset;
-import org.jfree.data.general.Dataset;
 import util.Category;
 import view.Tool;
 
@@ -62,11 +60,13 @@ public abstract class MyDataset {
      */
     public void setDataset (ArrayList<ArrayList<String>> rawDataset) {
         
-        reformatStrings(rawDataset.get(0), CITY_INDEX+1);
-        indexDataset(rawDataset, getCities(rawDataset));
-        
+        reformatStrings(rawDataset.get(0));
+    
         ArrayList<Integer> groupIndexes = getGroupIndexes(rawDataset);
         ArrayList<String> categoryRow = rawDataset.get(0);
+    
+        removeExtraneous(rawDataset.get(0), groupIndexes);
+        indexDataset(rawDataset, getCities(rawDataset));
         
         // Put the data into dataset
         for (int row = 1; row<rawDataset.size(); ++row) {
@@ -111,13 +111,14 @@ public abstract class MyDataset {
     }
     
     /**
-     * Title case and replace all "_" in arr to spaces
+     * Title case, replace all "_" in arr to spaces,
      * @param arr = the array to reformat
+     *
      */
-    public void reformatStrings (ArrayList<String> arr, int startingIndex) {
+    private void reformatStrings (ArrayList<String> arr) {
         
         char[] category;
-        for (int i = startingIndex; i<arr.size(); ++i) {
+        for (int i = CITY_INDEX+1; i<arr.size(); ++i) {
             
             // Replace the underscores with spaces and trim the ends of spaces
             category = arr.get(i).replace("_", " ").trim().toCharArray();
@@ -131,6 +132,25 @@ public abstract class MyDataset {
             }
             
             arr.set(i, String.valueOf(category));
+            
+        }
+        
+    }
+    
+    /**
+     * Removes the first word if the string contains a number
+     * and is not a group
+     * @param arr = the array to remove extraneous
+     */
+    private void removeExtraneous (ArrayList<String> arr, ArrayList<Integer> groupIndexes) {
+        
+        for (int i = CITY_INDEX+1; i<arr.size(); ++i) {
+    
+            String category = arr.get(i);
+            // If arr has a number, and is not a group, remove the first word
+            if (!groupIndexes.contains(i) && category.matches(".*\\d.*")) {
+                arr.set(i, category.substring(category.indexOf(' ')+1));
+            }
             
         }
         
