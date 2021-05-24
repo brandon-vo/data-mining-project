@@ -52,7 +52,7 @@ public class PieChartController extends ToolController implements ActionListener
     }
 
     //
-    public String getDataGroup(){
+    public String getDataGroup() {
 
         //get categories for journey to work
         gui.getPieCharts(0).getDataGroup().get(1);
@@ -60,8 +60,7 @@ public class PieChartController extends ToolController implements ActionListener
         gui.getPieCharts(0).getDataGroup().get(3);
         gui.getPieCharts(0).getDataGroup().get(4);
         gui.getPieCharts(0).getDataGroup().get(5);
-
-
+        
         //get categories for profile of housing
         gui.getPieCharts(1).getDataGroup().get(0);
         gui.getPieCharts(1).getDataGroup().get(1);

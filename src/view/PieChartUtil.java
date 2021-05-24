@@ -20,6 +20,7 @@ public class PieChartUtil extends JPanel {
     
     private final JButton cityButton = new JButton("SELECT CITY");
     
+    private String groupName;
     private ArrayList<Category> dataGroup;
     private DefaultPieDataset<String> displayedData;
     private ChartPanel chartPanel;
@@ -36,6 +37,7 @@ public class PieChartUtil extends JPanel {
     public void initializeDataToDisplay (MyDataset dataset, String groupName) {
         
         // Copy the given group into the dataGroup field
+        this.groupName = groupName;
         dataGroup = dataset.getDataset().get(groupName);
         createChart(groupName, MyDataset.getCities()[0]);
         
@@ -70,7 +72,11 @@ public class PieChartUtil extends JPanel {
     public JButton getCityButton() {
         return cityButton;
     }
-
+    
+    public String getGroupName () {
+        return groupName;
+    }
+    
     public ArrayList<Category> getDataGroup() {
         return dataGroup;
     }
