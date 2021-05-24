@@ -60,7 +60,7 @@ public class BarChartController extends ToolController implements ActionListener
             if(rawData1.get(i).get(4).equals(currentCity) && (Integer.parseInt(rawData1.get(i).get(70)) > 0 &&
                     Integer.parseInt(rawData1.get(i).get(70)) <= 600)){
 
-//                 = Integer.parseInt(rawData2.get(i).get(10));
+                 //= Integer.parseInt(rawData2.get(i).get(10));
 
             }else if(rawData1.get(i).get(4).equals(currentCity) && (Integer.parseInt(rawData1.get(i).get(70)) >= 601 &&
                     Integer.parseInt(rawData1.get(i).get(70)) <= 1000)){
