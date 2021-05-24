@@ -52,7 +52,7 @@ public class ScatterPlotController extends ToolController implements ActionListe
     @Override
     public void initializeDataToDisplay (MyDataset[] dataset) {
         
-        String groupName = gui.getValidGroupNames(1).get(1);
+        String groupName = gui.getValidGroupNames(1).get(2);
         
         setDataToDisplay(groupName);
         
@@ -117,15 +117,16 @@ public class ScatterPlotController extends ToolController implements ActionListe
     private void updateVariable () {
         switch ((String) gui.getVariable().getSelectedItem()) {
             case "room":
-                setDataToDisplay(gui.getValidGroupNames(1).get(1));
-                break;
-            case "bed":
                 setDataToDisplay(gui.getValidGroupNames(1).get(2));
                 break;
-            case "maintainer":
+            case "bed":
                 setDataToDisplay(gui.getValidGroupNames(1).get(0));
                 break;
+            case "maintainer":
+                setDataToDisplay(gui.getValidGroupNames(1).get(1));
+                break;
         }
+        gui.repaint();
     }
     
     private void updateDisplayedCities () {
