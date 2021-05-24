@@ -2,7 +2,9 @@ package controller;
 
 import model.MyDataset;
 
-public abstract class ToolController {
+import javax.swing.event.MouseInputAdapter;
+
+public abstract class ToolController extends MouseInputAdapter {
     
     /**
      * Function to set the data that will be displayed on the screen

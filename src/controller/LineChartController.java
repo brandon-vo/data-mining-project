@@ -9,16 +9,13 @@ import view.LineChartGUI;
 import view.MainFrame;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.event.*;
 import java.util.*;
 
 import static view.LineChartGUI.*;
 
 public class LineChartController extends ToolController
-        implements ActionListener, MouseListener {
+        implements ActionListener {
     
     public static final int MAX_CITIES = 5;
     
@@ -156,6 +153,7 @@ public class LineChartController extends ToolController
         gui.getChartPanel().setBounds(PADDING, PADDING*4, USER_INPUT_X-PADDING*2, MainFrame.HEIGHT-PADDING*7);
         gui.getChartPanel().setRangeZoomable(false);
         gui.getChartPanel().addMouseListener(this);
+        gui.getChartPanel().addMouseMotionListener(this);
         gui.add(gui.getChartPanel());
         
     }
@@ -265,41 +263,51 @@ public class LineChartController extends ToolController
     }
     
     /**
+     * Display the difference between 2 separate values by dragging the mouse
+     * @param e = event
+     */
+    @Override
+    public void mouseDragged (MouseEvent e) {
+    
+        System.out.println("oog booga");
+        // If the mouse is not over the graph or is not pressed, do not do anything
+        // Iterate over the visible cities
+        // If a city is visible, add 1 to numCitiesVisible
+        // If numCitiesVisible is not 1, do not do anything
+        // Get the start display point (using the previous algorithm)
+        // Display the point on the screen
+        // While the mouse is still pressed
+        // Clear any end points previously on the screen
+        // Get the end display point
+        // Display the point on the screen
+        // Calculate the difference in time and period between the start point and endpoint
+        // Display this information in the middle of the interval on a GUI
+        // Highlight the area under the graph between the start and end points
+        // Clear anything drawn on the graph
+        
+    }
+    
+    /**
      * Display the chart's value at the clicked location
      * @param e = event
      */
     @Override
     public void mouseClicked (MouseEvent e) {
     
+        System.out.println("Mouse clicked; "+e.getClickCount());
+        // Only run if the mouse is over the graph
+        // Clear anything drawn on the graph
+        // If the mouse is clicked, get the x location of the mouse
+        // Find the x coordinate of the displayPoint
+        // Iterate over the time scale (x scale) of the graph until the current x coordinate on the scale is greater than the x coordinate of the mouse
+        // If the distance between the current x coordinate and the mouse coordinate is less than the distance between the previous x coordinate and the mouse coordinate, set the displayPoint x coordinate to the current coordinate
+        // Otherwise, set it to the previous
+        // For each visible city
+        // Find the y coordinate of the displayPoint
+        // Repeat steps 3.1 and 3.3, except with the quantity scale (y scale) and using y coordinates.
+        // Display a dot at the display point on each visible city
+        // Display GUI to the left detailing the time and quantity at that point for each city
     
-    
-    }
-    
-    /**
-     * Display the difference between 2 separate values by dragging the mouse
-     * @param e = event
-     */
-    @Override
-    public void mousePressed (MouseEvent e) {
-    
-    
-    
-    }
-    
-    @Override
-    public void mouseReleased (MouseEvent e) {
-    
-    
-    
-    }
-    
-    // Unneeded methods
-    @Override
-    public void mouseEntered (MouseEvent e) {
-    }
-    
-    @Override
-    public void mouseExited (MouseEvent e) {
     }
     
 }
