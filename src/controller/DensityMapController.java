@@ -58,6 +58,8 @@ public class DensityMapController extends ToolController implements ActionListen
     public void updateSelectedData() {
         densityGUI.getUserResults().setText("Please input your information!");
         densityGUI.changeMapColour();
+        String text = "Hover region to view" + "<br>" + "Click region for more";
+        densityGUI.getHoverInformation().setText("<html><div style='text-align: center;'>" + text + "<html>");
 
     }
 
@@ -128,7 +130,6 @@ public class DensityMapController extends ToolController implements ActionListen
             ownerOrRenter = 0;
         else
             ownerOrRenter = densityGUI.getDataGroup().get(chosen).getOGCityData(densityGUI.getCityName(densityGUI.getCityList().getSelectedIndex() - 1));
-
 
         // User clicked submit button
         if (e.getSource() == densityGUI.getSubmitButton()) {
@@ -261,28 +262,46 @@ public class DensityMapController extends ToolController implements ActionListen
 
                     int chosen = 0; // For accessing owners and renters
                     String suffix = ""; // Text format for owners and renters
+                    String definition = ""; // Define a data set for user understanding
 
                     // Get selected category and display data
                     if (selectedCategory >= 1 && selectedCategory <= 3) {
+                        if (selectedCategory == 1) {
+                            definition = "Owner households in non-farm, non-reserve private dwellings\n" +
+                                    "Average value of dwellings ($)";
+                        }else if (selectedCategory == 2) {
+                            definition = "Owner households in non-farm, non-reserve private dwellings\n" +
+                                    "Average monthly shelter costs for owned dwellings ($)";
+                        }else if (selectedCategory == 3) {
+                            definition = "Tenant households in non-farm, non-reserve private dwellings\n" +
+                                    "Average monthly shelter costs for rented dwellings ($)";
+                        }
+
                         JOptionPane.showMessageDialog(null,
                                 densityGUI.getDataOptions()[selectedCategory] + " : \n" +
                                         "$" + Math.round(densityGUI.getDataGroup().get(0)
-                                        .getCities().get(densityGUI.getCityName(index))),
+                                        .getCities().get(densityGUI.getCityName(index))) + "\n\n" +
+                                        "Definition:\n" + definition + "\n\n" +
+                                        "Retrieved from Statistics Canada, 2016 Census",
                                 densityGUI.getMapNames()[index].toUpperCase() + " DATA",
                                 JOptionPane.INFORMATION_MESSAGE);
                     } else if (selectedCategory == 4 || selectedCategory == 5) {
                         if (selectedCategory == 4) {
                             chosen = 0;
                             suffix = " owners";
+                            definition = "Private households by tenure - Owner";
                         } // Household Owners
                         else if (selectedCategory == 5) {
                             chosen = 1;
                             suffix = " renters";
+                            definition = "Private households by tenure - Renter";
                         } // Household Renters
                         JOptionPane.showMessageDialog(null,
                                 densityGUI.getDataOptions()[selectedCategory] + " : \n" +
                                         Math.round(densityGUI.getDataGroup().get(chosen).
-                                                getOGCityData(densityGUI.getCityName(index))) + suffix,
+                                                getOGCityData(densityGUI.getCityName(index))) + suffix + "\n\n" +
+                                        "Definition:\n" + definition + "\n\n" +
+                                        "Retrieved from Statistics Canada, 2016 Census",
                                 densityGUI.getMapNames()[index].toUpperCase() + " DATA",
                                 JOptionPane.INFORMATION_MESSAGE);
                     }
@@ -298,26 +317,57 @@ public class DensityMapController extends ToolController implements ActionListen
 
     @Override
     public void mouseEntered(MouseEvent e) {
+
+        int selectedCategory = densityGUI.getDataList().getSelectedIndex(); // Access selected data
+
+        // Hovering over a city label
         for (int index = 0; index < densityGUI.getCityLabels().length; index++) {
             if (e.getSource() == densityGUI.getCityLabels()[index]) {
-                densityGUI.remove(densityGUI.getMapLabels()[index]);
-                densityGUI.revalidate();
-                densityGUI.repaint();
-                densityGUI.add(densityGUI.getCitySelectedLabels()[index]);
+                if (densityGUI.getDataList().getSelectedIndex() != 0) {
+                    if (selectedCategory >= 1 && selectedCategory <= 3) {
+                        int value = Math.round(Float.parseFloat(densityGUI.getDataGroup().get(0).getCities().get(densityGUI.getCityName(index)).toString()));
+                        String avgDwell = "Avg Dwelling Value" + "<br>" + "$" + value;
+                        String costMonthOwner = "Avg Owner $/Month" + "<br>" + "$" + value;
+                        String costMonthRenter = "Avg Renter $/Month" + "<br>" + "$" + value;
+                        if (selectedCategory == 1)
+                            densityGUI.getHoverInformation().setText("<html><div style='text-align: center;'>" + avgDwell + "<html>");
+                        else if (selectedCategory == 2)
+                            densityGUI.getHoverInformation().setText("<html><div style='text-align: center;'>" + costMonthOwner + "<html>");
+                        else if (selectedCategory == 3)
+                            densityGUI.getHoverInformation().setText("<html><div style='text-align: center;'>" + costMonthRenter + "<html>");
+                    } else if (selectedCategory == 4 || selectedCategory == 5) {
+                        double ownerTotal = densityGUI.getDataGroup().get(0).getOGCityData(densityGUI.getCityName(index));
+                        double renterTotal = densityGUI.getDataGroup().get(1).getOGCityData(densityGUI.getCityName(index));
+                        String owner = "Household Owners" + "<br>" + Math.round(ownerTotal) + " owners";
+                        String renter = "Household Renters" + "<br>" + Math.round(renterTotal) + " renters";
+                        if (selectedCategory == 4) {
+                            densityGUI.getHoverInformation().setText("<html><div style='text-align: center;'>" + owner + "<html>");
+                        } else if (selectedCategory == 5) {
+                            densityGUI.getHoverInformation().setText("<html><div style='text-align: center;'>" + renter + "<html>");
+                        }
+                    }
+                    densityGUI.remove(densityGUI.getMapLabels()[index]); // Remove old label
+                    densityGUI.revalidate();
+                    densityGUI.repaint();
+                    densityGUI.add(densityGUI.getCitySelectedLabels()[index]); // Replace with selected label
+                }
             }
         }
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
+
+        // Unhovering over a city label
         for (int index = 0; index < densityGUI.getCityLabels().length; index++) {
             if (e.getSource() == densityGUI.getCityLabels()[index]) {
-                densityGUI.remove(densityGUI.getCitySelectedLabels()[index]);
+                if (densityGUI.getDataList().getSelectedIndex() != 0)
+                    densityGUI.getHoverInformation().setText("");
+                densityGUI.remove(densityGUI.getCitySelectedLabels()[index]); // Remove selected label
                 densityGUI.revalidate();
                 densityGUI.repaint();
-                densityGUI.add(densityGUI.getMapLabels()[index]);
+                densityGUI.add(densityGUI.getMapLabels()[index]); // Add original map label
             }
         }
     }
-
 }
