@@ -1,17 +1,28 @@
 package controller;
 
 import model.MyDataset;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.data.general.DefaultPieDataset;
+import util.Category;
+import view.MainFrame;
 import view.PieChartGUI;
+import view.Tool;
 
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class PieChartController extends ToolController implements ActionListener {
 
     private final PieChartGUI gui;
     private String[] cityList = {"Aurora", "East Gwillimbury", "Georgina", "King", "Markham", "Newmarket", "Richmond Hill","Stouffville", "Vaughan", };
+    private ArrayList<Category> dataGroup;
+    private DefaultPieDataset<String> displayedData;
+    private ChartPanel chartPanel;
 
     public PieChartController (PieChartGUI gui) {
 
@@ -26,81 +37,38 @@ public class PieChartController extends ToolController implements ActionListener
         String city = (String) JOptionPane.showInputDialog(null, "Which city do you want to see?", "City", JOptionPane.PLAIN_MESSAGE, null, cityList, cityList[0]);
 
         //switches the data displayed based on what city a user chooses
-        switch(city){
-
-            case"Aurora":
-               // gui.getPieCharts(0).createChart(gui., "Aurora" );
-
-                break;
-            case"East Gwillimbury":
-
-                break;
-            case"Georgina":
-
-                break;
-            case"King":
-
-                break;
-            case"Markham":
-
-                break;
-            case"Newmarket":
-
-                break;
-            case"Richmond Hill":
-
-                break;
-            case"Stouffville":
-
-                break;
-            case"Vaughan":
-
-                break;
-        }
+        gui.getPieCharts(0).createChart(getDataGroup(), city);
 
     }
+
+
 
     // same as select city but for a different dataset
     public void selectCity2() {
 
         String city = (String) JOptionPane.showInputDialog(null, "Which city do you want to see?", "City", JOptionPane.PLAIN_MESSAGE, null, cityList, cityList[0]);
 
-        switch(city){
-
-            case"Aurora":
-                gui.getPieCharts(1);
-
-                break;
-            case"East Gwillimbury":
-
-                break;
-            case"Georgina":
-
-                break;
-            case"King":
-
-                break;
-            case"Markham":
-
-                break;
-            case"Newmarket":
-
-                break;
-            case"Richmond Hill":
-
-                break;
-            case"Stouffville":
-
-                break;
-            case"Vaughan":
-
-                break;
-        }
-
+       // gui.getPieCharts(1).createChart( city);
     }
 
     //
+    public String getDataGroup(){
 
+        //get categories for journey to work
+        gui.getPieCharts(0).getDataGroup().get(1);
+        gui.getPieCharts(0).getDataGroup().get(2);
+        gui.getPieCharts(0).getDataGroup().get(3);
+        gui.getPieCharts(0).getDataGroup().get(4);
+        gui.getPieCharts(0).getDataGroup().get(5);
+
+
+        //get categories for profile of housing
+        gui.getPieCharts(1).getDataGroup().get(0);
+        gui.getPieCharts(1).getDataGroup().get(1);
+
+
+        return getDataGroup();
+    }
 
     @Override
     public void initializeDataToDisplay (MyDataset[] dataset) {

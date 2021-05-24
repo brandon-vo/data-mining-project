@@ -33,7 +33,7 @@ public class PieChartUtil extends JPanel {
         add(cityButton);
         
     }
-    
+
     public void initializeDataToDisplay (MyDataset dataset, String groupName) {
         
         // Copy the given group into the dataGroup field
@@ -61,7 +61,7 @@ public class PieChartUtil extends JPanel {
                 true, false, false);
         chart.setBackgroundPaint(Tool.BACKGROUND_COLOUR);
         
-        remove(chartPanel);
+
         chartPanel = new ChartPanel(chart);
         chartPanel.setBounds(500, 25, 500, MainFrame.HEIGHT/2-100);
         add(chartPanel);
@@ -71,5 +71,8 @@ public class PieChartUtil extends JPanel {
     public JButton getCityButton() {
         return cityButton;
     }
-    
+
+    public ArrayList<Category> getDataGroup() {
+        return dataGroup;
+    }
 }
