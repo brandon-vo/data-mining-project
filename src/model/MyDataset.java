@@ -10,9 +10,9 @@ import java.util.*;
 public abstract class MyDataset {
     
     public static final int CITY_INDEX = 3;
-    public static final String TOT_ = "TOT_";
-    public static final String MED_ = "MED_";
-    public static final String SHAPE__ = "Shape__";
+    public static final String TOT_ = "Tot ";
+    public static final String MED_ = "Med ";
+    public static final String SHAPE__ = "Shape  ";
     
     private final ArrayList<String> groupIndicators;
     
@@ -62,6 +62,7 @@ public abstract class MyDataset {
      */
     public void setDataset (ArrayList<ArrayList<String>> rawDataset) {
         
+        reformatStrings(rawDataset.get(0), CITY_INDEX+1);
         indexDataset(rawDataset, getCities(rawDataset));
         
         ArrayList<Integer> groupIndexes = getGroupIndexes(rawDataset);
@@ -82,7 +83,7 @@ public abstract class MyDataset {
                 // Decrement to include shape area's first category
                 if (groupName.contains(SHAPE__)) {
                     --groupIndex;
-                    groupName = SHAPE__.replace("__", "");
+                    groupName = SHAPE__.replace("  ", "");
                 } else if (groupName.contains(TOT_)) {
                     groupName = groupName.replace(TOT_, "");
                 } else if (groupName.contains(MED_)) {
@@ -99,12 +100,38 @@ public abstract class MyDataset {
         }
         
         // Average out all the cities
-        for (ArrayList<Category> group : this.dataset.values()) {
-            for (Category category : group) {
+        for (Map.Entry<String, ArrayList<Category>> group : this.dataset.entrySet()) {
+            for (Category category : group.getValue()) {
                 for (Map.Entry<String, Double> city : category.getCities().entrySet()) {
                     city.setValue(city.getValue()/cityCount.get(city.getKey()));
                 }
             }
+        }
+        
+    }
+    
+    /**
+     * Title case and replace all "_" in arr to spaces
+     * @param arr = the array to reformat
+     */
+    public void reformatStrings (ArrayList<String> arr, int startingIndex) {
+        
+        char[] category;
+        for (int i = startingIndex; i<arr.size(); ++i) {
+            
+            // Replace the underscores with spaces and trim the ends of spaces
+            category = arr.get(i).replace("_", " ").trim().toCharArray();
+            
+            // Capitalize each word
+            category[0] = Character.toUpperCase(category[0]);
+            for (int j = 1; j<category.length; ++j) {
+                category[j] = category[j-1]==' '
+                        ? Character.toUpperCase(category[j])
+                        : Character.toLowerCase(category[j]);
+            }
+            
+            arr.set(i, String.valueOf(category));
+            
         }
         
     }

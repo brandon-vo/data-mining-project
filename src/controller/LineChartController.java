@@ -151,7 +151,7 @@ public class LineChartController
         
         // Create and add the chart to the gui
         gui.setChartPanel(new ChartPanel(gui.getLineChart()));
-        gui.getChartPanel().setBounds(PADDING, PADDING*4, USER_INPUT_X-PADDING*2, MainFrame.HEIGHT-PADDING*7);
+        gui.getChartPanel().setBounds(PADDING, PADDING*2, USER_INPUT_X-PADDING*2, MainFrame.HEIGHT-PADDING*7/2);
         gui.getChartPanel().setRangeZoomable(false);
         gui.getChartPanel().addMouseListener(this);
         gui.getChartPanel().addMouseMotionListener(this);

@@ -9,9 +9,6 @@ import static model.DataType.*;
 
 public class ProfileOfHousing extends MyDataset {
     
-    public static final String MED_ = "MED_";
-    public static final String AVG_ = "AVG_";
-    
     public ProfileOfHousing () {
         super();
         getGroupIndicators().add(MED_);
@@ -66,21 +63,21 @@ public class ProfileOfHousing extends MyDataset {
     @Override
     public void assignValidGroupCharts (Tool[] tools) {
         
-        tools[DENSITY_MAP.getValue()].getValidGroups(1).put("Average Dwelling Value", getDataset().get("AVG_DWELL_VALUE"));
-        tools[DENSITY_MAP.getValue()].getValidGroups(1).put("Average Renter Monthly Shelter Cost", getDataset().get("AVG_MONTHLY_SHELTER_COST_RENT"));
-        tools[DENSITY_MAP.getValue()].getValidGroups(1).put("Average Owner Monthly Shelter Cost", getDataset().get("OWN_AVG_MONTHLY_SHELTER_COST"));
-        tools[DENSITY_MAP.getValue()].getValidGroups(1).put("Household Owner Count", getDataset().get("PVT_HH_TENURE"));
-        tools[DENSITY_MAP.getValue()].getValidGroups(1).put("Household Renter Count", getDataset().get("PVT_HH_TENURE"));
+        tools[DENSITY_MAP.getValue()].getValidGroups(1).put("Average Dwelling Value", getDataset().get("Avg Dwell Value"));
+        tools[DENSITY_MAP.getValue()].getValidGroups(1).put("Average Renter Monthly Shelter Cost", getDataset().get("Avg Monthly Shelter Cost Rent"));
+        tools[DENSITY_MAP.getValue()].getValidGroups(1).put("Average Owner Monthly Shelter Cost", getDataset().get("Own Avg Monthly Shelter Cost"));
+        tools[DENSITY_MAP.getValue()].getValidGroups(1).put("Household Owner Count", getDataset().get("Pvt Hh Tenure"));
+        tools[DENSITY_MAP.getValue()].getValidGroups(1).put("Household Renter Count", getDataset().get("Pvt Hh Tenure"));
     
-        tools[BAR_CHART.getValue()].getValidGroups(1).put("AVG_MONTHLY_SHELTER_RENT", getDataset().get("AVG_MONTHLY_SHELTER_RENT"));
+        tools[BAR_CHART.getValue()].getValidGroups(1).put("Avg Monthly Shelter Cost Rent", getDataset().get("Avg Monthly Shelter Cost Rent"));
         
-        tools[SCATTER_CHART.getValue()].getValidGroups(1).put("OCC_PVT_DWELL_NO_BED", getDataset().get("OCC_PVT_DWELL_NO_BED"));
-        tools[SCATTER_CHART.getValue()].getValidGroups(1).put("OCC_PVT_DWELL_NO_ROOMS", getDataset().get("OCC_PVT_DWELL_NO_ROOMS"));
-        tools[SCATTER_CHART.getValue()].getValidGroups(1).put("PVT_HH_AGE_MAINTAINER", getDataset().get("PVT_HH_AGE_MAINTAINER"));
+        tools[SCATTER_CHART.getValue()].getValidGroups(1).put("Occ Pvt Dwell No Bed", getDataset().get("Occ Pvt Dwell No Bed"));
+        tools[SCATTER_CHART.getValue()].getValidGroups(1).put("Occ Pvt Dwell No Rooms", getDataset().get("Occ Pvt Dwell No Rooms"));
+        tools[SCATTER_CHART.getValue()].getValidGroups(1).put("Pvt Hh Age Maintainer", getDataset().get("Pvt Hh Age Maintainer"));
     
-        tools[PIE_CHART.getValue()].getValidGroups(1).put("OCC_PVT_DWELL_CONDO", getDataset().get("OCC_PVT_DWELL_CONDO"));
+        tools[PIE_CHART.getValue()].getValidGroups(1).put("Occ Pvt Dwell No Rooms", getDataset().get("Occ Pvt Dwell No Rooms"));
         
-        tools[LINE_CHART.getValue()].getValidGroups(1).put("PVT_HH_AGE_MAINTAINER", getDataset().get("PVT_HH_AGE_MAINTAINER"));
+        tools[LINE_CHART.getValue()].getValidGroups(1).put("Pvt Hh Age Maintainer", getDataset().get("Pvt Hh Age Maintainer"));
         
     }
     
