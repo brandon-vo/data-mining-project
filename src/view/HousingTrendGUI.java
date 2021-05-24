@@ -34,7 +34,7 @@ public class HousingTrendGUI extends Tool {
         String[] locationName = { "Vaughan", "Richmond Hill", "Markham", "East Gwillimbury", "Newmarket", "Georgina", "King" };
         
         location = new JComboBox<>(locationName);
-        location.setBounds(200, 200, 100, 100);
+        location.setBounds(200, 160, 100, 50);
         add(location);
     
         selectVariable.setBounds(200, 400, 100, 50);
@@ -42,7 +42,7 @@ public class HousingTrendGUI extends Tool {
         String[] variableName = { "room", "bed", "maintainer" };
         variable = new JComboBox<>(variableName);
         
-        variable.setBounds(200, 500, 100, 100);
+        variable.setBounds(200, 460, 100, 50);
         add(variable);
         
         displayedData = new XYSeriesCollection();
