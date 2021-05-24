@@ -37,7 +37,7 @@ public class PieChartController extends ToolController implements ActionListener
         String city = (String) JOptionPane.showInputDialog(null, "Which city do you want to see?", "City", JOptionPane.PLAIN_MESSAGE, null, cityList, cityList[0]);
 
         //switches the data displayed based on what city a user chooses
-        gui.getPieCharts(0).createChart(getDataGroup(), city);
+        gui.getPieCharts(0).createChart(gui.getPieCharts(0).getGroupName(), city);
 
     }
 
@@ -47,27 +47,9 @@ public class PieChartController extends ToolController implements ActionListener
     public void selectCity2() {
 
         String city = (String) JOptionPane.showInputDialog(null, "Which city do you want to see?", "City", JOptionPane.PLAIN_MESSAGE, null, cityList, cityList[0]);
-
-       // gui.getPieCharts(1).createChart( city);
+        //gui.getPieCharts(1).createChart( getDataGroup(), city);
     }
 
-    //
-    public String getDataGroup() {
-
-        //get categories for journey to work
-        gui.getPieCharts(0).getDataGroup().get(1);
-        gui.getPieCharts(0).getDataGroup().get(2);
-        gui.getPieCharts(0).getDataGroup().get(3);
-        gui.getPieCharts(0).getDataGroup().get(4);
-        gui.getPieCharts(0).getDataGroup().get(5);
-        
-        //get categories for profile of housing
-        gui.getPieCharts(1).getDataGroup().get(0);
-        gui.getPieCharts(1).getDataGroup().get(1);
-
-
-        return getDataGroup();
-    }
 
     @Override
     public void initializeDataToDisplay (MyDataset[] dataset) {

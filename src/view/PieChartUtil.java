@@ -61,11 +61,13 @@ public class PieChartUtil extends JPanel {
         JFreeChart chart = ChartFactory.createPieChart(groupName, displayedData,
                 true, false, false);
         chart.setBackgroundPaint(Tool.BACKGROUND_COLOUR);
-        
 
-        chartPanel = new ChartPanel(chart);
-        chartPanel.setBounds(500, 25, 500, MainFrame.HEIGHT/2-100);
-        add(chartPanel);
+        if(chartPanel != null)
+            remove(chartPanel);
+            chartPanel = new ChartPanel(chart);
+            chartPanel.setBounds(500, 25, 500, MainFrame.HEIGHT / 2 - 100);
+            add(chartPanel);
+
         
     }
     

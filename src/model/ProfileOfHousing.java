@@ -77,7 +77,7 @@ public class ProfileOfHousing extends MyDataset {
         
         tools[SCATTER_CHART.getValue()].getValidGroups(1).put("Occ Pvt Dwell No Bed", getDataset().get("Occ Pvt Dwell No Bed"));
         tools[SCATTER_CHART.getValue()].getValidGroups(1).put("Occ Pvt Dwell No Rooms", getDataset().get("Occ Pvt Dwell No Rooms"));
-        tools[SCATTER_CHART.getValue()].getValidGroups(1).put("TOT_PVT_HH_NO_MAINTAINER", getDataset().get("TOT_PVT_HH_NO_MAINTAINER"));
+        tools[SCATTER_CHART.getValue()].getValidGroups(1).put("Pvt Hh No Maintainer", getDataset().get("Pvt Hh No Maintainer"));
     
         tools[PIE_CHART.getValue()].getValidGroups(1).put("Occ Pvt Dwell No Rooms", getDataset().get("Occ Pvt Dwell No Rooms"));
         
