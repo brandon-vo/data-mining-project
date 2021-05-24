@@ -33,6 +33,9 @@ public class ScatterPlotController extends ToolController implements ActionListe
         put("No 6", 6);
         put("No 7", 7);
         put("No 8 Plus", 8);
+        put("No 1",1);
+        put("No 2",2);
+        put("No 3",3);
     }};
     
     private HousingTrendGUI gui;
@@ -120,12 +123,13 @@ public class ScatterPlotController extends ToolController implements ActionListe
                 setDataToDisplay(gui.getValidGroupNames(1).get(1));
                 break;
             case "bed":
-                setDataToDisplay(gui.getValidGroupNames(1).get(2));
-                break;
-            case "maintainer":
                 setDataToDisplay(gui.getValidGroupNames(1).get(0));
                 break;
+            case "maintainer":
+                setDataToDisplay(gui.getValidGroupNames(1).get(2));
+                break;
         }
+        gui.repaint();
     }
     
     private void updateDisplayedCities () {

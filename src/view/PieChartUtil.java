@@ -20,6 +20,7 @@ public class PieChartUtil extends JPanel {
     
     private final JButton cityButton = new JButton("SELECT CITY");
     
+    private String groupName;
     private ArrayList<Category> dataGroup;
     private DefaultPieDataset<String> displayedData;
     private ChartPanel chartPanel;
@@ -32,10 +33,11 @@ public class PieChartUtil extends JPanel {
         add(cityButton);
         
     }
-
+    
     public void initializeDataToDisplay (MyDataset dataset, String groupName) {
         
         // Copy the given group into the dataGroup field
+        this.groupName = groupName;
         dataGroup = dataset.getDataset().get(groupName);
         createChart(groupName, MyDataset.getCities()[0]);
         
@@ -44,7 +46,7 @@ public class PieChartUtil extends JPanel {
     public DefaultPieDataset<String> createDataset (String city) {
         
         displayedData = new DefaultPieDataset<>();
-        for (Category category: dataGroup) {
+        for (Category category : dataGroup) {
             displayedData.setValue(category.getCategoryName(),
                     category.getCities().get(city)/category.getTotal());
         }
@@ -54,24 +56,29 @@ public class PieChartUtil extends JPanel {
     }
     
     public void createChart (String groupName, String city) {
-    
+        
         displayedData = createDataset(city);
         JFreeChart chart = ChartFactory.createPieChart(groupName, displayedData,
                 true, false, false);
         chart.setBackgroundPaint(Tool.BACKGROUND_COLOUR);
         
-
+        if (chartPanel!=null)
+            remove(chartPanel);
         chartPanel = new ChartPanel(chart);
         chartPanel.setBounds(500, 25, 500, MainFrame.HEIGHT/2-100);
         add(chartPanel);
         
     }
     
-    public JButton getCityButton() {
+    public JButton getCityButton () {
         return cityButton;
     }
-
-    public ArrayList<Category> getDataGroup() {
+    
+    public String getGroupName () {
+        return groupName;
+    }
+    
+    public ArrayList<Category> getDataGroup () {
         return dataGroup;
     }
 }
