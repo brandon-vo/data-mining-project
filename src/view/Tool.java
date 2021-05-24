@@ -11,11 +11,18 @@ import java.util.HashMap;
 
 public abstract class Tool extends JPanel {
     
+    // GUI constants
     public static final Color BACKGROUND_COLOUR = new Color(243, 243, 243);
     public static final Color BUTTON_COLOUR = new Color(145, 172, 219);
     public static final Color COMBO_BOX_COLOUR = new Color(183, 183, 183);
     
-    private static final String BACK_BUTTON_IMAGE_FILE = "img/backButton.png";
+    public static final Font FONT = new Font("Tahoma", Font.PLAIN, 17);
+    public static final int PADDING = 60;
+    public static final int USER_INPUT_X = MainFrame.WIDTH*3/4;
+    public static final int USER_INPUT_WIDTH = MainFrame.WIDTH/4-PADDING;
+    public static final int USER_INPUT_HEIGHT = PADDING;
+    
+    private static final String BACK_BUTTON_IMAGE_FILE = "./img/backButton.png";
     
     private final HashMap<String, ArrayList<Category>>[] validGroups;
     private String groupName;
@@ -33,8 +40,12 @@ public abstract class Tool extends JPanel {
         validGroups[1] = new HashMap<>();
         dataGroup = new ArrayList<>();
     
-        backButton = new JButton(new ImageIcon(BACK_BUTTON_IMAGE_FILE));
-        backButton.setBounds(1315, 17, 20, 20);
+        ImageIcon image = new ImageIcon(BACK_BUTTON_IMAGE_FILE);
+        backButton = new JButton(image);
+        backButton.setBounds(
+                MainFrame.WIDTH-image.getIconWidth()-PADDING,
+                PADDING/2, image.getIconWidth(), image.getIconHeight()
+        );
         backButton.setContentAreaFilled(false);
         backButton.setBorderPainted(false);
         add(backButton);

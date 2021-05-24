@@ -18,21 +18,21 @@ import static view.HousingTrendGUI.*;
 public class ScatterPlotController extends ToolController implements ActionListener {
     
     private static final HashMap<String, Integer> STRING_TO_INTEGER = new HashMap<>() {{
-        put("ONE", 1);
-        put("TWO", 2);
-        put("THREE", 3);
-        put("FOUR", 4);
-        put("FIVE", 5);
-        put("SIX", 6);
-        put("SEVEN", 7);
-        put("EIGHT", 8);
-        put("NINE", 9);
-        put("ZERO", 0);
-        put("NO_1_4", 4);
-        put("NO_5", 5);
-        put("NO_6", 6);
-        put("NO_7", 7);
-        put("NO_8_PLUS", 8);
+        put("One", 1);
+        put("Two", 2);
+        put("Three", 3);
+        put("Four", 4);
+        put("Five", 5);
+        put("Six", 6);
+        put("Seven", 7);
+        put("Eight", 8);
+        put("Nine", 9);
+        put("Zero", 0);
+        put("No 1 4", 4);
+        put("No 5", 5);
+        put("No 6", 6);
+        put("No 7", 7);
+        put("No 8 Plus", 8);
     }};
     
     private HousingTrendGUI gui;

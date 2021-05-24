@@ -11,13 +11,6 @@ public class LineChartGUI extends Tool {
     
     private static final String LINE_CHART_TITLE_FILE = "./img/titles/lineChartTitle.png";
     
-    // GUI constants
-    public static final Font FONT = new Font("Tahoma", Font.PLAIN, 17);
-    public static final int PADDING = 30;
-    public static final int USER_INPUT_X = MainFrame.WIDTH*3/4;
-    public static final int USER_INPUT_WIDTH = MainFrame.WIDTH/4-PADDING*2;
-    public static final int USER_INPUT_HEIGHT = PADDING*2;
-    
     private final JLabel lineChartTitleLabel;
     private final JLabel datasetLabel;
     private final JLabel[] boundLabels;
@@ -39,7 +32,7 @@ public class LineChartGUI extends Tool {
         lineChartTitleLabel.setBounds(0, 0, MainFrame.WIDTH, MainFrame.HEIGHT);
         add(lineChartTitleLabel);
         
-        int currentHeight = PADDING*4;
+        int currentHeight = PADDING*2;
         
         datasetLabel = new JLabel("Select the Dataset");
         datasetLabel.setBounds(USER_INPUT_X, currentHeight, USER_INPUT_WIDTH, USER_INPUT_HEIGHT);
@@ -83,7 +76,7 @@ public class LineChartGUI extends Tool {
         }
         
         selectVisibleCitiesButton = new JButton("Select Visible cities");
-        currentHeight += USER_INPUT_HEIGHT+PADDING;
+        currentHeight += USER_INPUT_HEIGHT+PADDING/2;
         selectVisibleCitiesButton.setBounds(USER_INPUT_X, currentHeight, USER_INPUT_WIDTH, USER_INPUT_HEIGHT);
         selectVisibleCitiesButton.setBorder(null);
         selectVisibleCitiesButton.setFont(FONT);

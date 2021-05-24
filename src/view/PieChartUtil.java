@@ -27,7 +27,6 @@ public class PieChartUtil extends JPanel {
     public PieChartUtil () {
         
         setLayout(null);
-        
         setBorder(BorderFactory.createLineBorder(Color.black));
         cityButton.setBounds(50, MainFrame.HEIGHT/4-25, 200, 50);
         add(cityButton);
@@ -37,7 +36,7 @@ public class PieChartUtil extends JPanel {
     public void initializeDataToDisplay (MyDataset dataset, String groupName) {
         
         // Copy the given group into the dataGroup field
-        dataGroup = new ArrayList<>(dataset.getDataset().get(groupName));
+        dataGroup = dataset.getDataset().get(groupName);
         createChart(groupName, MyDataset.getCities()[0]);
         
     }

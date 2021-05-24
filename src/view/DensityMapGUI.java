@@ -59,7 +59,8 @@ public class DensityMapGUI extends Tool {
             "newmarket", "richmondHill", "stouffville", "vaughan"}; // Accessing name of a city for the map
     private JLabel[] mapLabels = new JLabel[9]; // Array of labels with the map of the city
     private JLabel[] cityLabels = new JLabel[9]; // Array of labels with the city text on it
-    private JLabel[] citySelectedLabels = new JLabel[9];
+    private JLabel[] citySelectedLabels = new JLabel[9]; // Array of labels with selected map image
+    private JLabel hoverInformation = new JLabel();
 
     // Constructor
     public DensityMapGUI() {
@@ -96,7 +97,7 @@ public class DensityMapGUI extends Tool {
         submitButton.setEnabled(false);
         add(submitButton);
 
-        // City labels
+        // City labels and selected map images
         for (int label = 0; label < cityLabels.length; label++) {
             cityLabels[label] = new JLabel(new ImageIcon("img/densityMap/map/labels/" + mapNames[label] + "Label.png"));
             add(cityLabels[label]);
@@ -124,6 +125,19 @@ public class DensityMapGUI extends Tool {
         dataList.setFont(new Font("Tahoma", Font.PLAIN, 12));
         dataList.setBackground(COMBO_BOX_COLOUR);
         add(dataList);
+
+        // City information which displays data for hovered city
+        String text = "Welcome" + "<br>" + "Please select a dataset";
+
+        hoverInformation.setBounds(MainFrame.WIDTH/2-130, MainFrame.HEIGHT/2-80, 300, 100);
+        hoverInformation.setFont(new Font("Tahoma", Font.BOLD, 25));
+        hoverInformation.setOpaque(true);
+        hoverInformation.setBackground(COMBO_BOX_COLOUR);
+        hoverInformation.setText("<html><div style='text-align: center;'>" + text + "<html>");
+        hoverInformation.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        hoverInformation.setHorizontalAlignment(SwingConstants.CENTER);
+        hoverInformation.setVerticalAlignment(SwingConstants.CENTER);
+        add(hoverInformation);
 
     }
 
@@ -197,4 +211,6 @@ public class DensityMapGUI extends Tool {
     public JLabel[] getCitySelectedLabels() { return citySelectedLabels; }
 
     public JLabel[] getMapLabels() { return mapLabels; }
+
+    public JLabel getHoverInformation() { return hoverInformation; }
 }
