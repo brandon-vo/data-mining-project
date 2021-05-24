@@ -16,7 +16,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-public class PieChartUtil extends JPanel {
+public class PieChartPanel extends JPanel {
     
     private final JButton cityButton = new JButton("SELECT CITY");
     
@@ -25,7 +25,7 @@ public class PieChartUtil extends JPanel {
     private DefaultPieDataset<String> displayedData;
     private ChartPanel chartPanel;
     
-    public PieChartUtil () {
+    public PieChartPanel() {
         
         setLayout(null);
         setBorder(BorderFactory.createLineBorder(Color.black));
@@ -42,7 +42,8 @@ public class PieChartUtil extends JPanel {
         createChart(groupName, MyDataset.getCities()[0]);
         
     }
-    
+
+    //create a dataset based on user city choice
     public DefaultPieDataset<String> createDataset (String city) {
         
         displayedData = new DefaultPieDataset<>();
@@ -54,7 +55,8 @@ public class PieChartUtil extends JPanel {
         return displayedData;
         
     }
-    
+
+    //Create a new pie chart to replace the old one
     public void createChart (String groupName, String city) {
         
         displayedData = createDataset(city);
@@ -64,10 +66,11 @@ public class PieChartUtil extends JPanel {
         
         if (chartPanel!=null)
             remove(chartPanel);
-        chartPanel = new ChartPanel(chart);
+       ChartPanel chartPanel = new ChartPanel(chart);
         chartPanel.setBounds(500, 25, 500, MainFrame.HEIGHT/2-100);
         add(chartPanel);
-        
+
+        setVisible(true);
     }
     
     public JButton getCityButton () {
