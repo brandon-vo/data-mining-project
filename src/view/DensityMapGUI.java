@@ -16,18 +16,18 @@ import java.util.ArrayList;
 public class DensityMapGUI extends Tool {
 
     // Fields
-    private JLabel densityMapTitleLabel = new JLabel(new ImageIcon("img/titles/densityMapTitle.png"));
-    private JLabel userPanel = new JLabel(new ImageIcon("img/densityMap/userPanel.png"));
-    private String[] dataOptions = new String[]{
+    private JLabel densityMapTitleLabel = new JLabel(new ImageIcon("img/titles/densityMapTitle.png")); // Title
+    private JLabel userPanel = new JLabel(new ImageIcon("img/densityMap/userPanel.png")); // User panel
+    private String[] dataOptions = new String[]{ // Store data options
             "- Select data -",
             "Average Dwelling Value",
             "Average Renter Monthly Shelter Cost",
             "Average Owner Monthly Shelter Cost",
-            "Household Owner Count", // TODO what are these
+            "Household Owner Count",
             "Household Renter Count"};
-    private JComboBox dataList = new JComboBox<>(dataOptions);
+    private JComboBox dataList = new JComboBox<>(dataOptions); // Combo box which gives all data categories
 
-    private String[] cityOptions = new String[]{
+    private String[] cityOptions = new String[]{ // Store city options
             "- Select city -",
             "Aurora",
             "East Gwillimbury",
@@ -38,10 +38,10 @@ public class DensityMapGUI extends Tool {
             "Richmond Hill",
             "Whitchurch-Stouffville",
             "Vaughan",};
-    private JComboBox cityList = new JComboBox<>(cityOptions);
-    private JComboBox questionList = new JComboBox();
-    private JButton submitButton = new JButton("SUBMIT");
-    private JTextArea userResults = new JTextArea();
+    private JComboBox cityList = new JComboBox<>(cityOptions); // Combo box which gives the list of cities
+    private JComboBox questionList = new JComboBox(); // Combo box to store question to ask to user
+    private JButton submitButton = new JButton("SUBMIT"); // Button to submit input results
+    private JTextArea userResults = new JTextArea(); // Text area for input results
 
     private BufferedImage aurora;
     private BufferedImage eastGwillimbury;
@@ -53,12 +53,12 @@ public class DensityMapGUI extends Tool {
     private BufferedImage stouffville;
     private BufferedImage vaughan;
     private BufferedImage[] maps = {aurora, eastGwillimbury, georgina, king, markham,
-            newmarket, richmondHill, stouffville, vaughan};
+            newmarket, richmondHill, stouffville, vaughan}; // Buffered images for all cities on the map
 
     private String[] mapNames = {"aurora", "eastGwillimbury", "georgina", "king", "markham",
-            "newmarket", "richmondHill", "stouffville", "vaughan"};
-    private JLabel[] mapLabels = new JLabel[9];
-    private JLabel[] cityLabels = new JLabel[9];
+            "newmarket", "richmondHill", "stouffville", "vaughan"}; // Accessing name of a city for the map
+    private JLabel[] mapLabels = new JLabel[9]; // Array of labels with the map of the city
+    private JLabel[] cityLabels = new JLabel[9]; // Array of labels with the city text on it
 
     // Constructor
     public DensityMapGUI() {
