@@ -12,16 +12,18 @@ import java.awt.event.ActionListener;
 import java.util.*;
 
 public class BarChartController extends ToolController implements ActionListener {
-    
+
+    //create an barChartGui to refer to
     CommuteVsShelterCostGUI barChartGui;
 
 
-    
+    //constructor
     public BarChartController(CommuteVsShelterCostGUI barChartGui){
         this.barChartGui = barChartGui;
         setUpListeners();
     }
-    
+
+    //adds action listeners to buttons
     public void setUpListeners(){
         
         barChartGui.markhamButton.addActionListener(this);
@@ -31,7 +33,8 @@ public class BarChartController extends ToolController implements ActionListener
         barChartGui.richmondButton.addActionListener(this);
     
     }
-    
+
+    //set information available for barchartgui
     @Override
     public void initializeDataToDisplay (MyDataset[] dataset) {
 
@@ -43,7 +46,8 @@ public class BarChartController extends ToolController implements ActionListener
         createChart(barChartGui.getValidGroupNames(1).get(0), barChartGui.getDisplayedData());
 
     }
-    
+
+    //creates dataset to display in chart
     private DefaultCategoryDataset createDataSet(String currentCity) {
         
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
@@ -53,8 +57,13 @@ public class BarChartController extends ToolController implements ActionListener
         //2d array holding ranges as rows and totals of each commute type as columns
         int commuteTypeCount[][] = new int[5][6];
 
+        //iterate through the barChartGui datagroup
         for(int i = 1; i < barChartGui.getDataGroup().size(); i++ ){
+
             int parsedData = (int)(Double.parseDouble(rawData1.get(i).get(70)));
+
+            //if the city name in the row in the spreadsheet matches city button pressed and monthly shelter rent amount
+            //is within the range, add up all the commute type amounts and store it in the 2d array
             if(rawData1.get(i).get(3).equals(currentCity) && (parsedData > 0 &&
                     parsedData <= 600)){
 
@@ -105,14 +114,17 @@ public class BarChartController extends ToolController implements ActionListener
                 commuteTypeCount[4][4] += (int)(Double.parseDouble(rawData2.get(i).get(14)));
                 commuteTypeCount[4][5] += (int)(Double.parseDouble(rawData2.get(i).get(15)));
 
+                //if monthly shelter rent amount is 0, skip that row
             }else if(rawData1.get(i).get(4).equals(currentCity) && (Integer.parseInt(rawData1.get(i).get(70)) == 0)){
                 continue;
             }
         }
         int rangeMax[] = new int[5];
 
+        //calculate the largest commute type amount for each range
         largestValue(commuteTypeCount, rangeMax);
 
+        //add information to dataset
         dataset.addValue(rangeMax[0], currentCity, "0-600");
         dataset.addValue(rangeMax[1], currentCity, "601-1000");
         dataset.addValue(rangeMax[2], currentCity, "1001-1400");
@@ -122,7 +134,8 @@ public class BarChartController extends ToolController implements ActionListener
 
         return dataset;
     }
-    
+
+    //setting up the bar chart
     public void createChart (String groupNameProfileOfHousing, DefaultCategoryDataset displayedData) {
         
         String chartTitle = " Commute Type V.S" + groupNameProfileOfHousing;
@@ -143,6 +156,7 @@ public class BarChartController extends ToolController implements ActionListener
         
     }
 
+    //find largest value in each row of 2d array and store it in rangeMax array
     private void largestValue(int commuteTypeCount[][], int rangeMax[]) {
 
         for(int i = 0; i < commuteTypeCount.length; i++){
@@ -156,7 +170,9 @@ public class BarChartController extends ToolController implements ActionListener
         }
 
     }
-    
+
+    //if user presses a city button, change the current city to corresponding city name, create the proper dataset
+    //and update the bar chart
     @Override
     public void actionPerformed (ActionEvent e) {
 
