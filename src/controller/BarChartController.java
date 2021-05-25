@@ -53,25 +53,59 @@ public class BarChartController extends ToolController implements ActionListener
         ArrayList<ArrayList<String>> rawData2 = FileImportController.rawData[0];
         int range1Max, range2Max, range3Max, range4Max, range5Max;
         //array list of ranges containing array list holding totals of each commute type
-        ArrayList<ArrayList<Integer>> commuteTypeCount = new ArrayList<>();
+        int commuteTypeCount[][] = new int[5][6];
 
         for(int i = 1; i < barChartGui.getDataGroup().size(); i++ ){
             
             if(rawData1.get(i).get(4).equals(currentCity) && (Integer.parseInt(rawData1.get(i).get(70)) > 0 &&
                     Integer.parseInt(rawData1.get(i).get(70)) <= 600)){
 
-                 = Integer.parseInt(rawData2.get(i).get(10));
+                commuteTypeCount[0][0] = Integer.parseInt(rawData2.get(i).get(10));
+                commuteTypeCount[0][1] = Integer.parseInt(rawData2.get(i).get(11));
+                commuteTypeCount[0][2] = Integer.parseInt(rawData2.get(i).get(12));
+                commuteTypeCount[0][3] = Integer.parseInt(rawData2.get(i).get(13));
+                commuteTypeCount[0][4] = Integer.parseInt(rawData2.get(i).get(14));
+                commuteTypeCount[0][5] = Integer.parseInt(rawData2.get(i).get(15));
+
 
             }else if(rawData1.get(i).get(4).equals(currentCity) && (Integer.parseInt(rawData1.get(i).get(70)) >= 601 &&
                     Integer.parseInt(rawData1.get(i).get(70)) <= 1000)){
 
+                commuteTypeCount[1][0] += Integer.parseInt(rawData2.get(i).get(10));
+                commuteTypeCount[1][1] += Integer.parseInt(rawData2.get(i).get(11));
+                commuteTypeCount[1][2] += Integer.parseInt(rawData2.get(i).get(12));
+                commuteTypeCount[1][3] += Integer.parseInt(rawData2.get(i).get(13));
+                commuteTypeCount[1][4] += Integer.parseInt(rawData2.get(i).get(14));
+                commuteTypeCount[1][5] += Integer.parseInt(rawData2.get(i).get(15));
+
             }else if(rawData1.get(i).get(4).equals(currentCity) && (Integer.parseInt(rawData1.get(i).get(70)) >= 1001 &&
                     Integer.parseInt(rawData1.get(i).get(70)) <= 1400)){
+
+                commuteTypeCount[2][0] += Integer.parseInt(rawData2.get(i).get(10));
+                commuteTypeCount[2][1] += Integer.parseInt(rawData2.get(i).get(11));
+                commuteTypeCount[2][2] += Integer.parseInt(rawData2.get(i).get(12));
+                commuteTypeCount[2][3] += Integer.parseInt(rawData2.get(i).get(13));
+                commuteTypeCount[2][4] += Integer.parseInt(rawData2.get(i).get(14));
+                commuteTypeCount[2][5] += Integer.parseInt(rawData2.get(i).get(15));
 
             }else if (rawData1.get(i).get(4).equals(currentCity) && (Integer.parseInt(rawData1.get(i).get(70)) >= 1401 &&
                     Integer.parseInt(rawData1.get(i).get(70)) <= 1800)){
 
+                commuteTypeCount[3][0] += Integer.parseInt(rawData2.get(i).get(10));
+                commuteTypeCount[3][1] += Integer.parseInt(rawData2.get(i).get(11));
+                commuteTypeCount[3][2] += Integer.parseInt(rawData2.get(i).get(12));
+                commuteTypeCount[3][3] += Integer.parseInt(rawData2.get(i).get(13));
+                commuteTypeCount[3][4] += Integer.parseInt(rawData2.get(i).get(14));
+                commuteTypeCount[3][5] += Integer.parseInt(rawData2.get(i).get(15));
+
             }else if(rawData1.get(i).get(4).equals(currentCity) && (Integer.parseInt(rawData1.get(i).get(70)) > 1800)){
+
+                commuteTypeCount[4][0] += Integer.parseInt(rawData2.get(i).get(10));
+                commuteTypeCount[4][1] += Integer.parseInt(rawData2.get(i).get(11));
+                commuteTypeCount[4][2] += Integer.parseInt(rawData2.get(i).get(12));
+                commuteTypeCount[4][3] += Integer.parseInt(rawData2.get(i).get(13));
+                commuteTypeCount[4][4] += Integer.parseInt(rawData2.get(i).get(14));
+                commuteTypeCount[4][5] += Integer.parseInt(rawData2.get(i).get(15));
 
             }else if(rawData1.get(i).get(4).equals(currentCity) && (Integer.parseInt(rawData1.get(i).get(70)) == 0)){
                 continue;
