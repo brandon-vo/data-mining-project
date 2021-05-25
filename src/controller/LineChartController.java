@@ -127,7 +127,7 @@ public class LineChartController
             for (String city : displayedCities) {
                 
                 gui.getDisplayedData().addValue(
-                        category.getCities().get(city),
+                        category.getOGCityData(city),
                         city,
                         category.getCategoryName()
                 );

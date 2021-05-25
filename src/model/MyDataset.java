@@ -23,7 +23,7 @@ public abstract class MyDataset {
      *   be grouped as NUMBER_OF_BEDS)
      * <li> To access these groups you call their names as a string like this:
      *
-     * <ul><<code> getDataset().get("NUMBER_OF_BEDS") </code></ul>
+     * <ul><code> getDataset().get("NUMBER_OF_BEDS") </code></ul>
      *   From there you get access to the specific categories through indexing
      *   by integers, which then gives a list of the data attached to all the
      *   cities.

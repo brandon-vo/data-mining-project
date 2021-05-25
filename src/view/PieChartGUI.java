@@ -16,7 +16,6 @@ public class PieChartGUI extends Tool {
             add(pieCharts[i]);
         }
 
-
     }
     
     public PieChartPanel getPieCharts (int pieChart) {
