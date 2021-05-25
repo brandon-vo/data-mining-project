@@ -1,15 +1,21 @@
 package controller;
 
 import model.MyDataset;
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
+import org.jfree.chart.*;
+import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.renderer.category.LineAndShapeRenderer;
+import org.jfree.data.category.DefaultCategoryDataset;
 import util.Category;
 import view.LineChartGUI;
+import view.LineChartInteractor;
 import view.MainFrame;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.*;
+import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 import java.util.*;
 
 import static view.LineChartGUI.*;
@@ -22,10 +28,13 @@ public class LineChartController
     
     private final LineChartGUI gui;
     private final HashSet<String> displayedCities;
+    private final JPanel rectangle;
     
     public LineChartController (LineChartGUI gui) {
         this.gui = gui;
         displayedCities = new HashSet<>();
+        rectangle = new JPanel();
+        rectangle.setBackground(LineChartInteractor.BACKGROUND_COLOUR);
         setUpListeners();
     }
     
@@ -40,7 +49,7 @@ public class LineChartController
     
     @Override
     public void actionPerformed (ActionEvent e) {
-    
+        
         if (e.getSource()==gui.getSelectDataGroupBox()) {
             updateData();
         } else if (e.getSource()==gui.getChartBoundBox(0)) {
@@ -81,7 +90,7 @@ public class LineChartController
      * @param groupName = the new group to display
      */
     private void setDataToDisplay (String groupName) {
-    
+        
         gui.setDataGroup(groupName);
         
         // Initialize the bounds JComboBoxes
@@ -118,8 +127,8 @@ public class LineChartController
         for (int i = startBound; i<=endBound; ++i) {
             
             Category category = gui.getDataGroup().get(i);
-            for (String city: displayedCities) {
-    
+            for (String city : displayedCities) {
+                
                 gui.getDisplayedData().addValue(
                         category.getCities().get(city),
                         city,
@@ -143,7 +152,10 @@ public class LineChartController
                 true, false, false
         ));
         gui.getLineChart().setBackgroundPaint(BACKGROUND_COLOUR);
-    
+        LineAndShapeRenderer renderer = (LineAndShapeRenderer) gui.getLineChart().getCategoryPlot().getRenderer();
+        renderer.setAutoPopulateSeriesStroke(false);
+        renderer.setDefaultStroke(new BasicStroke(3f));
+        
         // Remove any previous chart on the gui
         if (gui.getChartPanel()!=null) {
             gui.remove(gui.getChartPanel());
@@ -151,11 +163,14 @@ public class LineChartController
         
         // Create and add the chart to the gui
         gui.setChartPanel(new ChartPanel(gui.getLineChart()));
-        gui.getChartPanel().setBounds(PADDING, PADDING*2, USER_INPUT_X-PADDING*2, MainFrame.HEIGHT-PADDING*7/2);
-        gui.getChartPanel().setRangeZoomable(false);
-        gui.getChartPanel().addMouseListener(this);
-        gui.getChartPanel().addMouseMotionListener(this);
-        gui.add(gui.getChartPanel());
+        ChartPanel chartPanel = gui.getChartPanel();
+        chartPanel.setLayout(null);
+        chartPanel.setBounds(PADDING, PADDING*2, USER_INPUT_X-PADDING*2, MainFrame.HEIGHT-PADDING*7/2);
+        chartPanel.setRangeZoomable(false);
+        chartPanel.addMouseListener(this);
+        chartPanel.addMouseMotionListener(this);
+        chartPanel.add(rectangle);
+        gui.add(chartPanel);
         
     }
     
@@ -211,7 +226,7 @@ public class LineChartController
      * select/unselect the displayed cities.
      */
     public void updateDisplayedCities () {
-    
+        
         String[] cities = MyDataset.getCities();
         JCheckBox[] checkBoxes = new JCheckBox[cities.length];
         
@@ -249,8 +264,17 @@ public class LineChartController
             // of selected cities exceeds MAX_CITIES
             if (displayedCities.size()>MAX_CITIES) {
                 JOptionPane.showMessageDialog(gui,
-                        "Too many cities were selected.\n" +
-                        "Select at most "+MAX_CITIES,
+                        "Too many cities were selected.\n"+
+                                "Select at most "+MAX_CITIES,
+                        "Alert",
+                        JOptionPane.ERROR_MESSAGE
+                );
+            // Input invalid if the number
+            // of selected cities is 0
+            } else if (displayedCities.size()==0) {
+                JOptionPane.showMessageDialog(gui,
+                        "Too few cities were selected.\n"+
+                                "Select at least "+1,
                         "Alert",
                         JOptionPane.ERROR_MESSAGE
                 );
@@ -260,7 +284,31 @@ public class LineChartController
         
         // Update the chart
         updateTimeInterval(0);
+        
+    }
     
+    /**
+     * Display the chart's value at the clicked location
+     * @param e = event
+     */
+    @Override
+    public void mouseClicked (MouseEvent e) {
+        
+        int nearestCategory = getNearestCategory(e.getX());
+        
+        // For each visible city
+        for (int city = 0; city<gui.getDisplayedData().getRowCount(); ++city) {
+            
+            // Find the coordinate of the cityPoint and put a dot there
+            Point2D cityPoint = getCategoryPoint(city, nearestCategory);
+            gui.getInteractor().setCircle(city, (int) cityPoint.getX(), (int) cityPoint.getY());
+            gui.getChartPanel().add(gui.getInteractor().getCircle(city));
+            
+        }
+        
+        // Display GUI to the left detailing the time and quantity at that point for each city
+        
+        
     }
     
     /**
@@ -269,7 +317,7 @@ public class LineChartController
      */
     @Override
     public void mouseDragged (MouseEvent e) {
-    
+        
         System.out.println("oog booga");
         // If the mouse is not over the graph or is not pressed, do not do anything
         // Iterate over the visible cities
@@ -289,26 +337,71 @@ public class LineChartController
     }
     
     /**
-     * Display the chart's value at the clicked location
+     * Clear everything from the graph when the mouse exists
      * @param e = event
      */
     @Override
-    public void mouseClicked (MouseEvent e) {
+    public void mouseExited (MouseEvent e) {
+        gui.repaint();
+    }
     
-        System.out.println("Mouse clicked; "+e.getClickCount());
-        // Only run if the mouse is over the graph
-        // Clear anything drawn on the graph
-        // If the mouse is clicked, get the x location of the mouse
-        // Find the x coordinate of the displayPoint
-        // Iterate over the time scale (x scale) of the graph until the current x coordinate on the scale is greater than the x coordinate of the mouse
-        // If the distance between the current x coordinate and the mouse coordinate is less than the distance between the previous x coordinate and the mouse coordinate, set the displayPoint x coordinate to the current coordinate
-        // Otherwise, set it to the previous
-        // For each visible city
-        // Find the y coordinate of the displayPoint
-        // Repeat steps 3.1 and 3.3, except with the quantity scale (y scale) and using y coordinates.
-        // Display a dot at the display point on each visible city
-        // Display GUI to the left detailing the time and quantity at that point for each city
+    /**
+     * @param mouseX = mouse's x coordinate
+     * @return The nearest category given the mouse's x coordinate,
+     *         or the nearest category if it is out of bounds
+     */
+    private int getNearestCategory (int mouseX) {
     
+        DefaultCategoryDataset displayedData = gui.getDisplayedData();
+        
+        // Iterate over the categories until mouseX<currentX
+        int currentCategory;
+        for (currentCategory = 0; currentCategory<displayedData.getColumnCount()
+                && getCategoryX(currentCategory)<mouseX; ++currentCategory);
+        
+        // return the nearest category if it is out of bounds
+        if (currentCategory==0) {
+            return 0;
+        } else if (currentCategory==displayedData.getColumnCount()) {
+            return displayedData.getColumnCount()-1;
+        }
+    
+        // If the distance of previousX and mouseX < distance of currentX and mouseX,
+        // or currentCategory>=the number of categories,
+        // make the currentCategory the previous category
+        if (Math.abs(getCategoryX(currentCategory-1)-mouseX)<Math.abs(getCategoryX(currentCategory)-mouseX)
+                || currentCategory>=displayedData.getColumnCount()) {
+            --currentCategory;
+        }
+        
+        return currentCategory;
+    
+    }
+    
+    /**
+     * @param city     = the city to look at
+     * @param category = the category to look at
+     * @return the coordinates of the city at the category
+     */
+    private Point2D getCategoryPoint (int city, int category) {
+        
+        CategoryPlot plot = gui.getLineChart().getCategoryPlot();
+        Rectangle2D dataArea = gui.getChartPanel().getChartRenderingInfo().getPlotInfo().getDataArea();
+        
+        // just for fun, lets convert the axis coordinates back to component coordinates...
+        double x = plot.getDomainAxis().getCategoryMiddle(
+                category, gui.getDisplayedData().getColumnCount(),
+                dataArea, plot.getDomainAxisEdge());
+        double y = plot.getRangeAxis().valueToJava2D(
+                (double) gui.getDisplayedData().getValue(city, category),
+                dataArea, plot.getRangeAxisEdge());
+
+        return gui.getChartPanel().translateJava2DToScreen(new Point2D.Double(x, y));
+        
+    }
+    
+    private int getCategoryX (int category) {
+        return (int) getCategoryPoint(0, category).getX();
     }
     
 }

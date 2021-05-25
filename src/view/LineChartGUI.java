@@ -15,10 +15,11 @@ public class LineChartGUI extends Tool {
     private final JLabel datasetLabel;
     private final JLabel[] boundLabels;
     
+    private final LineChartInteractor interactor;
+    
     // User input
     private final JComboBox<String> selectDataGroupBox;
     private final JComboBox<String>[] chartBoundsBoxes;     // bounds[0] = start bound, bounds[1] = end bound
-    
     private JButton selectVisibleCitiesButton;
     
     // JFreeChart
@@ -61,6 +62,8 @@ public class LineChartGUI extends Tool {
         }
         boundLabels[0].setText("Start");
         boundLabels[1].setText("End");
+        
+        interactor = new LineChartInteractor();
     
         chartBoundsBoxes = new JComboBox[2];
         currentHeight += USER_INPUT_HEIGHT;
@@ -85,6 +88,10 @@ public class LineChartGUI extends Tool {
         
         displayedData = new DefaultCategoryDataset();
         
+    }
+    
+    public LineChartInteractor getInteractor () {
+        return interactor;
     }
     
     public JComboBox<String> getSelectDataGroupBox () {

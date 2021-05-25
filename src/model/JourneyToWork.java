@@ -66,7 +66,7 @@ public class JourneyToWork extends MyDataset {
         tools[PIE_CHART.getValue()].getValidGroups(0).put("Main Mode 15 Yrs Plus", getDataset().get("Main Mode 15 Yrs Plus"));
         
         tools[LINE_CHART.getValue()].getValidGroups(0).put("Time Leave 15 Yrs Plus", getDataset().get("Time Leave 15 Yrs Plus"));
-        tools[LINE_CHART.getValue()].getValidGroups(0).put("Commuting 15 Yrs Plus", getDataset().get("Commuting 15 Yrs Plus"));
+        tools[LINE_CHART.getValue()].getValidGroups(0).put("Commute Time 15 Yrs Plus", getDataset().get("Commute Time 15 Yrs Plus"));
         
     }
     
