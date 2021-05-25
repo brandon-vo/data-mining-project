@@ -50,71 +50,74 @@ public class BarChartController extends ToolController implements ActionListener
         ArrayList<ArrayList<String>> rawData1 = FileImportController.rawData[1];
         ArrayList<ArrayList<String>> rawData2 = FileImportController.rawData[0];
 
-        //array list of ranges containing array list holding totals of each commute type
+        //2d array holding ranges as rows and totals of each commute type as columns
         int commuteTypeCount[][] = new int[5][6];
 
         for(int i = 1; i < barChartGui.getDataGroup().size(); i++ ){
-            
-            if(rawData1.get(i).get(4).equals(currentCity) && (Integer.parseInt(rawData1.get(i).get(70)) > 0 &&
-                    Integer.parseInt(rawData1.get(i).get(70)) <= 600)){
+            int parsedData = (int)(Double.parseDouble(rawData1.get(i).get(70)));
+            if(rawData1.get(i).get(3).equals(currentCity) && (parsedData > 0 &&
+                    parsedData <= 600)){
 
-                commuteTypeCount[0][0] = Integer.parseInt(rawData2.get(i).get(10));
-                commuteTypeCount[0][1] = Integer.parseInt(rawData2.get(i).get(11));
-                commuteTypeCount[0][2] = Integer.parseInt(rawData2.get(i).get(12));
-                commuteTypeCount[0][3] = Integer.parseInt(rawData2.get(i).get(13));
-                commuteTypeCount[0][4] = Integer.parseInt(rawData2.get(i).get(14));
-                commuteTypeCount[0][5] = Integer.parseInt(rawData2.get(i).get(15));
+                commuteTypeCount[0][0] += (int)(Double.parseDouble(rawData2.get(i).get(10)));
+                commuteTypeCount[0][1] += (int)(Double.parseDouble(rawData2.get(i).get(11)));
+                commuteTypeCount[0][2] += (int)(Double.parseDouble(rawData2.get(i).get(12)));
+                commuteTypeCount[0][3] += (int)(Double.parseDouble(rawData2.get(i).get(13)));
+                commuteTypeCount[0][4] += (int)(Double.parseDouble(rawData2.get(i).get(14)));
+                commuteTypeCount[0][5] += (int)(Double.parseDouble(rawData2.get(i).get(15)));
 
 
-            }else if(rawData1.get(i).get(4).equals(currentCity) && (Integer.parseInt(rawData1.get(i).get(70)) >= 601 &&
-                    Integer.parseInt(rawData1.get(i).get(70)) <= 1000)){
+            }else if(rawData1.get(i).get(4).equals(currentCity) && (parsedData >= 601 &&
+                    parsedData <= 1000)){
 
-                commuteTypeCount[1][0] += Integer.parseInt(rawData2.get(i).get(10));
-                commuteTypeCount[1][1] += Integer.parseInt(rawData2.get(i).get(11));
-                commuteTypeCount[1][2] += Integer.parseInt(rawData2.get(i).get(12));
-                commuteTypeCount[1][3] += Integer.parseInt(rawData2.get(i).get(13));
-                commuteTypeCount[1][4] += Integer.parseInt(rawData2.get(i).get(14));
-                commuteTypeCount[1][5] += Integer.parseInt(rawData2.get(i).get(15));
+                commuteTypeCount[1][0] += (int)(Double.parseDouble(rawData2.get(i).get(10)));
+                commuteTypeCount[1][1] += (int)(Double.parseDouble(rawData2.get(i).get(11)));
+                commuteTypeCount[1][2] += (int)(Double.parseDouble(rawData2.get(i).get(12)));
+                commuteTypeCount[1][3] += (int)(Double.parseDouble(rawData2.get(i).get(13)));
+                commuteTypeCount[1][4] += (int)(Double.parseDouble(rawData2.get(i).get(14)));
+                commuteTypeCount[1][5] += (int)(Double.parseDouble(rawData2.get(i).get(15)));
 
-            }else if(rawData1.get(i).get(4).equals(currentCity) && (Integer.parseInt(rawData1.get(i).get(70)) >= 1001 &&
-                    Integer.parseInt(rawData1.get(i).get(70)) <= 1400)){
+            }else if(rawData1.get(i).get(4).equals(currentCity) && (parsedData >= 1001 &&
+                    parsedData <= 1400)){
 
-                commuteTypeCount[2][0] += Integer.parseInt(rawData2.get(i).get(10));
-                commuteTypeCount[2][1] += Integer.parseInt(rawData2.get(i).get(11));
-                commuteTypeCount[2][2] += Integer.parseInt(rawData2.get(i).get(12));
-                commuteTypeCount[2][3] += Integer.parseInt(rawData2.get(i).get(13));
-                commuteTypeCount[2][4] += Integer.parseInt(rawData2.get(i).get(14));
-                commuteTypeCount[2][5] += Integer.parseInt(rawData2.get(i).get(15));
+                commuteTypeCount[2][0] += (int)(Double.parseDouble(rawData2.get(i).get(10)));
+                commuteTypeCount[2][1] += (int)(Double.parseDouble(rawData2.get(i).get(11)));
+                commuteTypeCount[2][2] += (int)(Double.parseDouble(rawData2.get(i).get(12)));
+                commuteTypeCount[2][3] += (int)(Double.parseDouble(rawData2.get(i).get(13)));
+                commuteTypeCount[2][4] += (int)(Double.parseDouble(rawData2.get(i).get(14)));
+                commuteTypeCount[2][5] += (int)(Double.parseDouble(rawData2.get(i).get(15)));
 
-            }else if (rawData1.get(i).get(4).equals(currentCity) && (Integer.parseInt(rawData1.get(i).get(70)) >= 1401 &&
-                    Integer.parseInt(rawData1.get(i).get(70)) <= 1800)){
+            }else if (rawData1.get(i).get(4).equals(currentCity) && (parsedData >= 1401 &&
+                    parsedData <= 1800)){
 
-                commuteTypeCount[3][0] += Integer.parseInt(rawData2.get(i).get(10));
-                commuteTypeCount[3][1] += Integer.parseInt(rawData2.get(i).get(11));
-                commuteTypeCount[3][2] += Integer.parseInt(rawData2.get(i).get(12));
-                commuteTypeCount[3][3] += Integer.parseInt(rawData2.get(i).get(13));
-                commuteTypeCount[3][4] += Integer.parseInt(rawData2.get(i).get(14));
-                commuteTypeCount[3][5] += Integer.parseInt(rawData2.get(i).get(15));
+                commuteTypeCount[3][0] += (int)(Double.parseDouble(rawData2.get(i).get(10)));
+                commuteTypeCount[3][1] += (int)(Double.parseDouble(rawData2.get(i).get(11)));
+                commuteTypeCount[3][2] += (int)(Double.parseDouble(rawData2.get(i).get(12)));
+                commuteTypeCount[3][3] += (int)(Double.parseDouble(rawData2.get(i).get(13)));
+                commuteTypeCount[3][4] += (int)(Double.parseDouble(rawData2.get(i).get(14)));
+                commuteTypeCount[3][5] += (int)(Double.parseDouble(rawData2.get(i).get(15)));
 
-            }else if(rawData1.get(i).get(4).equals(currentCity) && (Integer.parseInt(rawData1.get(i).get(70)) > 1800)){
+            }else if(rawData1.get(i).get(4).equals(currentCity) && (parsedData > 1800)){
 
-                commuteTypeCount[4][0] += Integer.parseInt(rawData2.get(i).get(10));
-                commuteTypeCount[4][1] += Integer.parseInt(rawData2.get(i).get(11));
-                commuteTypeCount[4][2] += Integer.parseInt(rawData2.get(i).get(12));
-                commuteTypeCount[4][3] += Integer.parseInt(rawData2.get(i).get(13));
-                commuteTypeCount[4][4] += Integer.parseInt(rawData2.get(i).get(14));
-                commuteTypeCount[4][5] += Integer.parseInt(rawData2.get(i).get(15));
+                commuteTypeCount[4][0] += (int)(Double.parseDouble(rawData2.get(i).get(10)));
+                commuteTypeCount[4][1] += (int)(Double.parseDouble(rawData2.get(i).get(11)));
+                commuteTypeCount[4][2] += (int)(Double.parseDouble(rawData2.get(i).get(12)));
+                commuteTypeCount[4][3] += (int)(Double.parseDouble(rawData2.get(i).get(13)));
+                commuteTypeCount[4][4] += (int)(Double.parseDouble(rawData2.get(i).get(14)));
+                commuteTypeCount[4][5] += (int)(Double.parseDouble(rawData2.get(i).get(15)));
 
             }else if(rawData1.get(i).get(4).equals(currentCity) && (Integer.parseInt(rawData1.get(i).get(70)) == 0)){
                 continue;
             }
         }
+        int rangeMax[] = new int[5];
 
-        dataset.addValue(largestValue(commuteTypeCount, 0), currentCity, "0-600");
-        dataset.addValue(largestValue(commuteTypeCount, 1), currentCity, "601-1000");
-        dataset.addValue(largestValue(commuteTypeCount, 2), currentCity, "1001-1400");
-        dataset.addValue(largestValue(commuteTypeCount, 3), currentCity, "1401-1800");
-        dataset.addValue(largestValue(commuteTypeCount, 4), currentCity, "1800+");
+        largestValue(commuteTypeCount, rangeMax);
+
+        dataset.addValue(rangeMax[0], currentCity, "0-600");
+        dataset.addValue(rangeMax[1], currentCity, "601-1000");
+        dataset.addValue(rangeMax[2], currentCity, "1001-1400");
+        dataset.addValue(rangeMax[3], currentCity, "1401-1800");
+        dataset.addValue(rangeMax[4], currentCity, "1800+");
 
 
         return dataset;
@@ -140,19 +143,18 @@ public class BarChartController extends ToolController implements ActionListener
         
     }
 
-    private int largestValue(int commuteTypeCount[][], int index) {
+    private void largestValue(int commuteTypeCount[][], int rangeMax[]) {
 
-        int max = commuteTypeCount[index][0];
+        for(int i = 0; i < commuteTypeCount.length; i++){
 
-        for(int i = index; i < index + 1; i++){
+            rangeMax[i] = commuteTypeCount[i][0];
 
-
-            for(int j = 1; j < commuteTypeCount[index].length; j++)
-                if(commuteTypeCount[index][i] > max)
-                    max = commuteTypeCount[index][i];
+            for(int j = 0; j < commuteTypeCount[i].length; j++)
+                if(rangeMax[i] < commuteTypeCount[i][j])
+                    rangeMax[i] = commuteTypeCount[i][j];
 
         }
-        return max;
+
     }
     
     @Override
@@ -163,26 +165,36 @@ public class BarChartController extends ToolController implements ActionListener
             barChartGui.setCurrentCity("Markham");
             barChartGui.setDisplayedData(createDataSet(barChartGui.getCurrentCity()));
             createChart(barChartGui.getValidGroupNames(1).get(0), barChartGui.getDisplayedData());
+            barChartGui.getChartPanel().repaint();
+
 
         }else if(e.getSource() == barChartGui.richmondButton){
             barChartGui.setCurrentCity("Richmond Hill");
             barChartGui.setDisplayedData(createDataSet(barChartGui.getCurrentCity()));
             createChart(barChartGui.getValidGroupNames(1).get(0), barChartGui.getDisplayedData());
+            barChartGui.getChartPanel().repaint();
+
 
         }else if(e.getSource() == barChartGui.auroraButton){
             barChartGui.setCurrentCity("Aurora");
             barChartGui.setDisplayedData(createDataSet(barChartGui.getCurrentCity()));
             createChart(barChartGui.getValidGroupNames(1).get(0), barChartGui.getDisplayedData());
+            barChartGui.getChartPanel().repaint();
+
 
         }else if(e.getSource() == barChartGui.newMarketButton){
-            barChartGui.setCurrentCity("New Market");
+            barChartGui.setCurrentCity("Newmarket");
             barChartGui.setDisplayedData(createDataSet(barChartGui.getCurrentCity()));
             createChart(barChartGui.getValidGroupNames(1).get(0), barChartGui.getDisplayedData());
+            barChartGui.getChartPanel().repaint();
+
 
         }else if(e.getSource() == barChartGui.vaughnButton){
-            barChartGui.setCurrentCity("Vaughn");
+            barChartGui.setCurrentCity("Vaughan");
             barChartGui.setDisplayedData(createDataSet(barChartGui.getCurrentCity()));
             createChart(barChartGui.getValidGroupNames(1).get(0), barChartGui.getDisplayedData());
+            barChartGui.getChartPanel().repaint();
+
         }
     
     }
