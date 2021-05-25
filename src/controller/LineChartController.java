@@ -305,7 +305,7 @@ public class LineChartController
         }
         
         int nearestCategory = getNearestCategory(e.getX());
-        gui.getInteractor().setLinePosition(0, getCategoryX(nearestCategory));
+        gui.getInteractor().drawLine(0, getCategoryX(nearestCategory));
         
         // For each visible city
         for (int city = 0; city<gui.getDisplayedData().getRowCount(); ++city) {
@@ -336,7 +336,7 @@ public class LineChartController
         }
         
         interactor.setChosenCategory(0, getNearestCategory(e.getX()));
-        interactor.setLinePosition(0, getCategoryX(interactor.getChosenCategory(0)));
+        interactor.setLinePosition(0, getCategoryPoint(0, interactor.getChosenCategory(0)));
         
     }
     
@@ -349,8 +349,8 @@ public class LineChartController
         
         LineChartInteractor interactor = gui.getInteractor();
         interactor.setChosenCategory(1, getNearestCategory(e.getX()));
-        interactor.setLinePosition(1, getCategoryX(interactor.getChosenCategory(1)));
-        
+        interactor.setLinePosition(1, getCategoryPoint(0, interactor.getChosenCategory(1)));
+    
         // Calculate the difference in time and period between the start point and endpoint
         // Display this information in the middle of the interval on a GUI
         // Highlight the area under the graph between the start and end points
@@ -370,7 +370,7 @@ public class LineChartController
         }
         
         // Draw a line at the user's mouse cursor
-        gui.getInteractor().setLinePosition(1, e.getX());
+        gui.getInteractor().drawLine(1, e.getX());
         gui.repaint();
         
     }
@@ -434,7 +434,7 @@ public class LineChartController
         double y = plot.getRangeAxis().valueToJava2D(
                 (double) gui.getDisplayedData().getValue(city, category),
                 dataArea, plot.getRangeAxisEdge());
-
+        
         return gui.getChartPanel().translateJava2DToScreen(new Point2D.Double(x, y));
         
     }

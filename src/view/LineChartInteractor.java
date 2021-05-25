@@ -4,6 +4,7 @@ import controller.LineChartController;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.Point2D;
 
 public class LineChartInteractor extends JPanel {
     
@@ -41,8 +42,13 @@ public class LineChartInteractor extends JPanel {
         return circles[i];
     }
     
-    public void setLinePosition (int i, int x) {
-        lines[i].setBounds(x-4/2, 35, 4, 446);
+    public void drawLine (int i, int x) {
+        lines[i].setBounds(Math.max(x-4/2, 63), 35, 4, 446);
+    }
+    
+    public void setLinePosition (int i, Point2D point) {
+        drawLine(i, (int) point.getX());
+        setCirclePosition(i, (int) point.getX(), (int) point.getY());
     }
     
     public JPanel getLine (int i) {
