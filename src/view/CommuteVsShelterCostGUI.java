@@ -21,16 +21,15 @@ public class CommuteVsShelterCostGUI extends Tool{
 
     //components
     private JLabel titleLabel = new JLabel(new ImageIcon("img/titles/shelterCostVsCommonCommuteTypeTitle.png"));
-    private JLabel currentDataDisplay = new JLabel("currentDisplayedDate");
     private JLabel buttonTitleLabel = new JLabel("Select City for Data Display");
     
     public JButton markhamButton = new JButton("Markham");
-    public JButton vaughnButton = new JButton("Vaughn");
+    public JButton vaughnButton = new JButton("Vaughan");
     public JButton richmondButton = new JButton("Richmond Hill");
     public JButton auroraButton = new JButton("Aurora");
     public JButton newMarketButton = new JButton("Newmarket");
     
-    private DefaultCategoryDataset displayedData;
+    private DefaultCategoryDataset displayedData = new DefaultCategoryDataset();
     private JFreeChart barChart;
     private ChartPanel chartPanel;
     private ArrayList<Category> dataGroup2;
