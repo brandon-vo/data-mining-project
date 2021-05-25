@@ -57,7 +57,7 @@ public class BarChartController extends ToolController implements ActionListener
         int[][] commuteTypeCount = new int[5][6];
         
         //iterate through the barChartGui datagroup
-        for (int i = 1; i<rawData1.size(); i++) {
+        for (int i = 1; i< rawData1.size(); i++) {
             
             int parsedData = (int) (Double.parseDouble(rawData1.get(i).get(69)));
             
