@@ -42,8 +42,6 @@ public class BarChartController extends ToolController implements ActionListener
 
         createChart(barChartGui.getValidGroupNames(1).get(0), barChartGui.getDisplayedData());
 
-        barChartGui.getChartPanel().setBounds(150, 100, 1000, 450);
-        
     }
     
     private DefaultCategoryDataset createDataSet(String currentCity) {
@@ -51,7 +49,7 @@ public class BarChartController extends ToolController implements ActionListener
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         ArrayList<ArrayList<String>> rawData1 = FileImportController.rawData[1];
         ArrayList<ArrayList<String>> rawData2 = FileImportController.rawData[0];
-        int range1Max, range2Max, range3Max, range4Max, range5Max;
+
         //array list of ranges containing array list holding totals of each commute type
         int commuteTypeCount[][] = new int[5][6];
 
@@ -111,57 +109,76 @@ public class BarChartController extends ToolController implements ActionListener
                 continue;
             }
         }
-        
+
+        dataset.addValue(largestValue(commuteTypeCount, 0), currentCity, "0-600");
+        dataset.addValue(largestValue(commuteTypeCount, 1), currentCity, "601-1000");
+        dataset.addValue(largestValue(commuteTypeCount, 2), currentCity, "1001-1400");
+        dataset.addValue(largestValue(commuteTypeCount, 3), currentCity, "1401-1800");
+        dataset.addValue(largestValue(commuteTypeCount, 4), currentCity, "1800+");
+
+
         return dataset;
     }
     
     public void createChart (String groupNameProfileOfHousing, DefaultCategoryDataset displayedData) {
         
         String chartTitle = " Commute Type V.S" + groupNameProfileOfHousing;
-        String xAxisLabel = groupNameProfileOfHousing;
+        String xAxisLabel = groupNameProfileOfHousing + "($)";
         String valueAxisLabel = "Number of People";
     
         barChartGui.setBarChart(ChartFactory.createBarChart(
                 chartTitle, xAxisLabel, valueAxisLabel,
                 displayedData, PlotOrientation.VERTICAL,
                 true, false, false));
+
+        if (barChartGui.getChartPanel()!=null) {
+            barChartGui.remove(barChartGui.getChartPanel());
+        }
         barChartGui.setChartPanel(new ChartPanel(barChartGui.getBarChart()));
-    
+        barChartGui.getChartPanel().setBounds(150, 100, 1000, 450);
         barChartGui.add(barChartGui.getChartPanel());
         
     }
 
-    private int largestValue(int commuteTypeCount[]) {
+    private int largestValue(int commuteTypeCount[][], int index) {
 
-        int largestValue = commuteTypeCount[0];
-        for (int index = 1; index < commuteTypeCount.length; index++) {
+        int max = commuteTypeCount[index][0];
 
-            if (commuteTypeCount[index] > largestValue) {
-                largestValue = commuteTypeCount[index];
-            }
+        for(int i = index; i < index + 1; i++){
+
+
+            for(int j = 1; j < commuteTypeCount[index].length; j++)
+                if(commuteTypeCount[index][i] > max)
+                    max = commuteTypeCount[index][i];
+
         }
-        return largestValue;
+        return max;
     }
     
     @Override
     public void actionPerformed (ActionEvent e) {
 
         if(e.getSource() == barChartGui.markhamButton){
+            System.out.println("woo");
             barChartGui.setCurrentCity("Markham");
             barChartGui.setDisplayedData(createDataSet(barChartGui.getCurrentCity()));
             createChart(barChartGui.getValidGroupNames(1).get(0), barChartGui.getDisplayedData());
+
         }else if(e.getSource() == barChartGui.richmondButton){
             barChartGui.setCurrentCity("Richmond Hill");
             barChartGui.setDisplayedData(createDataSet(barChartGui.getCurrentCity()));
             createChart(barChartGui.getValidGroupNames(1).get(0), barChartGui.getDisplayedData());
+
         }else if(e.getSource() == barChartGui.auroraButton){
             barChartGui.setCurrentCity("Aurora");
             barChartGui.setDisplayedData(createDataSet(barChartGui.getCurrentCity()));
             createChart(barChartGui.getValidGroupNames(1).get(0), barChartGui.getDisplayedData());
+
         }else if(e.getSource() == barChartGui.newMarketButton){
             barChartGui.setCurrentCity("New Market");
             barChartGui.setDisplayedData(createDataSet(barChartGui.getCurrentCity()));
             createChart(barChartGui.getValidGroupNames(1).get(0), barChartGui.getDisplayedData());
+
         }else if(e.getSource() == barChartGui.vaughnButton){
             barChartGui.setCurrentCity("Vaughn");
             barChartGui.setDisplayedData(createDataSet(barChartGui.getCurrentCity()));
