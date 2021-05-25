@@ -60,24 +60,13 @@ public class BarChartController extends ToolController implements ActionListener
         int commuteTypeCount[][] = new int[5][6];
 
         //iterate through the barChartGui datagroup
-        for(int i = 1; i < barChartGui.getDataGroup().size(); i++ ){
+        for(int i = 1; i < rawData1.size(); i++ ){
 
-            int parsedData = (int)(Double.parseDouble(rawData1.get(i).get(70)));
+            int parsedData = (int)(Double.parseDouble(rawData1.get(i).get(69)));
 
             //if the city name in the row in the spreadsheet matches city button pressed and monthly shelter rent amount
             //is within the range, add up all the commute type amounts and store it in the 2d array
-            if(rawData1.get(i).get(3).equals(currentCity) && (parsedData > 0 &&
-                    parsedData <= 600)){
-
-                commuteTypeCount[0][0] += (int)(Double.parseDouble(rawData2.get(i).get(10)));
-                commuteTypeCount[0][1] += (int)(Double.parseDouble(rawData2.get(i).get(11)));
-                commuteTypeCount[0][2] += (int)(Double.parseDouble(rawData2.get(i).get(12)));
-                commuteTypeCount[0][3] += (int)(Double.parseDouble(rawData2.get(i).get(13)));
-                commuteTypeCount[0][4] += (int)(Double.parseDouble(rawData2.get(i).get(14)));
-                commuteTypeCount[0][5] += (int)(Double.parseDouble(rawData2.get(i).get(15)));
-
-
-            }else if(rawData1.get(i).get(4).equals(currentCity) && (parsedData >= 601 &&
+             if(rawData1.get(i).get(3).equals(currentCity) && (parsedData >= 601 &&
                     parsedData <= 1000)){
 
                 commuteTypeCount[1][0] += (int)(Double.parseDouble(rawData2.get(i).get(10)));
@@ -87,7 +76,7 @@ public class BarChartController extends ToolController implements ActionListener
                 commuteTypeCount[1][4] += (int)(Double.parseDouble(rawData2.get(i).get(14)));
                 commuteTypeCount[1][5] += (int)(Double.parseDouble(rawData2.get(i).get(15)));
 
-            }else if(rawData1.get(i).get(4).equals(currentCity) && (parsedData >= 1001 &&
+            }else if(rawData1.get(i).get(3).equals(currentCity) && (parsedData >= 1001 &&
                     parsedData <= 1400)){
 
                 commuteTypeCount[2][0] += (int)(Double.parseDouble(rawData2.get(i).get(10)));
@@ -97,7 +86,7 @@ public class BarChartController extends ToolController implements ActionListener
                 commuteTypeCount[2][4] += (int)(Double.parseDouble(rawData2.get(i).get(14)));
                 commuteTypeCount[2][5] += (int)(Double.parseDouble(rawData2.get(i).get(15)));
 
-            }else if (rawData1.get(i).get(4).equals(currentCity) && (parsedData >= 1401 &&
+            }else if (rawData1.get(i).get(3).equals(currentCity) && (parsedData >= 1401 &&
                     parsedData <= 1800)){
 
                 commuteTypeCount[3][0] += (int)(Double.parseDouble(rawData2.get(i).get(10)));
@@ -107,7 +96,7 @@ public class BarChartController extends ToolController implements ActionListener
                 commuteTypeCount[3][4] += (int)(Double.parseDouble(rawData2.get(i).get(14)));
                 commuteTypeCount[3][5] += (int)(Double.parseDouble(rawData2.get(i).get(15)));
 
-            }else if(rawData1.get(i).get(4).equals(currentCity) && (parsedData > 1800)){
+            }else if(rawData1.get(i).get(3).equals(currentCity) && (parsedData > 1800)){
 
                 commuteTypeCount[4][0] += (int)(Double.parseDouble(rawData2.get(i).get(10)));
                 commuteTypeCount[4][1] += (int)(Double.parseDouble(rawData2.get(i).get(11)));
@@ -116,9 +105,6 @@ public class BarChartController extends ToolController implements ActionListener
                 commuteTypeCount[4][4] += (int)(Double.parseDouble(rawData2.get(i).get(14)));
                 commuteTypeCount[4][5] += (int)(Double.parseDouble(rawData2.get(i).get(15)));
 
-                //if monthly shelter rent amount is 0, skip that row
-            }else if(rawData1.get(i).get(4).equals(currentCity) && (Integer.parseInt(rawData1.get(i).get(70)) == 0)){
-                continue;
             }
         }
         int rangeMax[] = new int[5];
@@ -127,7 +113,6 @@ public class BarChartController extends ToolController implements ActionListener
         largestValue(commuteTypeCount, rangeMax);
 
         //add information to dataset
-        dataset.addValue(rangeMax[0], currentCity, "0-600");
         dataset.addValue(rangeMax[1], currentCity, "601-1000");
         dataset.addValue(rangeMax[2], currentCity, "1001-1400");
         dataset.addValue(rangeMax[3], currentCity, "1401-1800");
@@ -140,7 +125,7 @@ public class BarChartController extends ToolController implements ActionListener
     //setting up the bar chart
     public void createChart (String groupNameProfileOfHousing, DefaultCategoryDataset displayedData) {
         
-        String chartTitle = " Commute Type V.S" + groupNameProfileOfHousing;
+        String chartTitle = " Commute Type V.S " + groupNameProfileOfHousing;
         String xAxisLabel = groupNameProfileOfHousing + "($)";
         String valueAxisLabel = "Number of People";
     
