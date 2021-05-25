@@ -8,7 +8,7 @@ import org.jfree.chart.renderer.category.LineAndShapeRenderer;
 import org.jfree.data.category.DefaultCategoryDataset;
 import util.Category;
 import view.LineChartGUI;
-import view.LineChartInteractor;
+import view.LineChartInfoPanel;
 import view.MainFrame;
 
 import javax.swing.*;
@@ -30,9 +30,11 @@ public class LineChartController
     private final HashSet<String> displayedCities;
     
     public LineChartController (LineChartGUI gui) {
+        
         this.gui = gui;
         displayedCities = new HashSet<>();
         setUpListeners();
+        
     }
     
     public void setUpListeners () {
@@ -41,22 +43,6 @@ public class LineChartController
         gui.getChartBoundBox(0).addActionListener(this);
         gui.getChartBoundBox(1).addActionListener(this);
         gui.getSelectVisibleCitiesButton().addActionListener(this);
-        
-    }
-    
-    @Override
-    public void actionPerformed (ActionEvent e) {
-        
-        if (e.getSource()==gui.getSelectDataGroupBox()) {
-            updateData();
-        } else if (e.getSource()==gui.getChartBoundBox(0)) {
-            updateTimeInterval(0);
-        } else if (e.getSource()==gui.getChartBoundBox(1)) {
-            updateTimeInterval(1);
-        } else if (e.getSource()==gui.getSelectVisibleCitiesButton()) {
-            updateDisplayedCities();
-        }
-        gui.repaint();
         
     }
     
@@ -169,12 +155,13 @@ public class LineChartController
         
         // Add the circles and lines to the chartPanel
         for (int i = 0; i<MAX_CITIES; ++i) {
-            chartPanel.add(gui.getInteractor().getCircle(i));
+            chartPanel.add(gui.getCircle(i));
         }
         for (int i = 0; i<2; ++i) {
-            chartPanel.add(gui.getInteractor().getLine(i));
+            chartPanel.add(gui.getLine(i));
         }
         
+        gui.getChartPanel().add(gui.getInfoPanel());
         gui.add(chartPanel);
         
     }
@@ -293,104 +280,12 @@ public class LineChartController
     }
     
     /**
-     * Display the chart's value at the clicked location
-     * @param e = event
-     */
-    @Override
-    public void mouseClicked (MouseEvent e) {
-        
-        // Do not do anything if there is 1 city displayed
-        if (displayedCities.size()==1) {
-            return;
-        }
-        
-        int nearestCategory = getNearestCategory(e.getX());
-        gui.getInteractor().drawLine(0, getCategoryX(nearestCategory));
-        
-        // For each visible city
-        for (int city = 0; city<gui.getDisplayedData().getRowCount(); ++city) {
-            
-            // Find the coordinate of the cityPoint and put a dot there
-            Point2D cityPoint = getCategoryPoint(city, nearestCategory);
-            gui.getInteractor().setCirclePosition(city, (int) cityPoint.getX(), (int) cityPoint.getY());
-            
-        }
-        
-        // Display GUI to the left detailing the time and quantity at that point for each city
-        
-    }
-    
-    /**
-     * Display the difference between 2 separate values by dragging the mouse
-     * @param e = event
-     */
-    @Override
-    public void mousePressed (MouseEvent e) {
-        
-        // Do not do anything if there is not 1 city displayed
-        LineChartInteractor interactor = gui.getInteractor();
-        
-        interactor.clear();
-        if (displayedCities.size()!=1) {
-            return;
-        }
-        
-        interactor.setChosenCategory(0, getNearestCategory(e.getX()));
-        interactor.setLinePosition(0, getCategoryPoint(0, interactor.getChosenCategory(0)));
-        
-    }
-    
-    @Override
-    public void mouseReleased (MouseEvent e) {
-    
-        if (displayedCities.size()!=1) {
-            return;
-        }
-        
-        LineChartInteractor interactor = gui.getInteractor();
-        interactor.setChosenCategory(1, getNearestCategory(e.getX()));
-        interactor.setLinePosition(1, getCategoryPoint(0, interactor.getChosenCategory(1)));
-    
-        // Calculate the difference in time and period between the start point and endpoint
-        // Display this information in the middle of the interval on a GUI
-        // Highlight the area under the graph between the start and end points
-    
-    }
-    
-    /**
-     * Draw a line that follows the cursor
-     * @param e = event
-     */
-    @Override
-    public void mouseDragged (MouseEvent e) {
-        
-        // Do not do anything if there is not 1 city displayed
-        if (displayedCities.size()!=1) {
-            return;
-        }
-        
-        // Draw a line at the user's mouse cursor
-        gui.getInteractor().drawLine(1, e.getX());
-        gui.repaint();
-        
-    }
-    
-    /**
-     * Clear the interactor from the graph when the mouse exits
-     * @param e = event
-     */
-    @Override
-    public void mouseExited (MouseEvent e) {
-        gui.getInteractor().clear();
-    }
-    
-    /**
      * @param mouseX = mouse's x coordinate
      * @return The nearest category given the mouse's x coordinate,
      *         or the nearest category if it is out of bounds
      */
     private int getNearestCategory (int mouseX) {
-    
+        
         DefaultCategoryDataset displayedData = gui.getDisplayedData();
         
         // Iterate over the categories until mouseX<currentX
@@ -404,7 +299,7 @@ public class LineChartController
         } else if (currentCategory==displayedData.getColumnCount()) {
             return displayedData.getColumnCount()-1;
         }
-    
+        
         // If the distance of previousX and mouseX < distance of currentX and mouseX,
         // or currentCategory>=the number of categories,
         // make the currentCategory the previous category
@@ -414,7 +309,7 @@ public class LineChartController
         }
         
         return currentCategory;
-    
+        
     }
     
     /**
@@ -441,6 +336,116 @@ public class LineChartController
     
     private int getCategoryX (int category) {
         return (int) getCategoryPoint(0, category).getX();
+    }
+    
+    @Override
+    public void actionPerformed (ActionEvent e) {
+        
+        if (e.getSource()==gui.getSelectDataGroupBox()) {
+            updateData();
+        } else if (e.getSource()==gui.getChartBoundBox(0)) {
+            updateTimeInterval(0);
+        } else if (e.getSource()==gui.getChartBoundBox(1)) {
+            updateTimeInterval(1);
+        } else if (e.getSource()==gui.getSelectVisibleCitiesButton()) {
+            updateDisplayedCities();
+        }
+        gui.repaint();
+        
+    }
+    
+    /**
+     * Display the chart's value at the clicked location
+     * @param e = event
+     */
+    @Override
+    public void mouseClicked (MouseEvent e) {
+        
+        // Do not do anything if there is 1 city displayed
+        if (displayedCities.size()==1) {
+            return;
+        }
+        
+        LineChartInfoPanel info = gui.getInfoPanel();
+        
+        info.setChosenCategory(0, getNearestCategory(e.getX()));
+        
+        int x = getCategoryX(info.getChosenCategory(0));
+        gui.setLinePosition(0, x);
+        
+        // For each visible city
+        for (int city = 0; city<gui.getDisplayedData().getRowCount(); ++city) {
+            
+            // Find the coordinate of the cityPoint and put a dot there
+            Point2D cityPoint = getCategoryPoint(city, info.getChosenCategory(0));
+            gui.setCirclePosition(city, (int) cityPoint.getX(), (int) cityPoint.getY());
+            
+        }
+        
+        // Display GUI to the left detailing the time and quantity at that point for each city
+        gui.getInfoPanel().generatePanel(gui.getDisplayedData(), x, e.getY());
+        
+    }
+    
+    /**
+     * Display the difference between 2 separate values by dragging the mouse
+     * @param e = event
+     */
+    @Override
+    public void mousePressed (MouseEvent e) {
+        
+        // Do not do anything if there is not 1 city displayed
+        if (displayedCities.size()!=1) {
+            return;
+        }
+        gui.clear();
+        
+        gui.getInfoPanel().setChosenCategory(0, getNearestCategory(e.getX()));
+        gui.setAsSelected(0, getCategoryPoint(0, gui.getInfoPanel().getChosenCategory(0)));
+        
+    }
+    
+    @Override
+    public void mouseReleased (MouseEvent e) {
+    
+        if (displayedCities.size()!=1) {
+            return;
+        }
+        
+        gui.getInfoPanel().setChosenCategory(1, getNearestCategory(e.getX()));
+        gui.setAsSelected(1, getCategoryPoint(0, gui.getInfoPanel().getChosenCategory(1)));
+    
+        // Calculate the difference in time and period between the start point and endpoint
+        // Display this information in the middle of the interval on a GUI
+        // Highlight the area under the graph between the start and end points
+    
+    }
+    
+    /**
+     * Draw a line that follows the cursor
+     * @param e = event
+     */
+    @Override
+    public void mouseDragged (MouseEvent e) {
+        
+        // Do not do anything if there is not 1 city displayed
+        if (displayedCities.size()!=1) {
+            return;
+        }
+        
+        // Draw a line at the user's mouse cursor
+        gui.setLinePosition(1, e.getX());
+        gui.repaint();
+        
+    }
+    
+    /**
+     * Clear the interactor from the graph when the mouse exits
+     * @param e = event
+     */
+    @Override
+    public void mouseExited (MouseEvent e) {
+        gui.clear();
     }
     
 }
