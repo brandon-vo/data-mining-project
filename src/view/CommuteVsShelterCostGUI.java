@@ -18,7 +18,8 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class CommuteVsShelterCostGUI extends Tool{
-    
+
+    //components
     private JLabel titleLabel = new JLabel(new ImageIcon("img/titles/shelterCostVsCommonCommuteTypeTitle.png"));
     private JLabel currentDataDisplay = new JLabel("currentDisplayedDate");
     private JLabel buttonTitleLabel = new JLabel("Select City for Data Display");
@@ -36,6 +37,7 @@ public class CommuteVsShelterCostGUI extends Tool{
 
     private String currentCity;
 
+    //constructor
     public CommuteVsShelterCostGUI () {
         
         markhamButton.setFont(new Font("Tahoma",Font.PLAIN, 15));
@@ -68,7 +70,7 @@ public class CommuteVsShelterCostGUI extends Tool{
         add(newMarketButton);
         
     }
-    
+    //getters and setters
     public String getCurrentCity() {
         return currentCity;
     }
