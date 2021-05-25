@@ -55,10 +55,9 @@ public class DensityMapController extends ToolController implements ActionListen
 
     // Update map colour and user results text
     public void updateSelectedData() {
-        // Default text for user results
-        densityGUI.getUserResults().setText("Please input your information!");
-        // User prompt
-        String text = "Hover region to view" + "<br>" + "Click region for more";
+        densityGUI.changeMapColour(); // Reset to grey initially
+        densityGUI.getUserResults().setText("Please input your information!");// Default text for user results
+        String text = "Hover region to view" + "<br>" + "Click region for more"; // User prompt
         densityGUI.getHoverInformation().setText("<html><div style='text-align: center;'>" + text + "<html>");
 
         int selectedCategory = densityGUI.getDataList().getSelectedIndex(); // Access selected data
