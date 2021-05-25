@@ -48,6 +48,7 @@ public class PieChartController extends ToolController implements ActionListener
 
         String city = (String) JOptionPane.showInputDialog(null, "Which city do you want to see?", "City", JOptionPane.PLAIN_MESSAGE, null, cityList, cityList[0]);
         gui.getPieCharts(1).createChart(gui.getPieCharts(1).getGroupName() , city);
+        
     }
 
 

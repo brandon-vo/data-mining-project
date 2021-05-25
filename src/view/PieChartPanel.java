@@ -2,6 +2,7 @@ package view;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import model.MyDataset;
 import model.ProfileOfHousing;
@@ -48,8 +49,7 @@ public class PieChartPanel extends JPanel {
         
         displayedData = new DefaultPieDataset<>();
         for (Category category : dataGroup) {
-            displayedData.setValue(category.getCategoryName(),
-                    category.getCities().get(city)/category.getTotal());
+            displayedData.setValue(category.getCategoryName(), category.getOGCityData(city));
         }
         
         return displayedData;
@@ -66,11 +66,11 @@ public class PieChartPanel extends JPanel {
         
         if (chartPanel!=null)
             remove(chartPanel);
-       ChartPanel chartPanel = new ChartPanel(chart);
+        chartPanel = new ChartPanel(chart);
         chartPanel.setBounds(500, 25, 500, MainFrame.HEIGHT/2-100);
         add(chartPanel);
-
-        setVisible(true);
+        chartPanel.repaint();
+        
     }
     
     public JButton getCityButton () {
