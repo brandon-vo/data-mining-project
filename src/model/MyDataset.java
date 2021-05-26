@@ -123,7 +123,6 @@ public abstract class MyDataset {
     /**
      * Title case, replace all "_" in arr to spaces,
      * @param arr = the array to reformat
-     *
      */
     private void reformatStrings (ArrayList<String> arr) {
         

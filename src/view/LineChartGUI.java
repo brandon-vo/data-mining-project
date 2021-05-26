@@ -176,7 +176,7 @@ public class LineChartGUI extends Tool {
      * @param x = x position of the line
      */
     public void setLinePosition (int i, int x) {
-        lines[i].setBounds(Math.max(x-4/2, 63), 35, 4, 447);
+        lines[i].setBounds(Math.max(x, 74), 35, 4, 447);
     }
     
     /**

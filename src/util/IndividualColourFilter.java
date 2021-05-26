@@ -1,6 +1,5 @@
 package util;
 
-import controller.DensityMapController;
 import view.DensityMapGUI;
 
 import java.awt.image.RGBImageFilter;

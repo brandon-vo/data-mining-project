@@ -46,15 +46,11 @@ public class ProfileOfHousing extends MyDataset {
                 getDataset().put(groupName, new ArrayList<>());
             }
             
-            try {
-                // Initialize the group with all the cities
-                getDataset().get(groupName).add(new Category(categoryName));
-                ArrayList<Category> group = getDataset().get(groupName);
-                for (String city : cities) {
-                    group.get(group.size()-1).getCities().put(city, 0.0);
-                }
-            } catch (NullPointerException e) {
-                System.out.println();
+            // Initialize the group with all the cities
+            getDataset().get(groupName).add(new Category(categoryName));
+            ArrayList<Category> group = getDataset().get(groupName);
+            for (String city : cities) {
+                group.get(group.size()-1).getCities().put(city, 0.0);
             }
             
         }
