@@ -25,7 +25,7 @@ public class HousingTrendGUI extends Tool {
     private XYSeriesCollection displayedData;
     
     public HousingTrendGUI () {
-        
+        //set up labels and combo box
         housingTrendTitle.setBounds(0, 0, MainFrame.WIDTH, MainFrame.HEIGHT);
         add(housingTrendTitle);
         
@@ -44,12 +44,13 @@ public class HousingTrendGUI extends Tool {
         
         variable.setBounds(200, 460, 100, 50);
         add(variable);
-        
+        //set up series collector to collect xy coordinates
         displayedData = new XYSeriesCollection();
         
         setVisible(true);
         
     }
+    //getters and setters
 
     public JComboBox<String> getLocation1() {
         return location;
