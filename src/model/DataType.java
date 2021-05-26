@@ -6,7 +6,7 @@ public enum DataType {
     DENSITY_MAP(1, "DENSITY MAP"),
     LINE_CHART(2, "LINE CHART"),
     SCATTER_CHART(3, "SCATTER PLOT"),
-    BAR_CHART(4, "DOUBLE BAR GRAPH");
+    BAR_CHART(4, "BAR CHART");
     
     private final int value;
     private final String chartDescription;
