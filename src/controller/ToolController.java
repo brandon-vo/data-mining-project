@@ -1,3 +1,8 @@
+/**
+ * Parent class to every tool controller
+ * @author Felix
+ */
+
 package controller;
 
 import model.MyDataset;

@@ -1,20 +1,28 @@
+/**
+ * Description:
+ * This is a controller class for CommuteVsShelterCostGUI to manage its functions
+ * - Initializes data group for the tool
+ * - Creates the tool
+ * - Sets up listeners
+ * - Creates and updates the data set when user presses a city button
+ * - Creates and updates the bar chart for the user to see their desired data
+ *
+ * @author: Sean Malla
+ */
+
 package controller;
 
 import model.MyDataset;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
-import org.jfree.chart.labels.*;
 import org.jfree.chart.plot.*;
-import org.jfree.chart.renderer.category.*;
-import org.jfree.chart.ui.*;
+
 import org.jfree.data.category.DefaultCategoryDataset;
 import view.CommuteVsShelterCostGUI;
 
-import javax.swing.*;
-import java.awt.*;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.*;
 import java.util.*;
 
 import static view.Tool.BACKGROUND_COLOUR;
@@ -23,8 +31,14 @@ public class BarChartController extends ToolController implements ActionListener
 
     //create an barChartGui to refer to
     CommuteVsShelterCostGUI barChartGui;
+    
+    //array to hold largest commute type value for each range
     int rangeMax[] = new int[5];
+    
+    // 2d array where each 'row' is a range and each 'column' is one of the commute types from the data set
+    // (e.g car truck driver, walking, etc)
     int commuteTypeCount[][] = new int[5][6];
+    
     //constructor
     public BarChartController(CommuteVsShelterCostGUI barChartGui){
         this.barChartGui = barChartGui;
@@ -42,12 +56,13 @@ public class BarChartController extends ToolController implements ActionListener
     
     }
 
-    //set information available for barchartgui
+    //set information available for barChartGui
     @Override
     public void initializeDataToDisplay (MyDataset[] dataset) {
 
         String groupNameJourneyToWork = barChartGui.getValidGroupNames(0).get(0);
         String groupNameProfileOfHousing = barChartGui.getValidGroupNames(1).get(0);
+        
         barChartGui.setDataGroup(groupNameJourneyToWork);
         barChartGui.setDataGroup2(dataset[1].getDataset().get(groupNameProfileOfHousing));
 
@@ -59,15 +74,16 @@ public class BarChartController extends ToolController implements ActionListener
     private DefaultCategoryDataset createDataSet(String currentCity) {
         
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+        
+        //creates variables to refer to the spreadsheet for each data set
         ArrayList<ArrayList<String>> rawData1 = FileImportController.rawData[1];
         ArrayList<ArrayList<String>> rawData2 = FileImportController.rawData[0];
+        
 
-        //2d array holding ranges as rows and totals of each commute type as columns
-
-
-        //iterate through the barChartGui datagroup
+        //iterate through Profile of housing rows
         for(int i = 1; i < rawData1.size(); i++ ){
-
+            
+            //parsing monthly shelter rent information from string value to double then casting to int
             int parsedData = (int)(Double.parseDouble(rawData1.get(i).get(69)));
 
             //if the city name in the row in the spreadsheet matches city button pressed and monthly shelter rent amount
@@ -123,17 +139,26 @@ public class BarChartController extends ToolController implements ActionListener
         dataset.addValue(rangeMax[2], currentCity, "1001-1400");
         dataset.addValue(rangeMax[3], currentCity, "1401-1800");
         dataset.addValue(rangeMax[4], currentCity, "1800+");
-
+        
+        /*
+         * Calls method to update the commonCommuteTypeDisplay label; put here as it is createDataset is a common method
+         * called for each button
+         */
         updateCommonCommuteTypeDisplay(commuteTypeCount, rangeMax, rawData2);
 
         return dataset;
     }
-
+    
+    //updates label on right of the frame that shows which commute type is most common for each range
     private void updateCommonCommuteTypeDisplay(int[][] commuteTypeCount, int[] rangeMax, ArrayList<ArrayList<String>> rawData2) {
+        
         String line1 = barChartGui.getLine1();
         String line2 = barChartGui.getLine2();
         String line3 = barChartGui.getLine3();
         String line4 = barChartGui.getLine4();
+        
+            //if one of the commute type values for each ranges matches the largest commute type value for that range, change the
+            //commuteDisplay to show which commute type is being displayed for each range
             for(int j = 0; j < 5; j++) {
                 if (commuteTypeCount[1][j] == rangeMax[1]) {
                     barChartGui.setLine1("Common Commute displayed for $601-1000: " + rawData2.get(0).get(10 + j));
@@ -164,9 +189,6 @@ public class BarChartController extends ToolController implements ActionListener
             }
 
 
-
-
-
     }
 
 
@@ -176,17 +198,18 @@ public class BarChartController extends ToolController implements ActionListener
         String chartTitle = " Commute Type V.S " + groupNameProfileOfHousing;
         String xAxisLabel = groupNameProfileOfHousing + "($)";
         String valueAxisLabel = "Number of People";
-
-
+        
         barChartGui.setBarChart(ChartFactory.createBarChart(
                 chartTitle, xAxisLabel, valueAxisLabel,
                 displayedData, PlotOrientation.VERTICAL,
                 true, true, false));
+        
         barChartGui.getBarChart().setBackgroundPaint(BACKGROUND_COLOUR);
 
         if (barChartGui.getChartPanel()!=null) {
             barChartGui.remove(barChartGui.getChartPanel());
         }
+        
         barChartGui.setChartPanel(new ChartPanel(barChartGui.getBarChart()));
         barChartGui.getChartPanel().setBounds(50, 100, 1000, 450);
         barChartGui.add(barChartGui.getChartPanel());
@@ -209,19 +232,27 @@ public class BarChartController extends ToolController implements ActionListener
     }
 
 
-    //if user presses a city button, change the current city to corresponding city name, create the proper dataset
-    //and update the bar chart
+    /*
+     * if user presses a city button, change the current city to corresponding city name, create the proper dataset,
+     * update the bar chart and repaint the commuteDisplay label.
+     * Orange commuteDisplay label only updates after pressing a second button. Don't know how to fix it. Most common
+     * commute type is all the same by chance
+     */
+    
     @Override
     public void actionPerformed (ActionEvent e) {
 
         if(e.getSource() == barChartGui.markhamButton){
-            System.out.println("woo");
+            
+            System.out.println("woo"); //debug print statement
             barChartGui.setCurrentCity("Markham");
             barChartGui.setDisplayedData(createDataSet(barChartGui.getCurrentCity()));
             createChart(barChartGui.getValidGroupNames(1).get(0), barChartGui.getDisplayedData());
             barChartGui.getChartPanel().repaint();
             barChartGui.getCommuteDisplay().repaint();
+            
         }else if(e.getSource() == barChartGui.richmondButton){
+            
             barChartGui.setCurrentCity("Richmond Hill");
             barChartGui.setDisplayedData(createDataSet(barChartGui.getCurrentCity()));
             createChart(barChartGui.getValidGroupNames(1).get(0), barChartGui.getDisplayedData());
@@ -229,6 +260,7 @@ public class BarChartController extends ToolController implements ActionListener
             barChartGui.getCommuteDisplay().repaint();
 
         }else if(e.getSource() == barChartGui.auroraButton){
+            
             barChartGui.setCurrentCity("Aurora");
             barChartGui.setDisplayedData(createDataSet(barChartGui.getCurrentCity()));
             createChart(barChartGui.getValidGroupNames(1).get(0), barChartGui.getDisplayedData());
@@ -236,6 +268,7 @@ public class BarChartController extends ToolController implements ActionListener
             barChartGui.getCommuteDisplay().repaint();
 
         }else if(e.getSource() == barChartGui.newMarketButton){
+            
             barChartGui.setCurrentCity("Newmarket");
             barChartGui.setDisplayedData(createDataSet(barChartGui.getCurrentCity()));
             createChart(barChartGui.getValidGroupNames(1).get(0), barChartGui.getDisplayedData());
@@ -243,6 +276,7 @@ public class BarChartController extends ToolController implements ActionListener
             barChartGui.getCommuteDisplay().repaint();
 
         }else if(e.getSource() == barChartGui.vaughnButton){
+            
             barChartGui.setCurrentCity("Vaughan");
             barChartGui.setDisplayedData(createDataSet(barChartGui.getCurrentCity()));
             createChart(barChartGui.getValidGroupNames(1).get(0), barChartGui.getDisplayedData());

@@ -1,3 +1,9 @@
+/**
+ * Imports the files into a 2d matrix and passes it into
+ * datasets to be processed
+ * @author Felix
+ */
+
 package controller;
 
 import model.JourneyToWork;

@@ -58,7 +58,8 @@ public class ProfileOfHousing extends MyDataset {
     }
     
     /**
-     * Lots and lots of hard code
+     * Provide the tools with the valid data groups that they will use
+     * @param tools = an array of all the tools
      */
     @Override
     public void assignValidGroupCharts (Tool[] tools) {

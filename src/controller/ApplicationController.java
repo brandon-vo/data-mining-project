@@ -1,3 +1,12 @@
+/**
+ * Handles the necessary interactions between every class
+ * - Initializes datasets
+ * - Initializes controllers
+ * - Initializes tools
+ * - Switches the panels based on user input
+ * @author Felix, Brandon, Daniel, Steven, Sean
+ */
+
 package controller;
 
 import model.DataType;
@@ -5,10 +14,6 @@ import model.MyDataset;
 import view.*;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 import static model.DataType.*;
 

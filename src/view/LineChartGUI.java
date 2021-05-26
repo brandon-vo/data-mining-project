@@ -1,3 +1,8 @@
+/**
+ * GUI to display the line chart
+ * @author Felix
+ */
+
 package view;
 
 import controller.LineChartController;
@@ -16,10 +21,12 @@ public class LineChartGUI extends Tool {
     public static final ImageIcon CIRCLE = new ImageIcon(CIRCLE_FILE);
     public static final Rectangle NULL_BOUNDS = new Rectangle(0, 0, 0, 0);
     
+    // Labels
     private final JLabel lineChartTitleLabel;
     private final JLabel datasetLabel;
     private final JLabel[] boundLabels;
     
+    // Information panel
     private final LineChartInfoPanel infoPanel;
     
     // User input
@@ -32,6 +39,7 @@ public class LineChartGUI extends Tool {
     private JFreeChart lineChart;
     private ChartPanel chartPanel;
     
+    // User interaction
     private final JLabel[] circles;
     private final JPanel[] lines;
     
@@ -116,6 +124,7 @@ public class LineChartGUI extends Tool {
         
     }
     
+    // Getters
     public LineChartInfoPanel getInfoPanel () {
         return infoPanel;
     }

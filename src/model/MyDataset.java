@@ -1,3 +1,10 @@
+/**
+ * Abstract class that helps specialized classes to process datasets
+ * - Processes the dataset
+ * - Processes the number of city entries in the dataset
+ * @author Felix
+ */
+
 package model;
 
 import util.Category;

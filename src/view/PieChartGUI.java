@@ -1,6 +1,9 @@
 package view;
 
-import javax.swing.*;
+/**
+created by Daniel Singh
+creates the default charts and sets their bounds to be displayed on the gui frame
+ */
 
 public class PieChartGUI extends Tool {
 

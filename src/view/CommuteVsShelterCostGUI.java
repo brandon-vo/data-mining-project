@@ -1,11 +1,16 @@
+/**
+ * Description:
+ * This is a JPanel class that creates the CommuteVsShelterCostGUI tool
+ * - Initializes components and other needed variables
+ * - Creates the tool to be put on the mainframe
+ * - Creates getters and setters
+ *
+ * @author: Sean Malla
+ */
 package view;
 
-import model.*;
-import controller.FileImportController;
-import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.plot.PlotOrientation;
 
 import org.jfree.data.category.*;
 import util.Category;
@@ -13,28 +18,32 @@ import util.Category;
 import javax.swing.*;
 import javax.swing.border.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class CommuteVsShelterCostGUI extends Tool{
 
-    //components
+    
+    //labels
     private JLabel titleLabel = new JLabel(new ImageIcon("img/titles/shelterCostVsCommonCommuteTypeTitle.png"));
     private JLabel buttonTitleLabel = new JLabel("Select City for Data Display");
+    private JLabel commuteDisplay = new JLabel("Ranges");
     
+    //city button components
     public JButton markhamButton = new JButton("Markham");
     public JButton vaughnButton = new JButton("Vaughan");
     public JButton richmondButton = new JButton("Richmond Hill");
     public JButton auroraButton = new JButton("Aurora");
     public JButton newMarketButton = new JButton("Newmarket");
     
+    //JFreeChart stuff
     private DefaultCategoryDataset displayedData = new DefaultCategoryDataset();
     private JFreeChart barChart;
     private ChartPanel chartPanel;
-    private JLabel commuteDisplay = new JLabel("Ranges");
+    
+    //Second data group ArrayList as this tool needs more than 1
     private ArrayList<Category> dataGroup2;
-
+    
+    //Strings
     private String currentCity;
     private String line1 = "Common Commute displayed for $601-1000: ";
     private String line2 = "Common Commute displayed for $1001-1400: ";
@@ -45,6 +54,7 @@ public class CommuteVsShelterCostGUI extends Tool{
     //constructor
     public CommuteVsShelterCostGUI () {
         
+        //sets fonts for city buttons
         markhamButton.setFont(new Font("Tahoma",Font.PLAIN, 15));
         vaughnButton.setFont(new Font("Tahoma",Font.PLAIN, 15));
         richmondButton.setFont(new Font("Tahoma",Font.PLAIN, 15));
@@ -92,10 +102,7 @@ public class CommuteVsShelterCostGUI extends Tool{
         return currentCity;
     }
 
-    public void setCurrentCity(String currentCity) {
-        
-        this.currentCity = currentCity;
-    }
+    public void setCurrentCity(String currentCity) { this.currentCity = currentCity;}
     
     public DefaultCategoryDataset getDisplayedData () {
         return displayedData;
@@ -172,8 +179,9 @@ public class CommuteVsShelterCostGUI extends Tool{
     public String getTexts() {
         return texts;
     }
-
-    public void setTexts(String texts) {
+    
+    public void setTexts (String texts) {
         this.texts = texts;
     }
+    
 }

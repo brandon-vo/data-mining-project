@@ -1,3 +1,8 @@
+/**
+ * Handle user interaction with the Density Map GUI
+ * @author Brandon
+ */
+
 package controller;
 
 import model.MyDataset;
@@ -11,17 +16,18 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+// Brandon Vo
 public class DensityMapController extends ToolController implements ActionListener {
-
+    
     private final DensityMapGUI densityGUI; // Access DensityMapGUI
-
+    
     // Constructor
     public DensityMapController(DensityMapGUI densityGUI) {
         this.densityGUI = densityGUI; // Density GUI
         setUpListeners(); // Setup Listeners
         densityGUI.changeMapColour(); // Initial map colour set to grey
     }
-
+    
     // Setup listeners
     public void setUpListeners() {
         densityGUI.getSubmitButton().addActionListener(this);
@@ -29,7 +35,7 @@ public class DensityMapController extends ToolController implements ActionListen
         for (int index = 0; index < densityGUI.getCityLabels().length; index++)
             densityGUI.getCityLabels()[index].addMouseListener(this);
     }
-
+    
     // Enable components
     public void enableComponents(boolean enable) {
         densityGUI.getCityList().setEnabled(enable);
@@ -37,14 +43,14 @@ public class DensityMapController extends ToolController implements ActionListen
         densityGUI.getUserResults().setEnabled(enable);
         densityGUI.getQuestionList().setEnabled(enable);
     }
-
+    
     // Get user selected dataset
     public void getSelectedData() {
         if (densityGUI.getDataList().getSelectedIndex() == 0) { // No category selected
-            enableComponents(false);
-            updateSelectedData();
-            updateQuestionBox(0);
-            densityGUI.getUserResults().setText("Please select a dataset!");
+            enableComponents(false); // Disable components
+            updateSelectedData(); // Update map colour and texts
+            updateQuestionBox(0); // Update question box
+            densityGUI.getUserResults().setText("Please select a dataset!"); // Set user results text
             return;
         } // Otherwise get the selected category, set data group, and update components
         enableComponents(true);
@@ -52,29 +58,29 @@ public class DensityMapController extends ToolController implements ActionListen
         updateSelectedData();
         updateQuestionBox(densityGUI.getDataList().getSelectedIndex());
     }
-
+    
     // Update map colour and user results text
     public void updateSelectedData() {
         densityGUI.changeMapColour(); // Reset to grey initially
         densityGUI.getUserResults().setText("Please input your information!");// Default text for user results
         String text = "Hover region to view" + "<br>" + "Click region for more"; // User prompt
         densityGUI.getHoverInformation().setText("<html><div style='text-align: center;'>" + text + "<html>");
-
+        
         int selectedCategory = densityGUI.getDataList().getSelectedIndex(); // Access selected data
         int[] housingDataValue = new int[9]; // Store all housing data values for city
         int[] ownerCount = new int[9]; // Store owner count for a city
         int[] renterCount = new int[9]; // Store renter count for a city
-
+        
         for (int cities = 0; cities < densityGUI.getMapLabels().length; cities++) {
             // Get data values for all cities
-            if (selectedCategory >= 1 && selectedCategory <= 3) {
+            if (selectedCategory >= 1 && selectedCategory <= 3) { // Data values for housing cost information
                 housingDataValue[cities] = (int) Math.round(densityGUI.getDataGroup().get(0).getCities()
                         .get(densityGUI.getCityName(cities)));
-            } else if (selectedCategory == 4 || selectedCategory == 5) {
+            } else if (selectedCategory == 4 || selectedCategory == 5) { // Data values for owner and renter count
                 ownerCount[cities] = (int) densityGUI.getDataGroup().get(0).getOGCityData(densityGUI.getCityName(cities));
                 renterCount[cities] = (int) densityGUI.getDataGroup().get(1).getOGCityData(densityGUI.getCityName(cities));
             }
-
+            
             // Set city/town to a certain colour based on the selected category and data value
             if (selectedCategory == 1) {
                 if (housingDataValue[cities] < 300000) {
@@ -179,12 +185,13 @@ public class DensityMapController extends ToolController implements ActionListen
             }
         }
     }
-
+    
     // Set question combo box
     public void updateQuestionBox(int index) {
         // Store list of options for the question
         List<String> questions = new ArrayList<>();
-
+        
+        // Set different questions depending on the chosen category
         if (index == 1) {
             String[] optionList = new String[]{
                     "- Select value of your dwelling -",
@@ -214,24 +221,24 @@ public class DensityMapController extends ToolController implements ActionListen
                     "I am a household renter", "I am not a household renter"};
             questions.addAll(Arrays.asList(optionList));
         }
-
+        
         // Set question list based on selected index
         densityGUI.getQuestionList().setModel(new DefaultComboBoxModel<>(questions.toArray(new String[0])));
-
+        
     }
-
+    
     @Override
     public void initializeDataToDisplay(MyDataset[] dataset) {
-
-        // Get profile of housing data
+        
+        // Set used profile of housing data
         String profileOfHousing = densityGUI.getValidGroupNames(1).get(0);
         densityGUI.setDataGroup(profileOfHousing);
-
+        
     }
-
+    
     @Override
     public void actionPerformed(ActionEvent e) {
-
+        
         int selectedCategory = densityGUI.getDataList().getSelectedIndex(); // Access selected data
         int chosen = 0; // Chose household owners or household renters
         String userInput = ""; // User input to display
@@ -249,47 +256,47 @@ public class DensityMapController extends ToolController implements ActionListen
         else
             ownerOrRenter = densityGUI.getDataGroup().get(chosen).getOGCityData(densityGUI
                     .getCityName(densityGUI.getCityList().getSelectedIndex() - 1));
-
+        
         // User clicked submit button
         if (e.getSource() == densityGUI.getSubmitButton()) {
-
+            
             // User did not fill out all questions
             if (densityGUI.getCityList().getSelectedIndex() == 0 || densityGUI.getQuestionList().getSelectedIndex() == 0) {
                 JOptionPane.showMessageDialog(null, "Please answer all questions!",
                         "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-
+            
             // Get values of the inputted answer to question
             String questionString = densityGUI.getQuestionList().getSelectedItem().toString();
             String questionArray[] = questionString.split(" ", 3);
-
+            
             // For all cities
             for (int x = 0; x < densityGUI.getCityLabels().length; x++) {
                 // Average dwelling value, Average owner monthly shelter cost, Average renter monthly shelter cost
                 if (selectedCategory >= 1 && selectedCategory <= 3) {
-
+                    
                     // Split question input to usable integer values
                     String indexOne = questionArray[0];
                     String sOne = indexOne.replace("$", "").replace(",", "");
                     int setOne = Integer.parseInt(sOne);
-
+                    
                     String indexTwo = questionArray[2];
                     String sTwo = indexTwo.replace("$", "").replace(",", "");
                     int setTwo = Integer.parseInt(sTwo);
-
+                    
                     // Get users question input
                     for (int city = 1; city < densityGUI.getQuestionList().getItemCount(); city++) {
                         if (densityGUI.getQuestionList().getSelectedIndex() == city)
                             userInput = densityGUI.getQuestionList().getSelectedItem().toString();
                     }
-
+                    
                     if (selectedCategory == 1) {
                         dataTitle = "Average Dwelling Value: $";
-
+                        
                     } else if (selectedCategory == 2 || selectedCategory == 3)
                         dataTitle = "Average Shelter Cost per Month: $";
-
+                    
                     if (housingDataValue >= setOne && housingDataValue <= setTwo) {
                         result = "According to the dataset,\nyou are apart of the average person in "
                                 + densityGUI.getCityList().getSelectedItem();
@@ -304,10 +311,10 @@ public class DensityMapController extends ToolController implements ActionListen
                     densityGUI.getUserResults().setText("Region being viewed: " +
                             densityGUI.getCityList().getSelectedItem() + "\n" + dataTitle
                             + Math.round(housingDataValue) + "\n\n" + "Your input: " + userInput + "\n\n" + result);
-
+                    
                     // Household owner and renter count
                 } else if (selectedCategory == 4 || selectedCategory == 5) {
-
+                    
                     if (selectedCategory == 4) {
                         dataTitle = "Total Owners: ";
                         if (densityGUI.getQuestionList().getSelectedIndex() == 1)
@@ -321,11 +328,11 @@ public class DensityMapController extends ToolController implements ActionListen
                         else
                             userInput = "not a household renter";
                     }
-
+                    
                     // Access total owners or renters in a city
                     double ownerTotal = densityGUI.getDataGroup().get(0).getOGCityData(densityGUI.getCityName(x));
                     double renterTotal = densityGUI.getDataGroup().get(1).getOGCityData(densityGUI.getCityName(x));
-
+                    
                     // More owners than renters
                     if (ownerTotal > renterTotal) {
                         if (userInput == "household owner") {
@@ -337,7 +344,7 @@ public class DensityMapController extends ToolController implements ActionListen
                                     + Math.round(renterTotal) + " rent a household.\nYou are not apart of the average person in "
                                     + densityGUI.getCityList().getSelectedItem();
                         }
-
+                        
                         // More renters than owners (rare case but implemented just in case)
                     } else if (ownerTotal < renterTotal) {
                         if (userInput == "household renter") {
@@ -355,35 +362,35 @@ public class DensityMapController extends ToolController implements ActionListen
                             + densityGUI.getCityList().getSelectedItem() + "\n"
                             + dataTitle + Math.round(ownerOrRenter) + "\n\n" + "You are " + userInput + "\n\n"
                             + result);
-
+                    
                 }
             }
             JOptionPane.showMessageDialog(null, "Your results have been submtited!", "Success",
                     JOptionPane.INFORMATION_MESSAGE);
-
+            
             // User selected a data category
         } else if (e.getSource() == densityGUI.getDataList()) {
             getSelectedData();
         }
-
+        
     }
-
+    
     @Override
     public void mouseClicked(MouseEvent e) {
-
+        
         // Check all city labels
         for (int index = 0; index < densityGUI.getCityLabels().length; index++) {
-
+            
             if (e.getSource() == densityGUI.getCityLabels()[index]) { // User clicked a city label
-
+                
                 int selectedCategory = densityGUI.getDataList().getSelectedIndex(); // Access selected data
-
+                
                 if (selectedCategory != 0) { // Users selected category
-
+                    
                     int chosen = 0; // For accessing owners and renters
                     String suffix = ""; // Text format for owners and renters
                     String definition = ""; // Define a data set for user understanding
-
+                    
                     // Get selected category and display data
                     if (selectedCategory >= 1 && selectedCategory <= 3) {
                         if (selectedCategory == 1) {
@@ -433,12 +440,12 @@ public class DensityMapController extends ToolController implements ActionListen
             }
         }
     }
-
+    
     @Override
     public void mouseEntered(MouseEvent e) {
-
+        
         int selectedCategory = densityGUI.getDataList().getSelectedIndex(); // Access selected data
-
+        
         // Hovering over a city label
         for (int index = 0; index < densityGUI.getCityLabels().length; index++) {
             if (e.getSource() == densityGUI.getCityLabels()[index]) {
@@ -474,10 +481,10 @@ public class DensityMapController extends ToolController implements ActionListen
             }
         }
     }
-
+    
     @Override
     public void mouseExited(MouseEvent e) {
-
+        
         // Unhovering over a city label
         for (int index = 0; index < densityGUI.getCityLabels().length; index++) {
             if (e.getSource() == densityGUI.getCityLabels()[index]) {

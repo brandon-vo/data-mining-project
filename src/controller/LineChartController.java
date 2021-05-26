@@ -1,3 +1,8 @@
+/**
+ * Handle user interactions with the LineChartGUI
+ * @author Felix
+ */
+
 package controller;
 
 import model.MyDataset;
@@ -65,7 +70,7 @@ public class LineChartController
         String[] middleMan = new String[items.size()];
         items.toArray(middleMan);
         gui.getSelectDataGroupBox().setModel(new DefaultComboBoxModel<>(middleMan));
-    
+        
         JOptionPane.showMessageDialog(gui, "1 displayed city allows for the\n"+
                         "comparison of 2 periods of time",
                 "Info", JOptionPane.INFORMATION_MESSAGE);
@@ -106,11 +111,17 @@ public class LineChartController
         
     }
     
+    /**
+     * Create the displayed data
+     * @param startBound = the category to start at
+     * @param endBound   = the category to end at
+     */
     private void createDisplayedData (int startBound, int endBound) {
         
+        // Clear any previous data
         gui.getDisplayedData().clear();
         
-        // Create the city lines
+        // Create lines for each displayed city
         for (int i = startBound; i<=endBound; ++i) {
             
             Category category = gui.getDataGroup().get(i);
@@ -128,6 +139,10 @@ public class LineChartController
         
     }
     
+    /**
+     * Create the chart panel on the gui
+     * @param groupName = the name of the group to display
+     */
     private void createChart (String groupName) {
         
         String chartTitle = "Number of People vs "+groupName;
@@ -150,27 +165,31 @@ public class LineChartController
         
         // Create and add the chart to the gui
         gui.setChartPanel(new ChartPanel(gui.getLineChart()));
+        
         ChartPanel chartPanel = gui.getChartPanel();
         chartPanel.setLayout(null);
         chartPanel.setBounds(PADDING, PADDING*2, USER_INPUT_X-PADDING*2, MainFrame.HEIGHT-PADDING*7/2);
         chartPanel.setRangeZoomable(false);
         chartPanel.addMouseListener(this);
         chartPanel.addMouseMotionListener(this);
-    
+        
         chartPanel.add(gui.getInfoPanel());
         
-        // Add the circles and lines to the chartPanel
+        // Add the user interaction GUI to the chartPanel
         for (int i = 0; i<MAX_CITIES; ++i) {
             chartPanel.add(gui.getCircle(i));
         }
         for (int i = 0; i<2; ++i) {
             chartPanel.add(gui.getLine(i));
         }
-    
+        
         gui.add(chartPanel);
         
     }
     
+    /**
+     * Update the chart to have the data required
+     */
     private void updateData () {
         String groupName = (String) gui.getSelectDataGroupBox().getSelectedItem();
         setDataToDisplay(groupName);
@@ -299,7 +318,8 @@ public class LineChartController
         // Iterate over the categories until mouseX<currentX
         int currentCategory;
         for (currentCategory = 0; currentCategory<displayedData.getColumnCount()
-                && getCategoryX(currentCategory)<mouseX; ++currentCategory);
+                && getCategoryX(currentCategory)<mouseX; ++currentCategory)
+            ;
         
         // return the nearest category if it is out of bounds
         if (currentCategory==0) {
@@ -321,6 +341,7 @@ public class LineChartController
     }
     
     /**
+     * Get a city's value at a category as a Java2D coordinate on the graph
      * @param city     = the city to look at
      * @param category = the category to look at
      * @return the coordinates of the city at the category
@@ -330,7 +351,7 @@ public class LineChartController
         CategoryPlot plot = gui.getLineChart().getCategoryPlot();
         Rectangle2D dataArea = gui.getChartPanel().getChartRenderingInfo().getPlotInfo().getDataArea();
         
-        // just for fun, lets convert the axis coordinates back to component coordinates...
+        // Convert plot coordinates to Java2D coordinates
         double x = plot.getDomainAxis().getCategoryMiddle(
                 category, gui.getDisplayedData().getColumnCount(),
                 dataArea, plot.getDomainAxisEdge());
@@ -338,14 +359,23 @@ public class LineChartController
                 (double) gui.getDisplayedData().getValue(city, category),
                 dataArea, plot.getRangeAxisEdge());
         
+        // Provide the new point
         return gui.getChartPanel().translateJava2DToScreen(new Point2D.Double(x, y));
         
     }
     
+    /**
+     * @param category = the category to look at
+     * @return Get the Java2D x coordinate of the category
+     */
     private int getCategoryX (int category) {
         return (int) getCategoryPoint(0, category).getX();
     }
     
+    /**
+     * Handle all the listeners
+     * @param e = event
+     */
     @Override
     public void actionPerformed (ActionEvent e) {
         
@@ -432,7 +462,7 @@ public class LineChartController
         int x2 = getCategoryX(gui.getInfoPanel().getChosenCategory(1));
         
         gui.getInfoPanel().generatePanel(gui.getDisplayedData(), x1+(x2-x1)/2);
-    
+        
     }
     
     /**

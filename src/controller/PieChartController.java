@@ -1,15 +1,17 @@
 package controller;
 
+/**
+Controller created by Daniel Singh
+Controls the gui frame and allows it to be
+
+ */
+
+
 import model.MyDataset;
-import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
 import org.jfree.data.general.DefaultPieDataset;
 import util.Category;
-import view.MainFrame;
 import view.PieChartGUI;
-import view.Tool;
-
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -19,10 +21,10 @@ import java.util.ArrayList;
 public class PieChartController extends ToolController implements ActionListener {
 
     private final PieChartGUI gui;
-    private String[] cityList = {"Aurora", "East Gwillimbury", "Georgina", "King", "Markham", "Newmarket", "Richmond Hill","Stouffville", "Vaughan", };
+   private String[] cityList = {"Aurora", "East Gwillimbury", "Georgina", "King", "Markham", "Newmarket", "Richmond Hill","Stouffville", "Vaughan", };
     private ArrayList<Category> dataGroup;
     private DefaultPieDataset<String> displayedData;
-    private ChartPanel chartPanel;
+  private ChartPanel chartPanel;
 
     public PieChartController (PieChartGUI gui) {
 

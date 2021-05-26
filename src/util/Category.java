@@ -1,3 +1,8 @@
+/**
+ * A helper class to store categories in the dataset
+ * @author Felix
+ */
+
 package util;
 
 import model.MyDataset;

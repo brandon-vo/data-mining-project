@@ -1,3 +1,8 @@
+/**
+ * Identifiers for all the tools
+ * @author Felix
+ */
+
 package model;
 
 public enum DataType {

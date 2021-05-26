@@ -1,3 +1,8 @@
+/**
+ * Specialized to process files from the Journey to Work dataset
+ * @author Felix
+ */
+
 package model;
 
 import util.Category;
@@ -14,7 +19,9 @@ public class JourneyToWork extends MyDataset {
     }
     
     /**
-     * @see #indexDataset
+     * Index the categories and city Arraylist and HashMap in dataset
+     * @param rawDataset = the raw dataset
+     * @param cities     = all the city names in the dataset
      */
     @Override
     public void indexDataset (ArrayList<ArrayList<String>> rawDataset, HashSet<String> cities) {
@@ -52,7 +59,8 @@ public class JourneyToWork extends MyDataset {
     }
     
     /**
-     * Lots and lots of hard code
+     * Provide the tools with the valid data groups that they will use
+     * @param tools = an array of all the tools
      */
     @Override
     public void assignValidGroupCharts (Tool[] tools) {

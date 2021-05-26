@@ -1,3 +1,8 @@
+/**
+ * The menu panel that contains all the buttons to the tools
+ * @author Daniel, Brandon
+ */
+
 package view;
 
 import model.DataType;
@@ -12,14 +17,17 @@ public class MenuPanel extends JPanel {
     
     public MenuPanel () {
     
+        // Set up the panel
         setBounds(0, 0, MainFrame.WIDTH, MainFrame.HEIGHT);
         setLayout(null);
         
+        // Create the title
         titleLabel.setBounds(0, 0, MainFrame.WIDTH, MainFrame.HEIGHT);
         add(titleLabel);
     
         DataType[] values = DataType.values();
     
+        // Create equally spaced out buttons
         for (int i = 0; i<buttons.length; ++i) {
         
             buttons[i] = new JButton(values[i].getChartDescription());
@@ -33,6 +41,7 @@ public class MenuPanel extends JPanel {
         
     }
     
+    // Getter
     public JButton getButton (int index) {
         return buttons[index];
     }

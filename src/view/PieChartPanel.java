@@ -1,16 +1,19 @@
 package view;
+/**
+created by Daniel Singh
+sets up the frame that holds all the charts and
+reads in datasets
+replaces the charts when a city is selected
+ */
 
 import java.awt.Color;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import model.MyDataset;
-import model.ProfileOfHousing;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.ChartPanel;
 import org.jfree.data.general.DefaultPieDataset;
-import org.jfree.data.general.PieDataset;
 import util.Category;
 
 import javax.swing.*;

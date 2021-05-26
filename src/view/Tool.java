@@ -1,12 +1,15 @@
+/**
+ * Class that
+ * @Author Felix
+ */
+
 package view;
 
-import model.MyDataset;
 import util.Category;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 
 public abstract class Tool extends JPanel {
@@ -24,22 +27,26 @@ public abstract class Tool extends JPanel {
     
     private static final String BACK_BUTTON_IMAGE_FILE = "./img/backButton.png";
     
-    private final HashMap<String, ArrayList<Category>>[] validGroups;
-    private String groupName;
-    private ArrayList<Category> dataGroup;
-    
+    // Button to go back to MenuPanel
     private final JButton backButton;
+    
+    // Data trackers
+    private final HashMap<String, ArrayList<Category>>[] validGroups;
+    private ArrayList<Category> dataGroup;
     
     public Tool () {
     
         setLayout(null);
         setBounds(0, 0, MainFrame.WIDTH, MainFrame.HEIGHT);
         setBackground(BACKGROUND_COLOUR);
+        
+        // Initialize validGroups
         validGroups = new HashMap[2];
         validGroups[0] = new HashMap<>();
         validGroups[1] = new HashMap<>();
         dataGroup = new ArrayList<>();
     
+        // Initialize the backButton with an image
         ImageIcon image = new ImageIcon(BACK_BUTTON_IMAGE_FILE);
         backButton = new JButton(image);
         backButton.setBounds(
@@ -52,6 +59,7 @@ public abstract class Tool extends JPanel {
         
     }
     
+    // Getters
     public JButton getBackButton () {
         return backButton;
     }
@@ -64,17 +72,18 @@ public abstract class Tool extends JPanel {
         return validGroups[dataset];
     }
     
-    public String getGroupName () {
-        return groupName;
-    }
-    
     public ArrayList<Category> getDataGroup () {
         return dataGroup;
     }
     
+    /**
+     * Sets the current dataGroup to groupName
+     * @param groupName
+     */
     public void setDataGroup (String groupName) {
         
-        this.groupName = groupName;
+        // Find the dataset that groupName belongs to and set
+        // the current dataGroup to it
         this.dataGroup = validGroups[0].get(groupName)!=null
                 ? validGroups[0].get(groupName)
                 : validGroups[1].get(groupName);
