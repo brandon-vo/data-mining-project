@@ -36,11 +36,11 @@ public class CommuteVsShelterCostGUI extends Tool{
     private ArrayList<Category> dataGroup2;
 
     private String currentCity;
-    private String line1 = "Common Commute for $601-1000: ";
-    private String line2 = "Common Commute for $1001-1400: ";
-    private String line3 = "Common Commute for $1401-1800: ";
-    private String line4 = "Common Commute for $1800+: ";
-    private String text = String.format("<html>%s<br/><br/>%s<br/><br/>%s<br/><br/>%s</html>", line1, line2, line3, line4);
+    private String line1 = "Common Commute displayed for $601-1000: ";
+    private String line2 = "Common Commute displayed for $1001-1400: ";
+    private String line3 = "Common Commute displayed for $1401-1800: ";
+    private String line4 = "Common Commute displayed for $1800+: ";
+    private String texts = String.format("<html>%s<br/><br/>%s<br/><br/>%s<br/><br/>%s</html>", line1, line2, line3, line4);
 
     //constructor
     public CommuteVsShelterCostGUI () {
@@ -60,10 +60,10 @@ public class CommuteVsShelterCostGUI extends Tool{
         commuteDisplay.setFont(new Font("Tahoma", Font.BOLD, 10));
         commuteDisplay.setHorizontalAlignment(SwingConstants.LEFT);
         commuteDisplay.setVerticalAlignment(SwingConstants.CENTER);
-        commuteDisplay.setBackground(Color.CYAN);
-        commuteDisplay.setBounds(1100, 150, 245, 150);
+        commuteDisplay.setBackground(Color.ORANGE);
+        commuteDisplay.setBounds(1050, 150, 295, 225);
 
-        commuteDisplay.setText(text);
+        commuteDisplay.setText(texts);
         add(commuteDisplay);
 
         add(getBackButton());
@@ -169,11 +169,11 @@ public class CommuteVsShelterCostGUI extends Tool{
         this.line4 = line4;
     }
 
-    public String getText() {
-        return text;
+    public String getTexts() {
+        return texts;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setTexts(String texts) {
+        this.texts = texts;
     }
 }

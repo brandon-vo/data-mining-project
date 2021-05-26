@@ -10,6 +10,7 @@ import org.jfree.chart.ui.*;
 import org.jfree.data.category.DefaultCategoryDataset;
 import view.CommuteVsShelterCostGUI;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -22,8 +23,8 @@ public class BarChartController extends ToolController implements ActionListener
 
     //create an barChartGui to refer to
     CommuteVsShelterCostGUI barChartGui;
-
-
+    int rangeMax[] = new int[5];
+    int commuteTypeCount[][] = new int[5][6];
     //constructor
     public BarChartController(CommuteVsShelterCostGUI barChartGui){
         this.barChartGui = barChartGui;
@@ -62,7 +63,7 @@ public class BarChartController extends ToolController implements ActionListener
         ArrayList<ArrayList<String>> rawData2 = FileImportController.rawData[0];
 
         //2d array holding ranges as rows and totals of each commute type as columns
-        int commuteTypeCount[][] = new int[5][6];
+
 
         //iterate through the barChartGui datagroup
         for(int i = 1; i < rawData1.size(); i++ ){
@@ -112,7 +113,7 @@ public class BarChartController extends ToolController implements ActionListener
 
             }
         }
-        int rangeMax[] = new int[5];
+
 
         //calculate the largest commute type amount for each range
         largestValue(commuteTypeCount, rangeMax);
@@ -133,30 +134,40 @@ public class BarChartController extends ToolController implements ActionListener
         String line2 = barChartGui.getLine2();
         String line3 = barChartGui.getLine3();
         String line4 = barChartGui.getLine4();
-
             for(int j = 0; j < 5; j++) {
-                if (commuteTypeCount[1][j] == rangeMax[0]) {
-                    barChartGui.setLine1(barChartGui.getLine1() + rawData2.get(0).get(10 + j));
-                    barChartGui.setText(String.format("<html>%s<br/><br/>%s<br/><br/>%s<br/><br/>%s</html>", line1, line2, line3, line4));
-                    barChartGui.getCommuteDisplay().setText(barChartGui.getText());
+                if (commuteTypeCount[1][j] == rangeMax[1]) {
+                    barChartGui.setLine1("Common Commute displayed for $601-1000: " + rawData2.get(0).get(10 + j));
+                    barChartGui.setTexts(String.format("<html>%s<br/><br/>%s<br/><br/>%s<br/><br/>%s</html>", line1, line2, line3, line4));
+                    barChartGui.getCommuteDisplay().setText(barChartGui.getTexts());
+                    System.out.println("updated label");
+
                 }
-                if(commuteTypeCount[2][j] == rangeMax[1]){
-                    barChartGui.setLine2(barChartGui.getLine2() + rawData2.get(0).get(10 + j));
-                    barChartGui.setText(String.format("<html>%s<br/><br/>%s<br/><br/>%s<br/><br/>%s</html>", line1, line2, line3, line4));
-                    barChartGui.getCommuteDisplay().setText(barChartGui.getText());
+                if(commuteTypeCount[2][j] == rangeMax[2]){
+                    barChartGui.setLine2("Common Commute displayed for $1001-1400: " + rawData2.get(0).get(10 + j));
+                    barChartGui.setTexts(String.format("<html>%s<br/><br/>%s<br/><br/>%s<br/><br/>%s</html>", line1, line2, line3, line4));
+                    barChartGui.getCommuteDisplay().setText(barChartGui.getTexts());
+
                 }
-                if(commuteTypeCount[3][j] == rangeMax[2]){
-                    barChartGui.setLine3(barChartGui.getLine3() + rawData2.get(0).get(10 + j));
-                    barChartGui.setText(String.format("<html>%s<br/><br/>%s<br/><br/>%s<br/><br/>%s</html>", line1, line2, line3, line4));
-                    barChartGui.getCommuteDisplay().setText(barChartGui.getText());
+                if(commuteTypeCount[3][j] == rangeMax[3]){
+                    barChartGui.setLine3("Common Commute displayed for $1401-1800: " + rawData2.get(0).get(10 + j));
+                    barChartGui.setTexts(String.format("<html>%s<br/><br/>%s<br/><br/>%s<br/><br/>%s</html>", line1, line2, line3, line4));
+                    barChartGui.getCommuteDisplay().setText(barChartGui.getTexts());
+
                 }
-                if(commuteTypeCount[4][j] == rangeMax[2]){
-                    barChartGui.setLine4(barChartGui.getLine4() + rawData2.get(0).get(10 + j));
-                    barChartGui.setText(String.format("<html>%s<br/><br/>%s<br/><br/>%s<br/><br/>%s</html>", line1, line2, line3, line4));
-                    barChartGui.getCommuteDisplay().setText(barChartGui.getText());
+                if(commuteTypeCount[4][j] == rangeMax[4]){
+                    barChartGui.setLine4("Common Commute displayed for $1800+: " + rawData2.get(0).get(10 + j));
+                    barChartGui.setTexts(String.format("<html>%s<br/><br/>%s<br/><br/>%s<br/><br/>%s</html>", line1, line2, line3, line4));
+                    barChartGui.getCommuteDisplay().setText(barChartGui.getTexts());
+
+
                 }
             }
-        }
+
+
+
+
+
+    }
 
 
     //setting up the bar chart
@@ -177,7 +188,7 @@ public class BarChartController extends ToolController implements ActionListener
             barChartGui.remove(barChartGui.getChartPanel());
         }
         barChartGui.setChartPanel(new ChartPanel(barChartGui.getBarChart()));
-        barChartGui.getChartPanel().setBounds(100, 100, 1000, 450);
+        barChartGui.getChartPanel().setBounds(50, 100, 1000, 450);
         barChartGui.add(barChartGui.getChartPanel());
         
     }
@@ -209,30 +220,35 @@ public class BarChartController extends ToolController implements ActionListener
             barChartGui.setDisplayedData(createDataSet(barChartGui.getCurrentCity()));
             createChart(barChartGui.getValidGroupNames(1).get(0), barChartGui.getDisplayedData());
             barChartGui.getChartPanel().repaint();
-
+            barChartGui.getCommuteDisplay().repaint();
         }else if(e.getSource() == barChartGui.richmondButton){
             barChartGui.setCurrentCity("Richmond Hill");
             barChartGui.setDisplayedData(createDataSet(barChartGui.getCurrentCity()));
             createChart(barChartGui.getValidGroupNames(1).get(0), barChartGui.getDisplayedData());
             barChartGui.getChartPanel().repaint();
+            barChartGui.getCommuteDisplay().repaint();
 
         }else if(e.getSource() == barChartGui.auroraButton){
             barChartGui.setCurrentCity("Aurora");
             barChartGui.setDisplayedData(createDataSet(barChartGui.getCurrentCity()));
             createChart(barChartGui.getValidGroupNames(1).get(0), barChartGui.getDisplayedData());
             barChartGui.getChartPanel().repaint();
+            barChartGui.getCommuteDisplay().repaint();
 
         }else if(e.getSource() == barChartGui.newMarketButton){
             barChartGui.setCurrentCity("Newmarket");
             barChartGui.setDisplayedData(createDataSet(barChartGui.getCurrentCity()));
             createChart(barChartGui.getValidGroupNames(1).get(0), barChartGui.getDisplayedData());
             barChartGui.getChartPanel().repaint();
+            barChartGui.getCommuteDisplay().repaint();
 
         }else if(e.getSource() == barChartGui.vaughnButton){
             barChartGui.setCurrentCity("Vaughan");
             barChartGui.setDisplayedData(createDataSet(barChartGui.getCurrentCity()));
             createChart(barChartGui.getValidGroupNames(1).get(0), barChartGui.getDisplayedData());
             barChartGui.getChartPanel().repaint();
+            barChartGui.getCommuteDisplay().repaint();
+
         }
     
     }
