@@ -117,8 +117,8 @@ public class LineChartInfoPanel extends JPanel {
                 +" to "+displayedData.getColumnKey(chosenCategories[1])
         );
     
-        setBounds(middleX-PADDING*5/14*(titleLabel.getText().length()+2), PADDING*4, PADDING*5/7*(titleLabel.getText().length()+2), TEXT_HEIGHT+PADDING*2);
-        titleLabel.setBounds(PADDING, PADDING, PADDING*5/7*(titleLabel.getText().length()), TEXT_HEIGHT);
+        setBounds(middleX-PADDING*(titleLabel.getText().length()+2)*5/14, PADDING*4, PADDING*5/7*(titleLabel.getText().length()+2), TEXT_HEIGHT+PADDING*2);
+        titleLabel.setBounds(PADDING, PADDING, PADDING*(titleLabel.getText().length())*5/7, TEXT_HEIGHT);
     
     }
     
