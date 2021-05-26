@@ -65,6 +65,10 @@ public class LineChartController
         String[] middleMan = new String[items.size()];
         items.toArray(middleMan);
         gui.getSelectDataGroupBox().setModel(new DefaultComboBoxModel<>(middleMan));
+    
+        JOptionPane.showMessageDialog(gui, "1 displayed city allows for the\n"+
+                        "comparison of 2 periods of time",
+                "Info", JOptionPane.INFORMATION_MESSAGE);
         
     }
     
@@ -152,6 +156,8 @@ public class LineChartController
         chartPanel.setRangeZoomable(false);
         chartPanel.addMouseListener(this);
         chartPanel.addMouseMotionListener(this);
+    
+        chartPanel.add(gui.getInfoPanel());
         
         // Add the circles and lines to the chartPanel
         for (int i = 0; i<MAX_CITIES; ++i) {
@@ -160,8 +166,7 @@ public class LineChartController
         for (int i = 0; i<2; ++i) {
             chartPanel.add(gui.getLine(i));
         }
-        
-        gui.getChartPanel().add(gui.getInfoPanel());
+    
         gui.add(chartPanel);
         
     }
@@ -400,8 +405,6 @@ public class LineChartController
         
         // Do not do anything if there is not 1 city displayed
         if (displayedCities.size()!=1) {
-            JOptionPane.showMessageDialog(gui, "You need 1 city to compare\n"+
-                    "the difference between time periods", "Alert", JOptionPane.ERROR_MESSAGE);
             return;
         }
         gui.clear();
@@ -430,7 +433,7 @@ public class LineChartController
         int x2 = getCategoryX(gui.getInfoPanel().getChosenCategory(1));
         
         gui.getInfoPanel().generatePanel(gui.getDisplayedData(), x1+(x2-x1)/2);
-        
+    
     }
     
     /**
@@ -447,7 +450,7 @@ public class LineChartController
         
         // Draw a line at the user's mouse cursor
         gui.setLinePosition(1, e.getX());
-        gui.repaint();
+        gui.getChartPanel().repaint();
         
     }
     
