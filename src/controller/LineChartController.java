@@ -299,8 +299,7 @@ public class LineChartController
         // Iterate over the categories until mouseX<currentX
         int currentCategory;
         for (currentCategory = 0; currentCategory<displayedData.getColumnCount()
-                && getCategoryX(currentCategory)<mouseX; ++currentCategory)
-            ;
+                && getCategoryX(currentCategory)<mouseX; ++currentCategory);
         
         // return the nearest category if it is out of bounds
         if (currentCategory==0) {

@@ -28,14 +28,14 @@ public class ScatterPlotController extends ToolController implements ActionListe
         put("Eight", 8);
         put("Nine", 9);
         put("Zero", 0);
-        put("No 1 4", 4);
-        put("No 5", 5);
-        put("No 6", 6);
-        put("No 7", 7);
-        put("No 8 Plus", 8);
-        put("No 1",1);
-        put("No 2",2);
-        put("No 3",3);
+        put("1 4", 4);
+        put("5", 5);
+        put("6", 6);
+        put("7", 7);
+        put("8 Plus", 8);
+        put("1",1);
+        put("2",2);
+        put("3",3);
     }};
     
     private HousingTrendGUI gui;
@@ -56,7 +56,6 @@ public class ScatterPlotController extends ToolController implements ActionListe
     public void initializeDataToDisplay (MyDataset[] dataset) {
         
         String groupName = gui.getValidGroupNames(1).get(1);
-        
         setDataToDisplay(groupName);
         
     }
@@ -71,7 +70,7 @@ public class ScatterPlotController extends ToolController implements ActionListe
                 groupName, "Number Of House",
                 gui.getDisplayedData()
         ));
-        gui.getScatterPlotChart().setBackgroundPaint(BACKGROUND_COLOUR);
+       gui.getScatterPlotChart().setBackgroundPaint(BACKGROUND_COLOUR);
     
         // Remove if the chart panel exists
         if (gui.getChartPanel()!=null) {
@@ -91,15 +90,15 @@ public class ScatterPlotController extends ToolController implements ActionListe
         XYSeries city = new XYSeries(cityName);
         
         for (Category category : gui.getDataGroup()) {
-            
             for (Map.Entry<String, Integer> identifiers : STRING_TO_INTEGER.entrySet()) {
+                
                 if (category.getCategoryName().contains(identifiers.getKey())) {
                     city.add(identifiers.getValue(), category.getCities().get(cityName));
                     System.out.println(category.getCities().get(cityName));
                     break;
                 }
+                
             }
-            
         }
         gui.getDisplayedData().addSeries(city);
         
