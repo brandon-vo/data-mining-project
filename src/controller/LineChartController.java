@@ -280,7 +280,7 @@ public class LineChartController
                 );
             }
             
-        } while (displayedCities.size()>MAX_CITIES);
+        } while (displayedCities.size()>MAX_CITIES || displayedCities.size()==0);
         
         // Update the chart
         updateTimeInterval(0);
