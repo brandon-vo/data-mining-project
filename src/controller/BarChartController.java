@@ -3,12 +3,17 @@ package controller;
 import model.MyDataset;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
-import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.labels.*;
+import org.jfree.chart.plot.*;
+import org.jfree.chart.renderer.category.*;
+import org.jfree.chart.ui.*;
 import org.jfree.data.category.DefaultCategoryDataset;
 import view.CommuteVsShelterCostGUI;
 
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.*;
 import java.util.*;
 
 import static view.Tool.BACKGROUND_COLOUR;
@@ -118,9 +123,41 @@ public class BarChartController extends ToolController implements ActionListener
         dataset.addValue(rangeMax[3], currentCity, "1401-1800");
         dataset.addValue(rangeMax[4], currentCity, "1800+");
 
+        updateCommonCommuteTypeDisplay(commuteTypeCount, rangeMax, rawData2);
 
         return dataset;
     }
+
+    private void updateCommonCommuteTypeDisplay(int[][] commuteTypeCount, int[] rangeMax, ArrayList<ArrayList<String>> rawData2) {
+        String line1 = barChartGui.getLine1();
+        String line2 = barChartGui.getLine2();
+        String line3 = barChartGui.getLine3();
+        String line4 = barChartGui.getLine4();
+
+            for(int j = 0; j < 5; j++) {
+                if (commuteTypeCount[1][j] == rangeMax[0]) {
+                    barChartGui.setLine1(barChartGui.getLine1() + rawData2.get(0).get(10 + j));
+                    barChartGui.setText(String.format("<html>%s<br/><br/>%s<br/><br/>%s<br/><br/>%s</html>", line1, line2, line3, line4));
+                    barChartGui.getCommuteDisplay().setText(barChartGui.getText());
+                }
+                if(commuteTypeCount[2][j] == rangeMax[1]){
+                    barChartGui.setLine2(barChartGui.getLine2() + rawData2.get(0).get(10 + j));
+                    barChartGui.setText(String.format("<html>%s<br/><br/>%s<br/><br/>%s<br/><br/>%s</html>", line1, line2, line3, line4));
+                    barChartGui.getCommuteDisplay().setText(barChartGui.getText());
+                }
+                if(commuteTypeCount[3][j] == rangeMax[2]){
+                    barChartGui.setLine3(barChartGui.getLine3() + rawData2.get(0).get(10 + j));
+                    barChartGui.setText(String.format("<html>%s<br/><br/>%s<br/><br/>%s<br/><br/>%s</html>", line1, line2, line3, line4));
+                    barChartGui.getCommuteDisplay().setText(barChartGui.getText());
+                }
+                if(commuteTypeCount[4][j] == rangeMax[2]){
+                    barChartGui.setLine4(barChartGui.getLine4() + rawData2.get(0).get(10 + j));
+                    barChartGui.setText(String.format("<html>%s<br/><br/>%s<br/><br/>%s<br/><br/>%s</html>", line1, line2, line3, line4));
+                    barChartGui.getCommuteDisplay().setText(barChartGui.getText());
+                }
+            }
+        }
+
 
     //setting up the bar chart
     public void createChart (String groupNameProfileOfHousing, DefaultCategoryDataset displayedData) {
@@ -128,18 +165,19 @@ public class BarChartController extends ToolController implements ActionListener
         String chartTitle = " Commute Type V.S " + groupNameProfileOfHousing;
         String xAxisLabel = groupNameProfileOfHousing + "($)";
         String valueAxisLabel = "Number of People";
-    
+
+
         barChartGui.setBarChart(ChartFactory.createBarChart(
                 chartTitle, xAxisLabel, valueAxisLabel,
                 displayedData, PlotOrientation.VERTICAL,
-                true, false, false));
+                true, true, false));
         barChartGui.getBarChart().setBackgroundPaint(BACKGROUND_COLOUR);
 
         if (barChartGui.getChartPanel()!=null) {
             barChartGui.remove(barChartGui.getChartPanel());
         }
         barChartGui.setChartPanel(new ChartPanel(barChartGui.getBarChart()));
-        barChartGui.getChartPanel().setBounds(150, 100, 1000, 450);
+        barChartGui.getChartPanel().setBounds(100, 100, 1000, 450);
         barChartGui.add(barChartGui.getChartPanel());
         
     }
@@ -159,6 +197,7 @@ public class BarChartController extends ToolController implements ActionListener
 
     }
 
+
     //if user presses a city button, change the current city to corresponding city name, create the proper dataset
     //and update the bar chart
     @Override
@@ -171,13 +210,11 @@ public class BarChartController extends ToolController implements ActionListener
             createChart(barChartGui.getValidGroupNames(1).get(0), barChartGui.getDisplayedData());
             barChartGui.getChartPanel().repaint();
 
-
         }else if(e.getSource() == barChartGui.richmondButton){
             barChartGui.setCurrentCity("Richmond Hill");
             barChartGui.setDisplayedData(createDataSet(barChartGui.getCurrentCity()));
             createChart(barChartGui.getValidGroupNames(1).get(0), barChartGui.getDisplayedData());
             barChartGui.getChartPanel().repaint();
-
 
         }else if(e.getSource() == barChartGui.auroraButton){
             barChartGui.setCurrentCity("Aurora");
@@ -185,22 +222,20 @@ public class BarChartController extends ToolController implements ActionListener
             createChart(barChartGui.getValidGroupNames(1).get(0), barChartGui.getDisplayedData());
             barChartGui.getChartPanel().repaint();
 
-
         }else if(e.getSource() == barChartGui.newMarketButton){
             barChartGui.setCurrentCity("Newmarket");
             barChartGui.setDisplayedData(createDataSet(barChartGui.getCurrentCity()));
             createChart(barChartGui.getValidGroupNames(1).get(0), barChartGui.getDisplayedData());
             barChartGui.getChartPanel().repaint();
 
-
         }else if(e.getSource() == barChartGui.vaughnButton){
             barChartGui.setCurrentCity("Vaughan");
             barChartGui.setDisplayedData(createDataSet(barChartGui.getCurrentCity()));
             createChart(barChartGui.getValidGroupNames(1).get(0), barChartGui.getDisplayedData());
             barChartGui.getChartPanel().repaint();
-
         }
     
     }
-    
+
+
 }

@@ -32,9 +32,15 @@ public class CommuteVsShelterCostGUI extends Tool{
     private DefaultCategoryDataset displayedData = new DefaultCategoryDataset();
     private JFreeChart barChart;
     private ChartPanel chartPanel;
+    private JLabel commuteDisplay = new JLabel("Ranges");
     private ArrayList<Category> dataGroup2;
 
     private String currentCity;
+    private String line1 = "Common Commute for $601-1000: ";
+    private String line2 = "Common Commute for $1001-1400: ";
+    private String line3 = "Common Commute for $1401-1800: ";
+    private String line4 = "Common Commute for $1800+: ";
+    private String text = String.format("<html>%s<br/><br/>%s<br/><br/>%s<br/><br/>%s</html>", line1, line2, line3, line4);
 
     //constructor
     public CommuteVsShelterCostGUI () {
@@ -47,6 +53,18 @@ public class CommuteVsShelterCostGUI extends Tool{
         
         titleLabel.setBounds(0, 0, 1366, 768);
         add(titleLabel);
+
+        commuteDisplay.setOpaque(true);
+        Border border2 = BorderFactory.createLineBorder(Color.BLACK, 2);
+        commuteDisplay.setBorder(border2);
+        commuteDisplay.setFont(new Font("Tahoma", Font.BOLD, 10));
+        commuteDisplay.setHorizontalAlignment(SwingConstants.LEFT);
+        commuteDisplay.setVerticalAlignment(SwingConstants.CENTER);
+        commuteDisplay.setBackground(Color.CYAN);
+        commuteDisplay.setBounds(1100, 150, 245, 150);
+
+        commuteDisplay.setText(text);
+        add(commuteDisplay);
 
         add(getBackButton());
         
@@ -110,7 +128,52 @@ public class CommuteVsShelterCostGUI extends Tool{
     public void setDataGroup2 (ArrayList<Category> dataGroup2) {
         this.dataGroup2 = dataGroup2;
     }
-    
-    
-    
+
+    public JLabel getCommuteDisplay() {
+        return commuteDisplay;
+    }
+
+    public void setCommuteDisplay(JLabel commuteDisplay) {
+        this.commuteDisplay = commuteDisplay;
+    }
+
+    public String getLine1() {
+        return line1;
+    }
+
+    public void setLine1(String line1) {
+        this.line1 = line1;
+    }
+
+    public String getLine2() {
+        return line2;
+    }
+
+    public void setLine2(String line2) {
+        this.line2 = line2;
+    }
+
+    public String getLine3() {
+        return line3;
+    }
+
+    public void setLine3(String line3) {
+        this.line3 = line3;
+    }
+
+    public String getLine4() {
+        return line4;
+    }
+
+    public void setLine4(String line4) {
+        this.line4 = line4;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
 }
