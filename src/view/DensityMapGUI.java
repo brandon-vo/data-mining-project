@@ -1,6 +1,5 @@
 package view;
 
-import model.MyDataset;
 import util.ColourFilter;
 import util.IndividualColourFilter;
 
@@ -11,9 +10,8 @@ import java.awt.image.BufferedImage;
 import java.awt.image.FilteredImageSource;
 import java.io.File;
 import java.io.IOException;
-import java.nio.Buffer;
-import java.util.ArrayList;
 
+// Brandon Vo
 public class DensityMapGUI extends Tool {
 
     // Fields
@@ -63,7 +61,7 @@ public class DensityMapGUI extends Tool {
     private JLabel[] citySelectedLabels = new JLabel[9]; // Array of labels with selected map image
     private JLabel hoverInformation = new JLabel();
 
-    private int colourID;
+    private int colourID; // Store colour ID for a map
 
     // Constructor
     public DensityMapGUI() {
@@ -147,7 +145,7 @@ public class DensityMapGUI extends Tool {
     // Change whole map colour
     public void changeMapColour() {
 
-        ColourFilter filter = new ColourFilter(this);
+        ColourFilter filter = new ColourFilter(this); // ColourFilter class
 
         try {
 
@@ -175,7 +173,7 @@ public class DensityMapGUI extends Tool {
             }
 
         } catch (IOException e) {
-            e.printStackTrace();
+            e.printStackTrace(); // Error with reading file
         }
 
     }
@@ -203,24 +201,24 @@ public class DensityMapGUI extends Tool {
                 add(mapLabels[city]);
 
         } catch (IOException e) {
-            e.printStackTrace();
+            e.printStackTrace(); // Error with reading file
         }
     }
 
     // Set colour value for the value of data in a city
     public void setColourIDs(int value) {
         if (value == 0) {
-            colourID = 0xFFE5E7E9;
+            colourID = 0xFFE5E7E9; // Grey
         } else if (value == 1) {
-            colourID = 0xFFBBDEFB;
+            colourID = 0xFFBBDEFB; // Lightest Blue
         } else if (value == 2) {
-            colourID = 0xFF90CAF9;
+            colourID = 0xFF90CAF9; // Light Blue
         } else if (value == 3) {
-            colourID = 0xFF64B5F6;
+            colourID = 0xFF64B5F6; // Blue
         } else if (value == 4) {
-            colourID = 0xFF1E88E5;
+            colourID = 0xFF1E88E5; // Darker Blue
         } else if (value == 5) {
-            colourID = 0xFF1565C0;
+            colourID = 0xFF1565C0; // Darkest BLue
         }
     }
 

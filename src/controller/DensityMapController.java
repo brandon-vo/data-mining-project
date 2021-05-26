@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+// Brandon Vo
 public class DensityMapController extends ToolController implements ActionListener {
 
     private final DensityMapGUI densityGUI; // Access DensityMapGUI
@@ -41,10 +42,10 @@ public class DensityMapController extends ToolController implements ActionListen
     // Get user selected dataset
     public void getSelectedData() {
         if (densityGUI.getDataList().getSelectedIndex() == 0) { // No category selected
-            enableComponents(false);
-            updateSelectedData();
-            updateQuestionBox(0);
-            densityGUI.getUserResults().setText("Please select a dataset!");
+            enableComponents(false); // Disable components
+            updateSelectedData(); // Update map colour and texts
+            updateQuestionBox(0); // Update question box
+            densityGUI.getUserResults().setText("Please select a dataset!"); // Set user results text
             return;
         } // Otherwise get the selected category, set data group, and update components
         enableComponents(true);
@@ -67,10 +68,10 @@ public class DensityMapController extends ToolController implements ActionListen
 
         for (int cities = 0; cities < densityGUI.getMapLabels().length; cities++) {
             // Get data values for all cities
-            if (selectedCategory >= 1 && selectedCategory <= 3) {
+            if (selectedCategory >= 1 && selectedCategory <= 3) { // Data values for housing cost information
                 housingDataValue[cities] = (int) Math.round(densityGUI.getDataGroup().get(0).getCities()
                         .get(densityGUI.getCityName(cities)));
-            } else if (selectedCategory == 4 || selectedCategory == 5) {
+            } else if (selectedCategory == 4 || selectedCategory == 5) { // Data values for owner and renter count
                 ownerCount[cities] = (int) densityGUI.getDataGroup().get(0).getOGCityData(densityGUI.getCityName(cities));
                 renterCount[cities] = (int) densityGUI.getDataGroup().get(1).getOGCityData(densityGUI.getCityName(cities));
             }
@@ -185,6 +186,7 @@ public class DensityMapController extends ToolController implements ActionListen
         // Store list of options for the question
         List<String> questions = new ArrayList<>();
 
+        // Set different questions depending on the chosen category
         if (index == 1) {
             String[] optionList = new String[]{
                     "- Select value of your dwelling -",
@@ -223,7 +225,7 @@ public class DensityMapController extends ToolController implements ActionListen
     @Override
     public void initializeDataToDisplay(MyDataset[] dataset) {
 
-        // Get profile of housing data
+        // Set used profile of housing data
         String profileOfHousing = densityGUI.getValidGroupNames(1).get(0);
         densityGUI.setDataGroup(profileOfHousing);
 
