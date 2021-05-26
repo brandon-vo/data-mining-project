@@ -1,8 +1,3 @@
-/**
- * GUI to display the line chart
- * @author Felix
- */
-
 package view;
 
 import controller.LineChartController;
@@ -14,6 +9,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Point2D;
 
+/**
+ * GUI to display the line chart
+ * @author Felix Fong
+ */
 public class LineChartGUI extends Tool {
     
     private static final String LINE_CHART_TITLE_FILE = "./img/titles/lineChartTitle.png";
@@ -190,7 +189,7 @@ public class LineChartGUI extends Tool {
     
     /**
      * Select a category while also adding a circle to its intersection
-     * @param i = line/circle identifer
+     * @param i = line/circle identifier
      * @param point = point for the circle, x coordinate for the line
      */
     public void setAsSelected (int i, Point2D point) {

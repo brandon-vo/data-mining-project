@@ -7,6 +7,10 @@ import java.util.*;
 
 import static model.DataType.*;
 
+/**
+ * Specialized to process files from the Profile of Housing dataset
+ * @author Felix
+ */
 public class ProfileOfHousing extends MyDataset {
     
     public ProfileOfHousing () {
@@ -15,9 +19,7 @@ public class ProfileOfHousing extends MyDataset {
     }
     
     /**
-     * Index the groups and categories in the dataset
-     * @param rawDataset = the dataset
-     * @param cities     = the city names
+     * {@link MyDataset#indexDataset}
      */
     @Override
     public void indexDataset (ArrayList<ArrayList<String>> rawDataset, HashSet<String> cities) {
@@ -58,8 +60,7 @@ public class ProfileOfHousing extends MyDataset {
     }
     
     /**
-     * Provide the tools with the valid data groups that they will use
-     * @param tools = an array of all the tools
+     * {@link MyDataset#assignValidGroupCharts}
      */
     @Override
     public void assignValidGroupCharts (Tool[] tools) {

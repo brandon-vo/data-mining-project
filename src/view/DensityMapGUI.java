@@ -1,8 +1,3 @@
-/**
- * Create graphical components for the Density Map GUI
- * @author Brandon
- */
-
 package view;
 
 import util.ColourFilter;
@@ -16,22 +11,25 @@ import java.awt.image.FilteredImageSource;
 import java.io.File;
 import java.io.IOException;
 
-// Brandon Vo
+/**
+ * Create graphical components for the Density Map GUI
+ * @author Brandon Vo
+ */
 public class DensityMapGUI extends Tool {
     
     // Fields
     private JLabel densityMapTitleLabel = new JLabel(new ImageIcon("img/titles/densityMapTitle.png")); // Title
     private JLabel userPanel = new JLabel(new ImageIcon("img/densityMap/userPanel.png")); // User panel
-    private String[] dataOptions = new String[]{ // Store data options
+    private String[] dataOptions = new String[] { // Store data options
             "- Select data -",
             "Average Dwelling Value",
             "Average Renter Monthly Shelter Cost",
             "Average Owner Monthly Shelter Cost",
             "Household Owner Count",
-            "Household Renter Count"};
+            "Household Renter Count" };
     private JComboBox dataList = new JComboBox<>(dataOptions); // Combo box which gives all data categories
     
-    private String[] cityOptions = new String[]{ // Store city options
+    private String[] cityOptions = new String[] { // Store city options
             "- Select city -",
             "Aurora",
             "East Gwillimbury",
@@ -41,7 +39,7 @@ public class DensityMapGUI extends Tool {
             "Newmarket",
             "Richmond Hill",
             "Whitchurch-Stouffville",
-            "Vaughan",};
+            "Vaughan", };
     private JComboBox cityList = new JComboBox<>(cityOptions); // Combo box which gives the list of cities
     private JComboBox questionList = new JComboBox(); // Combo box to store question to ask to user
     private JButton submitButton = new JButton("SUBMIT"); // Button to submit input results
@@ -56,11 +54,11 @@ public class DensityMapGUI extends Tool {
     private BufferedImage richmondHill;
     private BufferedImage stouffville;
     private BufferedImage vaughan;
-    private BufferedImage[] maps = {aurora, eastGwillimbury, georgina, king, markham,
-            newmarket, richmondHill, stouffville, vaughan}; // Buffered images for all cities on the map
+    private BufferedImage[] maps = { aurora, eastGwillimbury, georgina, king, markham,
+            newmarket, richmondHill, stouffville, vaughan }; // Buffered images for all cities on the map
     
-    private String[] mapNames = {"aurora", "eastGwillimbury", "georgina", "king", "markham",
-            "newmarket", "richmondHill", "stouffville", "vaughan"}; // Accessing name of a city for the map
+    private String[] mapNames = { "aurora", "eastGwillimbury", "georgina", "king", "markham",
+            "newmarket", "richmondHill", "stouffville", "vaughan" }; // Accessing name of a city for the map
     private JLabel[] mapLabels = new JLabel[9]; // Array of labels with the map of the city
     private JLabel[] cityLabels = new JLabel[9]; // Array of labels with the city text on it
     private JLabel[] citySelectedLabels = new JLabel[9]; // Array of labels with selected map image
@@ -69,7 +67,7 @@ public class DensityMapGUI extends Tool {
     private int colourID; // Store colour ID for a map
     
     // Constructor
-    public DensityMapGUI() {
+    public DensityMapGUI () {
         
         // Title label
         densityMapTitleLabel.setBounds(0, 0, MainFrame.WIDTH, MainFrame.HEIGHT);
@@ -104,10 +102,10 @@ public class DensityMapGUI extends Tool {
         add(submitButton);
         
         // City labels and selected map images
-        for (int label = 0; label < cityLabels.length; label++) {
-            cityLabels[label] = new JLabel(new ImageIcon("img/densityMap/map/labels/" + mapNames[label] + "Label.png"));
+        for (int label = 0; label<cityLabels.length; label++) {
+            cityLabels[label] = new JLabel(new ImageIcon("img/densityMap/map/labels/"+mapNames[label]+"Label.png"));
             add(cityLabels[label]);
-            citySelectedLabels[label] = new JLabel(new ImageIcon("img/densityMap/map/selected/" + mapNames[label] + "Selected.png"));
+            citySelectedLabels[label] = new JLabel(new ImageIcon("img/densityMap/map/selected/"+mapNames[label]+"Selected.png"));
             citySelectedLabels[label].setBounds(0, 0, 1366, 768);
         }
         
@@ -133,13 +131,13 @@ public class DensityMapGUI extends Tool {
         add(dataList);
         
         // City information which displays data for hovered city
-        String text = "Welcome" + "<br>" + "Please select a dataset";
+        String text = "Welcome"+"<br>"+"Please select a dataset";
         
-        hoverInformation.setBounds(MainFrame.WIDTH / 2 - 130, MainFrame.HEIGHT / 2 - 80, 300, 100);
+        hoverInformation.setBounds(MainFrame.WIDTH/2-130, MainFrame.HEIGHT/2-80, 300, 100);
         hoverInformation.setFont(new Font("Tahoma", Font.BOLD, 25));
         hoverInformation.setOpaque(true);
         hoverInformation.setBackground(COMBO_BOX_COLOUR);
-        hoverInformation.setText("<html><div style='text-align: center;'>" + text + "<html>");
+        hoverInformation.setText("<html><div style='text-align: center;'>"+text+"<html>");
         hoverInformation.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         hoverInformation.setHorizontalAlignment(SwingConstants.CENTER);
         hoverInformation.setVerticalAlignment(SwingConstants.CENTER);
@@ -148,23 +146,23 @@ public class DensityMapGUI extends Tool {
     }
     
     // Change whole map colour
-    public void changeMapColour() {
+    public void changeMapColour () {
         
         ColourFilter filter = new ColourFilter(this); // ColourFilter class
         
         try {
             
-            for (int cityIndex = 0; cityIndex < maps.length; cityIndex++) {
+            for (int cityIndex = 0; cityIndex<maps.length; cityIndex++) {
                 
                 // Remove the old city label if it exists
-                if (mapLabels[cityIndex] != null) {
+                if (mapLabels[cityIndex]!=null) {
                     remove(mapLabels[cityIndex]);
                     revalidate();
                     repaint();
                 }
                 
                 // Read map image
-                maps[cityIndex] = ImageIO.read(new File("img/densityMap/map/lv1/" + mapNames[cityIndex] + "Lv1.png"));
+                maps[cityIndex] = ImageIO.read(new File("img/densityMap/map/lv1/"+mapNames[cityIndex]+"Lv1.png"));
                 
                 // Create an image with colour filter
                 Image newColouredMap = Toolkit.getDefaultToolkit().createImage(
@@ -184,7 +182,7 @@ public class DensityMapGUI extends Tool {
     }
     
     // Changing individual maps
-    public void changeIndividualMap(int city) {
+    public void changeIndividualMap (int city) {
         IndividualColourFilter newFilter = new IndividualColourFilter(this);
         
         try {
@@ -194,7 +192,7 @@ public class DensityMapGUI extends Tool {
             repaint();
             
             // Read map image
-            maps[city] = ImageIO.read(new File("img/densityMap/map/lv1/" + mapNames[city] + "Lv1.png"));
+            maps[city] = ImageIO.read(new File("img/densityMap/map/lv1/"+mapNames[city]+"Lv1.png"));
             
             // Create an image with colour filter
             Image newColouredMap = Toolkit.getDefaultToolkit().createImage(
@@ -211,71 +209,72 @@ public class DensityMapGUI extends Tool {
     }
     
     // Set colour value for the value of data in a city
-    public void setColourIDs(int value) {
-        if (value == 0) {
+    public void setColourIDs (int value) {
+        if (value==0) {
             colourID = 0xFFE5E7E9; // Grey
-        } else if (value == 1) {
+        } else if (value==1) {
             colourID = 0xFFBBDEFB; // Lightest Blue
-        } else if (value == 2) {
+        } else if (value==2) {
             colourID = 0xFF90CAF9; // Light Blue
-        } else if (value == 3) {
+        } else if (value==3) {
             colourID = 0xFF64B5F6; // Blue
-        } else if (value == 4) {
+        } else if (value==4) {
             colourID = 0xFF1E88E5; // Darker Blue
-        } else if (value == 5) {
+        } else if (value==5) {
             colourID = 0xFF1565C0; // Darkest BLue
         }
     }
     
-    public int getColourID() {
+    public int getColourID () {
         return colourID;
     }
     
-    public JComboBox getDataList() {
+    public JComboBox getDataList () {
         return dataList;
     }
     
-    public JComboBox getCityList() {
+    public JComboBox getCityList () {
         return cityList;
     }
     
-    public JComboBox getQuestionList() {
+    public JComboBox getQuestionList () {
         return questionList;
     }
     
-    public JButton getSubmitButton() {
+    public JButton getSubmitButton () {
         return submitButton;
     }
     
-    public JTextArea getUserResults() {
+    public JTextArea getUserResults () {
         return userResults;
     }
     
-    public JLabel[] getCityLabels() {
+    public JLabel[] getCityLabels () {
         return cityLabels;
     }
     
-    public String getCityName(int index) {
-        return cityOptions[index + 1];
+    public String getCityName (int index) {
+        return cityOptions[index+1];
     }
     
-    public String[] getMapNames() {
+    public String[] getMapNames () {
         return mapNames;
     }
     
-    public String[] getDataOptions() {
+    public String[] getDataOptions () {
         return dataOptions;
     }
     
-    public JLabel[] getCitySelectedLabels() {
+    public JLabel[] getCitySelectedLabels () {
         return citySelectedLabels;
     }
     
-    public JLabel[] getMapLabels() {
+    public JLabel[] getMapLabels () {
         return mapLabels;
     }
     
-    public JLabel getHoverInformation() {
+    public JLabel getHoverInformation () {
         return hoverInformation;
     }
+    
 }

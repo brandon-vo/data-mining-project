@@ -1,10 +1,3 @@
-/**
- * Abstract class that helps specialized classes to process datasets
- * - Processes the dataset
- * - Processes the number of city entries in the dataset
- * @author Felix
- */
-
 package model;
 
 import util.Category;
@@ -12,6 +5,12 @@ import view.Tool;
 
 import java.util.*;
 
+/**
+ * Abstract class that helps specialized classes to process datasets
+ * - Processes the dataset
+ * - Processes the number of city entries in the dataset
+ * @author Felix Fong
+ */
 public abstract class MyDataset {
     
     public static final int CITY_INDEX = 3;
@@ -66,7 +65,7 @@ public abstract class MyDataset {
      * @see controller.FileImportController
      */
     public void setDataset (ArrayList<ArrayList<String>> rawDataset) {
-    
+        
         ArrayList<String> categoryRow = rawDataset.get(0);
         
         // Reformat the categories in the dataset
@@ -74,7 +73,7 @@ public abstract class MyDataset {
         
         // Get the indexes of each group
         ArrayList<Integer> groupIndexes = getGroupIndexes(categoryRow);
-    
+        
         // Remove any words that are unnecessary in the categories
         removeExtraneous(categoryRow, groupIndexes);
         
@@ -98,11 +97,11 @@ public abstract class MyDataset {
                     --groupIndex;
                     groupName = SHAPE__.replace("  ", "");
                     
-                // Remove the TOT_ in the groupName if it exists
+                    // Remove the TOT_ in the groupName if it exists
                 } else if (groupName.contains(TOT_)) {
                     groupName = groupName.replace(TOT_, "");
                     
-                // Replace MED_ with AVG_ in the string
+                    // Replace MED_ with AVG_ in the string
                 } else if (groupName.contains(MED_)) {
                     groupName = categoryRow.get(groupIndex+1);
                 }
@@ -147,6 +146,7 @@ public abstract class MyDataset {
                         : Character.toLowerCase(category[j]);
             }
             
+            // Put the reformatted string into arr
             arr.set(i, String.valueOf(category));
             
         }
@@ -161,7 +161,7 @@ public abstract class MyDataset {
     private void removeExtraneous (ArrayList<String> arr, ArrayList<Integer> groupIndexes) {
         
         for (int i = CITY_INDEX+1; i<arr.size(); ++i) {
-    
+            
             String category = arr.get(i);
             // If arr has a number, and is not a group, remove the first word
             if (!groupIndexes.contains(i) && category.matches(".*\\d.*")) {

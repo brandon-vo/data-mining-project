@@ -1,12 +1,3 @@
-/**
- * Handles the necessary interactions between every class
- * - Initializes datasets
- * - Initializes controllers
- * - Initializes tools
- * - Switches the panels based on user input
- * @author Felix, Brandon, Daniel, Steven, Sean
- */
-
 package controller;
 
 import model.DataType;
@@ -17,6 +8,14 @@ import javax.swing.*;
 
 import static model.DataType.*;
 
+/**
+ * Handles the necessary interactions between every class
+ * - Initializes datasets
+ * - Initializes controllers
+ * - Initializes tools
+ * - Switches the panels based on user input
+ * @author Felix, Brandon, Daniel, Steven, Sean
+ */
 public class ApplicationController {
 	
 	// GUI

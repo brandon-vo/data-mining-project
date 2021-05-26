@@ -1,12 +1,11 @@
-/**
- * Description:
- * Creates a menu panel object and a frame
- * @author: Daniel, Brandon
- */
 package view;
 
 import javax.swing.*;
 
+/**
+ * Creates a menu panel object and a frame
+ * @author Daniel Singh, Brandon Vo
+ */
 public class MainFrame extends JFrame {
 	
 	//Constant width and height for the entire application

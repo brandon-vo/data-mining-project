@@ -1,12 +1,12 @@
+package model;
+
 /**
  * Identifiers for all the tools
  * @author Felix
  */
-
-package model;
-
 public enum DataType {
     
+    // Identifiers
     PIE_CHART(0, "PIE CHART"),
     DENSITY_MAP(1, "DENSITY MAP"),
     LINE_CHART(2, "LINE CHART"),
@@ -21,6 +21,7 @@ public enum DataType {
         this.chartDescription = chartDescription;
     }
     
+    // Getters
     public int getValue () {
         return value;
     }

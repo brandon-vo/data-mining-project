@@ -1,3 +1,7 @@
+package application;
+
+import controller.ApplicationController;
+
 /**
  * Data Mining Project - Infrastructure in York Region
  *
@@ -13,23 +17,18 @@
  * - Profile of Journey to Work by Dissemination Area 2016 Census
  *   https://data-markham.opendata.arcgis.com/datasets/york::profile-of-journey-to-work-by-dissemination-area-2016-census/about
  *
- * @date-started: May 5th, 2021
- * @date-submitted: May 26th, 2021
- * @class: ICS-4U1 Period 4
- * @author Felix, Brandon, Daniel, Steven, Sean
- * @teacher Mr. Fernandes
+ * Date Started: May 5th, 2021
+ * Date Ended: May 26th, 2021
+ * Class: ICS-4U1 Period 4
+ * @author Felix Fong, Brandon Vo, Daniel Sing, Steven Shan, Sean Malla
+ * Teacher: Mr. Fernandes
  */
-
-package application;
-
-import controller.ApplicationController;
-
 public class Main {
     
     public static void main (String[] args) {
-    
+        
         new ApplicationController();
-    
+        
     }
     
 }

@@ -1,8 +1,3 @@
-/**
- * Class that
- * @Author Felix
- */
-
 package view;
 
 import util.Category;
@@ -12,6 +7,11 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * Parent class of all the tools that contains their
+ * dataGroup, backButton, and gui constants
+ * @author Felix Fong
+ */
 public abstract class Tool extends JPanel {
     
     // GUI constants

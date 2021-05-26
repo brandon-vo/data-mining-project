@@ -1,8 +1,3 @@
-/**
- * Handle user interactions with the LineChartGUI
- * @author Felix
- */
-
 package controller;
 
 import model.MyDataset;
@@ -25,6 +20,10 @@ import java.util.*;
 
 import static view.LineChartGUI.*;
 
+/**
+ * Handle user interactions with the LineChartGUI
+ * @author Felix Fong
+ */
 public class LineChartController
         extends ToolController
         implements ActionListener {
@@ -282,21 +281,25 @@ public class LineChartController
             // Input is invalid if the number
             // of selected cities exceeds MAX_CITIES
             if (displayedCities.size()>MAX_CITIES) {
+                
                 JOptionPane.showMessageDialog(gui,
                         "Too many cities were selected.\n"+
                                 "Select at most "+MAX_CITIES,
                         "Alert",
                         JOptionPane.ERROR_MESSAGE
                 );
-                // Input invalid if the number
-                // of selected cities is 0
+                
+            // Input invalid if the number
+            // of selected cities is 0
             } else if (displayedCities.size()==0) {
+                
                 JOptionPane.showMessageDialog(gui,
                         "Too few cities were selected.\n"+
                                 "Select at least "+1,
                         "Alert",
                         JOptionPane.ERROR_MESSAGE
                 );
+                
             }
             
         } while (displayedCities.size()>MAX_CITIES || displayedCities.size()==0);
@@ -451,6 +454,7 @@ public class LineChartController
     public void mouseReleased (MouseEvent e) {
         
         Rectangle chartBounds = gui.getChartPanel().getBounds();
+        
         // No event occurs if there isn't 1 displayed city or
         // the mouse is released away from the screen
         if (displayedCities.size()!=1

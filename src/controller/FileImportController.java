@@ -1,9 +1,3 @@
-/**
- * Imports the files into a 2d matrix and passes it into
- * datasets to be processed
- * @author Felix
- */
-
 package controller;
 
 import model.JourneyToWork;
@@ -15,6 +9,11 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Imports the files into a 2d matrix and passes it into
+ * datasets to be processed
+ * @author Felix
+ */
 public class FileImportController {
     
     private static final String JOURNEY_TO_WORK_FILE = "./datasets/Profile_of_Journey_to_Work_by_Dissemination_Area,_2016_Census.csv";
@@ -22,7 +21,7 @@ public class FileImportController {
     
     public static final ArrayList<ArrayList<String>>[] rawData = new ArrayList[2];
     
-    private MyDataset[] datasets;
+    private final MyDataset[] datasets;
     
     public FileImportController () {
         

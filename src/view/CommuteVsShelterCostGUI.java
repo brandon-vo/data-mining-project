@@ -1,12 +1,3 @@
-/**
- * Description:
- * This is a JPanel class that creates the CommuteVsShelterCostGUI tool
- * - Initializes components and other needed variables
- * - Creates the tool to be put on the mainframe
- * - Creates getters and setters
- *
- * @author: Sean Malla
- */
 package view;
 
 import org.jfree.chart.ChartPanel;
@@ -20,8 +11,14 @@ import javax.swing.border.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class CommuteVsShelterCostGUI extends Tool{
-
+/**
+ * This is a JPanel class that creates the CommuteVsShelterCostGUI tool
+ * - Initializes components and other needed variables
+ * - Creates the tool to be put on the mainframe
+ * - Creates getters and setters
+ * @author Sean Malla
+ */
+public class CommuteVsShelterCostGUI extends Tool {
     
     //labels
     private JLabel titleLabel = new JLabel(new ImageIcon("img/titles/shelterCostVsCommonCommuteTypeTitle.png"));
@@ -50,20 +47,20 @@ public class CommuteVsShelterCostGUI extends Tool{
     private String line3 = "Common Commute displayed for $1401-1800: ";
     private String line4 = "Common Commute displayed for $1800+: ";
     private String texts = String.format("<html>%s<br/><br/>%s<br/><br/>%s<br/><br/>%s</html>", line1, line2, line3, line4);
-
+    
     //constructor
     public CommuteVsShelterCostGUI () {
         
         //sets fonts for city buttons
-        markhamButton.setFont(new Font("Tahoma",Font.PLAIN, 15));
-        vaughnButton.setFont(new Font("Tahoma",Font.PLAIN, 15));
-        richmondButton.setFont(new Font("Tahoma",Font.PLAIN, 15));
-        auroraButton.setFont(new Font("Tahoma",Font.PLAIN, 15));
-        newMarketButton.setFont(new Font("Tahoma",Font.PLAIN, 15));
+        markhamButton.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        vaughnButton.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        richmondButton.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        auroraButton.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        newMarketButton.setFont(new Font("Tahoma", Font.PLAIN, 15));
         
         titleLabel.setBounds(0, 0, 1366, 768);
         add(titleLabel);
-
+        
         commuteDisplay.setOpaque(true);
         Border border2 = BorderFactory.createLineBorder(Color.BLACK, 2);
         commuteDisplay.setBorder(border2);
@@ -72,10 +69,10 @@ public class CommuteVsShelterCostGUI extends Tool{
         commuteDisplay.setVerticalAlignment(SwingConstants.CENTER);
         commuteDisplay.setBackground(Color.ORANGE);
         commuteDisplay.setBounds(1050, 150, 295, 225);
-
+        
         commuteDisplay.setText(texts);
         add(commuteDisplay);
-
+        
         add(getBackButton());
         
         buttonTitleLabel.setFont(new Font("Tahoma", Font.BOLD, 25));
@@ -97,12 +94,13 @@ public class CommuteVsShelterCostGUI extends Tool{
         add(newMarketButton);
         
     }
+    
     //getters and setters
-    public String getCurrentCity() {
+    public String getCurrentCity () {
         return currentCity;
     }
-
-    public void setCurrentCity(String currentCity) { this.currentCity = currentCity;}
+    
+    public void setCurrentCity (String currentCity) { this.currentCity = currentCity;}
     
     public DefaultCategoryDataset getDisplayedData () {
         return displayedData;
@@ -135,48 +133,48 @@ public class CommuteVsShelterCostGUI extends Tool{
     public void setDataGroup2 (ArrayList<Category> dataGroup2) {
         this.dataGroup2 = dataGroup2;
     }
-
-    public JLabel getCommuteDisplay() {
+    
+    public JLabel getCommuteDisplay () {
         return commuteDisplay;
     }
-
-    public void setCommuteDisplay(JLabel commuteDisplay) {
+    
+    public void setCommuteDisplay (JLabel commuteDisplay) {
         this.commuteDisplay = commuteDisplay;
     }
-
-    public String getLine1() {
+    
+    public String getLine1 () {
         return line1;
     }
-
-    public void setLine1(String line1) {
+    
+    public void setLine1 (String line1) {
         this.line1 = line1;
     }
-
-    public String getLine2() {
+    
+    public String getLine2 () {
         return line2;
     }
-
-    public void setLine2(String line2) {
+    
+    public void setLine2 (String line2) {
         this.line2 = line2;
     }
-
-    public String getLine3() {
+    
+    public String getLine3 () {
         return line3;
     }
-
-    public void setLine3(String line3) {
+    
+    public void setLine3 (String line3) {
         this.line3 = line3;
     }
-
-    public String getLine4() {
+    
+    public String getLine4 () {
         return line4;
     }
-
-    public void setLine4(String line4) {
+    
+    public void setLine4 (String line4) {
         this.line4 = line4;
     }
-
-    public String getTexts() {
+    
+    public String getTexts () {
         return texts;
     }
     

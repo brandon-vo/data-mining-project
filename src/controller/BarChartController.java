@@ -1,15 +1,3 @@
-/**
- * Description:
- * This is a controller class for CommuteVsShelterCostGUI to manage its functions
- * - Initializes data group for the tool
- * - Creates the tool
- * - Sets up listeners
- * - Creates and updates the data set when user presses a city button
- * - Creates and updates the bar chart for the user to see their desired data
- *
- * @author: Sean Malla
- */
-
 package controller;
 
 import model.MyDataset;
@@ -27,6 +15,17 @@ import java.util.*;
 
 import static view.Tool.BACKGROUND_COLOUR;
 
+/**
+ * Description:
+ * This is a controller class for CommuteVsShelterCostGUI to manage its functions
+ * - Initializes data group for the tool
+ * - Creates the tool
+ * - Sets up listeners
+ * - Creates and updates the data set when user presses a city button
+ * - Creates and updates the bar chart for the user to see their desired data
+ *
+ * @author Sean Malla
+ */
 public class BarChartController extends ToolController implements ActionListener {
 
     //create an barChartGui to refer to

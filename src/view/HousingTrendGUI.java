@@ -1,18 +1,15 @@
 package view;
 
-import controller.ScatterPlotController;
-import model.MyDataset;
-import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
-import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
-import util.Category;
 
 import javax.swing.*;
-import java.util.HashMap;
-import java.util.Map;
 
+/**
+ * GUI for scatter plot
+ * @author Steven Shan
+ */
 public class HousingTrendGUI extends Tool {
     
     private JLabel housingTrendTitle = new JLabel(new ImageIcon("img/titles/housingTrendTitle.png"));

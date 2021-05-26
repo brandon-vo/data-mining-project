@@ -1,8 +1,3 @@
-/**
- * The menu panel that contains all the buttons to the tools
- * @author Daniel, Brandon
- */
-
 package view;
 
 import model.DataType;
@@ -10,6 +5,10 @@ import model.DataType;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * The menu panel that contains all the buttons to the tools
+ * @author Daniel Singh, Brandon Vo
+ */
 public class MenuPanel extends JPanel {
     
     private final JLabel titleLabel = new JLabel(new ImageIcon("img/menuPanelTitleLabel.png"));

@@ -1,14 +1,13 @@
-/**
- * Parent class to every tool controller
- * @author Felix
- */
-
 package controller;
 
 import model.MyDataset;
 
 import javax.swing.event.MouseInputAdapter;
 
+/**
+ * Parent class to every tool controller
+ * @author Felix
+ */
 public abstract class ToolController extends MouseInputAdapter {
     
     /**

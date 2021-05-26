@@ -1,9 +1,3 @@
-/**
- * The panel that provides GUI to display information about the
- * data whenever the user clicks on the graph
- * @author Felix
- */
-
 package view;
 
 import org.jfree.data.category.DefaultCategoryDataset;
@@ -13,6 +7,11 @@ import java.awt.*;
 
 import static view.LineChartGUI.NULL_BOUNDS;
 
+/**
+ * The panel that provides GUI to display information
+ * about the data whenever the user clicks on the graph
+ * @author Felix Fong
+ */
 public class LineChartInfoPanel extends JPanel {
     
     // GUI constants

@@ -1,10 +1,4 @@
 package view;
-/**
-created by Daniel Singh
-sets up the frame that holds all the charts and
-reads in datasets
-replaces the charts when a city is selected
- */
 
 import java.awt.Color;
 import java.util.ArrayList;
@@ -18,6 +12,12 @@ import util.Category;
 
 import javax.swing.*;
 
+/**
+ * sets up the frame that holds all the charts and
+ * reads in datasets
+ * replaces the charts when a city is selected
+ * @author Daniel Singh
+ */
 public class PieChartPanel extends JPanel {
     
     private final JButton cityButton = new JButton("SELECT CITY");
