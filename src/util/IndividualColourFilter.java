@@ -16,9 +16,9 @@ public class IndividualColourFilter extends RGBImageFilter {
     @Override
     public int filterRGB(int x, int y, int rgb) {
 
-        int lv = gui.getColourID();; // Get colour ID
+        int lv = gui.getColourID(); // Get colour ID
 
-        return (rgb & lv);
+        return (rgb & lv); // Return the colour to change the map to
 
     }
 

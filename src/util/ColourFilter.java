@@ -18,7 +18,7 @@ public class ColourFilter extends RGBImageFilter {
         
         int lv = 0xFFE5E7E9; // Default grey
 
-        return (rgb & lv);
+        return (rgb & lv); // Return the colour to change the map to
         
     }
     
