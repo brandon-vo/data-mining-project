@@ -125,8 +125,8 @@ public class LineChartInfoPanel extends JPanel {
         clear();
     
         // Put the necessary information into titleLabel
-        int x1Value = (int) ((double) displayedData.getValue(0, chosenCategories[1]));
-        int x2Value = (int) ((double) displayedData.getValue(0, chosenCategories[0]));
+        int x1Value = (int) ((double) displayedData.getValue(0, chosenCategories[0]));
+        int x2Value = (int) ((double) displayedData.getValue(0, chosenCategories[1]));
         titleLabel.setText(
                 (x2Value-x1Value)+" | "
                 +displayedData.getColumnKey(chosenCategories[0])

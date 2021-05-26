@@ -450,7 +450,13 @@ public class LineChartController
     @Override
     public void mouseReleased (MouseEvent e) {
         
-        if (displayedCities.size()!=1) {
+        Rectangle chartBounds = gui.getChartPanel().getBounds();
+        // No event occurs if there isn't 1 displayed city or
+        // the mouse is released away from the screen
+        if (displayedCities.size()!=1
+                || e.getX()<0 || chartBounds.getWidth()<e.getX()
+                || e.getY()<0 || chartBounds.getHeight()<e.getY()) {
+            gui.clear();
             return;
         }
         
