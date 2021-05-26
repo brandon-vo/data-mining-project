@@ -21,8 +21,7 @@ import javax.swing.*;
 public class PieChartPanel extends JPanel {
     
     private final JButton cityButton = new JButton("SELECT CITY");
-    private static final String PIE_CHART_TITLE_FINAL = "./img/titles/typesOfHousingAndTransportationTitle.png";
-    private final JLabel titleLabel;
+
 
     private String groupName;
     private ArrayList<Category> dataGroup;
@@ -36,9 +35,7 @@ public class PieChartPanel extends JPanel {
         cityButton.setBounds(50, MainFrame.HEIGHT/4-25, 200, 50);
         add(cityButton);
 
-        titleLabel = new JLabel(new ImageIcon(PIE_CHART_TITLE_FINAL));
-        titleLabel.setBounds(0, 0, MainFrame.WIDTH, MainFrame.HEIGHT);
-        add(titleLabel);
+
         
     }
     
@@ -67,7 +64,7 @@ public class PieChartPanel extends JPanel {
     public void createChart (String groupName, String city) {
         
         displayedData = createDataset(city);
-        JFreeChart chart = ChartFactory.createPieChart(groupName + "" + city, displayedData,
+        JFreeChart chart = ChartFactory.createPieChart(groupName + "_" + city, displayedData,
                 true, false, false);
         chart.setBackgroundPaint(Tool.BACKGROUND_COLOUR);
 
