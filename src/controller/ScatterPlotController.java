@@ -85,7 +85,6 @@ public class ScatterPlotController extends ToolController implements ActionListe
         gui.setChartPanel(new ChartPanel(gui.getScatterPlotChart()));
         gui.getChartPanel().setBounds(400, 150, MainFrame.WIDTH/2, MainFrame.HEIGHT/2);
         gui.add(gui.getChartPanel());
-        System.out.println(groupName);
         
     }
     //input data to the series
@@ -99,7 +98,6 @@ public class ScatterPlotController extends ToolController implements ActionListe
             for (Map.Entry<String, Integer> identifiers : STRING_TO_INTEGER.entrySet()) {
                 if (category.getCategoryName().contains(identifiers.getKey())) {
                     city.add(identifiers.getValue(), category.getCities().get(cityName));
-                    System.out.println(category.getCities().get(cityName));
                     break;
                 }
             }
