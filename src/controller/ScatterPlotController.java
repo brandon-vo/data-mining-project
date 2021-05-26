@@ -52,13 +52,21 @@ public class ScatterPlotController extends ToolController implements ActionListe
         gui.getVariable().addActionListener(this);
         
     }
-    //set up the initial data
+    //set up the initial data(related selected combo box)
     @Override
     public void initializeDataToDisplay (MyDataset[] dataset) {
-        
-        String groupName = gui.getValidGroupNames(1).get(1);
-        
-        setDataToDisplay(groupName);
+
+        switch ((String) gui.getVariable().getSelectedItem()) {
+            case "room":
+                setDataToDisplay(gui.getValidGroupNames(1).get(1));
+                break;
+            case "bed":
+                setDataToDisplay(gui.getValidGroupNames(1).get(0));
+                break;
+            case "maintainer":
+                setDataToDisplay(gui.getValidGroupNames(1).get(2));
+                break;
+        }
         
     }
     //get group name which is the variable and change it accordingly
@@ -66,7 +74,7 @@ public class ScatterPlotController extends ToolController implements ActionListe
         
         gui.setDataGroup(groupName);
         //initial city
-        createDisplayedData("Vaughan");
+        createDisplayedData((String) gui.getLocation1().getSelectedItem());
 
         //create chart
         gui.setScatterPlotChart(ChartFactory.createScatterPlot(
@@ -118,6 +126,8 @@ public class ScatterPlotController extends ToolController implements ActionListe
         gui.repaint();
         
     }
+
+
     //update my variable combo box and the data accordingly
     private void updateVariable () {
         switch ((String) gui.getVariable().getSelectedItem()) {
