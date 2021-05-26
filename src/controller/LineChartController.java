@@ -182,6 +182,7 @@ public class LineChartController
         
         // Alert the user that the range is invalid
         if (startBound>=endBound) {
+            
             JOptionPane.showMessageDialog(
                     gui,
                     "The starting bound is >= than the ending bound\n("
@@ -200,12 +201,14 @@ public class LineChartController
                     : gui.getDisplayedData().getColumnKey(gui.getDisplayedData().getColumnCount()-1)
             );
             
+            // Set the JComboBox back to the selected item before
             for (int i = 0; i<currentBound.getItemCount(); ++i) {
                 if (chartBound.equals(currentBound.getItemAt(i))) {
                     currentBound.setSelectedIndex(i);
                     return;
                 }
             }
+            
         }
         
         // Create a new chart with the new range
@@ -261,8 +264,8 @@ public class LineChartController
                         "Alert",
                         JOptionPane.ERROR_MESSAGE
                 );
-            // Input invalid if the number
-            // of selected cities is 0
+                // Input invalid if the number
+                // of selected cities is 0
             } else if (displayedCities.size()==0) {
                 JOptionPane.showMessageDialog(gui,
                         "Too few cities were selected.\n"+
@@ -282,7 +285,7 @@ public class LineChartController
     /**
      * @param mouseX = mouse's x coordinate
      * @return The nearest category given the mouse's x coordinate,
-     *         or the nearest category if it is out of bounds
+     * or the nearest category if it is out of bounds
      */
     private int getNearestCategory (int mouseX) {
         
@@ -291,7 +294,8 @@ public class LineChartController
         // Iterate over the categories until mouseX<currentX
         int currentCategory;
         for (currentCategory = 0; currentCategory<displayedData.getColumnCount()
-                && getCategoryX(currentCategory)<mouseX; ++currentCategory);
+                && getCategoryX(currentCategory)<mouseX; ++currentCategory)
+            ;
         
         // return the nearest category if it is out of bounds
         if (currentCategory==0) {
@@ -396,6 +400,8 @@ public class LineChartController
         
         // Do not do anything if there is not 1 city displayed
         if (displayedCities.size()!=1) {
+            JOptionPane.showMessageDialog(gui, "You need 1 city to compare\n"+
+                    "the difference between time periods", "Alert", JOptionPane.ERROR_MESSAGE);
             return;
         }
         gui.clear();
@@ -405,20 +411,26 @@ public class LineChartController
         
     }
     
+    /**
+     * Display the difference between 2 time periods
+     * @param e = event
+     */
     @Override
     public void mouseReleased (MouseEvent e) {
-    
+        
         if (displayedCities.size()!=1) {
             return;
         }
         
         gui.getInfoPanel().setChosenCategory(1, getNearestCategory(e.getX()));
         gui.setAsSelected(1, getCategoryPoint(0, gui.getInfoPanel().getChosenCategory(1)));
-    
+        
         // Calculate the difference in time and period between the start point and endpoint
-        // Display this information in the middle of the interval on a GUI
-        // Highlight the area under the graph between the start and end points
-    
+        int x1 = getCategoryX(gui.getInfoPanel().getChosenCategory(0));
+        int x2 = getCategoryX(gui.getInfoPanel().getChosenCategory(1));
+        
+        gui.getInfoPanel().generatePanel(gui.getDisplayedData(), x1+(x2-x1)/2);
+        
     }
     
     /**

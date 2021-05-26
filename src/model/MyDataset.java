@@ -59,13 +59,19 @@ public abstract class MyDataset {
      * @see controller.FileImportController
      */
     public void setDataset (ArrayList<ArrayList<String>> rawDataset) {
-        
-        reformatStrings(rawDataset.get(0));
     
-        ArrayList<Integer> groupIndexes = getGroupIndexes(rawDataset);
         ArrayList<String> categoryRow = rawDataset.get(0);
+        
+        // Reformat the categories in the dataset
+        reformatStrings(categoryRow);
+        
+        // Get the indexes of each group
+        ArrayList<Integer> groupIndexes = getGroupIndexes(categoryRow);
     
-        removeExtraneous(rawDataset.get(0), groupIndexes);
+        // Remove any words that are unnecessary in the categories
+        removeExtraneous(categoryRow, groupIndexes);
+        
+        // Index the dataset with each group and category
         indexDataset(rawDataset, getCities(rawDataset));
         
         // Put the data into dataset
@@ -84,8 +90,12 @@ public abstract class MyDataset {
                 if (groupName.contains(SHAPE__)) {
                     --groupIndex;
                     groupName = SHAPE__.replace("  ", "");
+                    
+                // Remove the TOT_ in the groupName if it exists
                 } else if (groupName.contains(TOT_)) {
                     groupName = groupName.replace(TOT_, "");
+                    
+                // Replace MED_ with AVG_ in the string
                 } else if (groupName.contains(MED_)) {
                     groupName = categoryRow.get(groupIndex+1);
                 }
@@ -185,13 +195,12 @@ public abstract class MyDataset {
     }
     
     /**
-     * @param rawDataset = the raw dataset
+     * @param categoryRow = the categories in the raw dataset
      * @return the group indexes in dataset
      */
-    private ArrayList<Integer> getGroupIndexes (ArrayList<ArrayList<String>> rawDataset) {
+    private ArrayList<Integer> getGroupIndexes (ArrayList<String> categoryRow) {
         
         ArrayList<Integer> groupIndexes = new ArrayList<>();
-        ArrayList<String> categoryRow = rawDataset.get(0);
         
         // Index all of groups and categories
         for (int i = CITY_INDEX+1; i<categoryRow.size()-1; ++i) {

@@ -6,7 +6,6 @@ import javax.swing.*;
 import java.awt.*;
 
 import static view.LineChartGUI.NULL_BOUNDS;
-import static view.Tool.PADDING;
 
 public class LineChartInfoPanel extends JPanel {
     
@@ -15,6 +14,8 @@ public class LineChartInfoPanel extends JPanel {
     public static final int TEXT_HEIGHT = 15;
     public static final Color BACKGROUND_COLOUR = new Color(32, 39, 41);
     public static final Font FONT = new Font("Tahoma", Font.PLAIN, 14);
+    
+    private final JPanel divider;
     
     private final JLabel titleLabel;
     private final JLabel cityNamesLabel;
@@ -26,6 +27,10 @@ public class LineChartInfoPanel extends JPanel {
         
         setLayout(null);
         setBackground(BACKGROUND_COLOUR);
+        
+        divider = new JPanel();
+        divider.setBackground(Tool.BACKGROUND_COLOUR);
+        add(divider);
         
         titleLabel = new JLabel();
         titleLabel.setForeground(Tool.BACKGROUND_COLOUR);
@@ -56,7 +61,7 @@ public class LineChartInfoPanel extends JPanel {
     }
     
     /**
-     * Generate the this panel to display the selected information
+     * Generate the panel to display the selected information
      * @param displayedData = the displayed data
      * @param categoryX     = the category's x coordinates
      * @param mouseY        = the mouse's y coordinates
@@ -71,6 +76,9 @@ public class LineChartInfoPanel extends JPanel {
         } else {
             setBounds(categoryX+PADDING*2, mouseY, WIDTH, TEXT_HEIGHT*(4+displayedData.getRowCount()));
         }
+        
+        // Draw a line to divide the title with the information
+        divider.setBounds(PADDING, PADDING+TEXT_HEIGHT*3/2, WIDTH-PADDING, PADDING+TEXT_HEIGHT*3/2);
         
         // Create titleLabel
         titleLabel.setText((String) displayedData.getColumnKey(chosenCategories[0]));
@@ -91,33 +99,42 @@ public class LineChartInfoPanel extends JPanel {
         
     }
     
-    public void generatePanel (DefaultCategoryDataset displayedData) {
+    /**
+     * Generate this panel to display the difference
+     * between two pieces of information
+     * @param displayedData = the displayed data
+     * @param middleX       = the middle of the interval
+     */
+    public void generatePanel (DefaultCategoryDataset displayedData, int middleX) {
         
         clear();
-        
+    
+        int x1Value = (int) ((double) displayedData.getValue(0, chosenCategories[1]));
+        int x2Value = (int) ((double) displayedData.getValue(0, chosenCategories[0]));
+        titleLabel.setText(
+                (x2Value-x1Value)+" | "
+                +displayedData.getColumnKey(chosenCategories[0])
+                +" to "+displayedData.getColumnKey(chosenCategories[1])
+        );
+    
+        setBounds(middleX-WIDTH/2, PADDING*4, PADDING*5/7*(titleLabel.getText().length()+2), TEXT_HEIGHT+PADDING*2);
+        titleLabel.setBounds(PADDING, PADDING, PADDING*5/7*(titleLabel.getText().length()), TEXT_HEIGHT);
+    
     }
     
+    /**
+     * Clear this panel from the screen
+     */
     public void clear () {
-        
+    
+        setBounds(NULL_BOUNDS);
+        divider.setBounds(NULL_BOUNDS);
         titleLabel.setBounds(NULL_BOUNDS);
         titleLabel.setText("");
         cityNamesLabel.setBounds(NULL_BOUNDS);
         titleLabel.setText("");
         cityDataLabel.setBounds(NULL_BOUNDS);
         titleLabel.setText("");
-        setBounds(NULL_BOUNDS);
-        
-    }
-    
-    // Draw a line to divide the infoPanel
-    @Override
-    protected void paintComponent (Graphics g) {
-        
-        super.paintComponent(g);
-        Graphics2D g2D = (Graphics2D) g;
-        g2D.setStroke(new BasicStroke(2));
-        g2D.setColor(Tool.BACKGROUND_COLOUR);
-        g2D.drawLine(PADDING, PADDING+TEXT_HEIGHT*3/2, WIDTH-PADDING, PADDING+TEXT_HEIGHT*3/2);
         
     }
     
