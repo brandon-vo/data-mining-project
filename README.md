@@ -1,7 +1,7 @@
 <h1 align="center"> Infrastructure in York Region</h1>
 <p align="center">
   <b>Data Mining - School Group Project</b><br>
-    <a href="https://data-markham.opendata.arcgis.com/t">Data retrieved from Open Data Markham</a> 
+    <a href="https://data-markham.opendata.arcgis.com">Data retrieved from Open Data Markham</a> 
   <br><br>
   <img src="https://mylifesite.net/wp-content/uploads/2017/01/icon-reports.png" width="75" height="75">
   
