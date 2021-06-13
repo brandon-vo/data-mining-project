@@ -1,27 +1,16 @@
 <h1 align="center"> Infrastructure in York Region</h1>
 <p align="center">
   <b>Data Mining - School Group Project</b><br>
-    <a href="https://data-markham.opendata.arcgis.com">Data retrieved from Open Data Markham</a> 
+    <a href="https://data-markham.opendata.arcgis.com/t">Data retrieved from Open Data Markham</a> 
   <br><br>
-  <img src="https://images.vexels.com/media/users/3/216022/isolated/preview/c2888c116bf8872ce9957fa51caeb6fe-barber-shop-badge-by-vexels.png" width="75" height="75">
-  
-<p/>
+  <img src="https://mylifesite.net/wp-content/uploads/2017/01/icon-reports.png" width="75" height="75">
 
+<p/>
 
 ---
 # Images 📷
-###### Login Screen
-![login](https://user-images.githubusercontent.com/76707560/121822155-86332d80-cc6b-11eb-85ef-ed608b5ed248.png)
-###### Register Screen
-![register](https://user-images.githubusercontent.com/76707560/121822157-892e1e00-cc6b-11eb-8e4a-d61d0399ff5d.png)
 ###### Home Screen
-![home](https://user-images.githubusercontent.com/76707560/121822161-8cc1a500-cc6b-11eb-83d8-34b95c1437ee.png)
-###### Booking Screen
-![book](https://user-images.githubusercontent.com/76707560/121822163-8e8b6880-cc6b-11eb-94b3-79031307a04d.png)
-###### View Appointments Screen
-![view](https://user-images.githubusercontent.com/76707560/121822165-90edc280-cc6b-11eb-8808-827127a019b4.png)
-###### Profile Screen
-![profile](https://user-images.githubusercontent.com/76707560/121822167-92b78600-cc6b-11eb-933a-ced2f435e4be.png)
-
-
-
+![119757836-8d88c780-be73-11eb-86a7-d84d05830fa5](https://user-images.githubusercontent.com/76707560/121822224-ed50e200-cc6b-11eb-88de-84e69a8824d6.png)
+###### My Frame
+![119757843-8feb2180-be73-11eb-916a-ce06fa2dfd1c](https://user-images.githubusercontent.com/76707560/121822225-efb33c00-cc6b-11eb-8a7c-55006e22e7ee.png)
+![119757847-911c4e80-be73-11eb-8849-7aeaedb6352a](https://user-images.githubusercontent.com/76707560/121822226-f04bd280-cc6b-11eb-931b-c07ab9bef242.png)
